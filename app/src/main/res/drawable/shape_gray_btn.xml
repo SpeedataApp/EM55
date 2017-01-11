@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~ @author yandeqing
+  ~ @created 2016.6.3
+  ~ @email 18612205027@163.com
+  ~ @version $version
+  ~
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <stroke android:color="#595555"
+        android:width="5px"
+        />
+    <solid android:color="#999999" />
+    <corners android:radius="5dp" />
+
+</shape>

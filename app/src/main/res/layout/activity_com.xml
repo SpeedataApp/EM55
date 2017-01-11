@@ -1,0 +1,104 @@
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <!-- com端口信息 -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="5" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/Text_comName"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/Text_comName"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+           
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="2dp" >
+
+                <TextView
+                    android:id="@+id/Text_com"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="@string/Text_com"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/spinner_com"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/Text_com"
+                    android:entries="@+array/comName"
+                    android:textColor="#000" />
+            </RelativeLayout>
+       <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="2dp" >
+
+                <TextView
+                    android:id="@+id/Text_Baud"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="@string/Text_comBaud"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/spinner_Baud"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/Text_Baud"
+                    android:entries="@+array/comBaud"
+                    android:textColor="#000" />
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="20dp" >
+
+                <Button
+                    android:id="@+id/button_comcon"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_comcon"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

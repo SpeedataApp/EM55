@@ -1,0 +1,145 @@
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:textColor="#000"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <!-- 打印机选择 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/text_type"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="@string/text_type"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/spinner_type"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/text_type"
+            
+            android:textColor="#000" />
+    </RelativeLayout>
+    <!-- 端口选择 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/Text_porttype"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="@string/text_porttype"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/spinner_porttype"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/Text_porttype"
+           android:entries="@array/Interface"
+            android:textColor="#000" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/text_printway"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="@string/text_printway"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/spinner_printway"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/text_printway"
+           
+            android:textColor="#000" />
+    </RelativeLayout>
+    <!-- 填写端口信息 -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="5"
+        android:background="#f00" >
+
+        <!-- wifi端口信息 -->
+
+        <LinearLayout
+            android:id="@+id/linearLayout0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+            </RelativeLayout>
+            <!-- wifi的ip -->
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1" >
+            </RelativeLayout>
+
+            <!-- wifi的port -->
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1" >
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/TextView_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/TextView_link"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,172 @@
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/barcode" />
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroup_barcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/barcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/barcode"
+            android:textColor="@color/text" />
+
+        <RadioButton
+            android:id="@+id/QRcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/QRcode"
+            android:textColor="@color/text" />
+    </RadioGroup>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/textView_bartype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/textView_bartype"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/spinner_barcodetype"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView_bartype"
+            android:textColor="#000" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/textView_bartext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/textView_bartext"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edit_bartext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView_bartext"
+            android:ems="8"
+            android:singleLine="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/textView_barwide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/textView_barwide"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edit_barwide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView_barwide"
+            android:ems="3"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/textView_barhight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/edit_barwide"
+            android:gravity="center"
+            android:text="@string/textView_barhight"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edit_barhight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView_barhight"
+            android:ems="3"
+            android:inputType="number" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout_enabled"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/textView_barhri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/textView_barhri"
+            android:textSize="20sp" />
+
+           <EditText  
+            android:id="@+id/edit_barhri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView_barhri"
+            android:ems="8"
+            android:visibility="gone"
+            android:inputType="number" /> 
+<Spinner
+            android:id="@+id/spinner_hripostion"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+             android:layout_toRightOf="@+id/textView_barhri"
+            android:visibility="visible"
+           android:entries="@array/hripostion" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/button_barPrint"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/button_barPrint"
+        android:textSize="20sp" />
+
+</LinearLayout>

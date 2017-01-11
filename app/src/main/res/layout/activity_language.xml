@@ -1,0 +1,84 @@
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            
+
+            <EditText
+                android:id="@+id/editText_lanwide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="3"
+                android:inputType="number"
+                android:text="384" >
+                <requestFocus />
+            </EditText>
+            <TextView
+                android:id="@+id/textView_lanw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/textView_lanw"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <EditText
+                android:id="@+id/editText_lanhight"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:ems="3"
+                android:text="550" />
+
+            <TextView
+                android:id="@+id/textView_lanh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/textView_lanh"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </TableRow>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center" >
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteText_lan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+             android:singleLine="false"
+            android:gravity="top|left"
+            android:scrollbars="vertical"
+            android:text="@string/autoCompleteText_lan" >
+        </AutoCompleteTextView>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/button_printlan"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/button_printlan"
+        android:textSize="20sp" />
+
+</LinearLayout>

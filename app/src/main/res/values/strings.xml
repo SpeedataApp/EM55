@@ -1,0 +1,182 @@
+<resources>
+    <string name="app_name">EM55</string>
+    <string name="Humidity">湿度检测</string>
+    <string name="Humidity_value">%</string>
+    <string name="Temperature">温度检测</string>
+    <string name="Temperature_value">℃</string>
+    <string name="start">start</string>
+    <string name="stop">stop</string>
+    <string name="data">StartAndStop</string>
+    <!--finger-->
+    <string name="hello">Welcome to Finger SDK</string>
+    <string name="TEXT_OPEN_DEVICE">OpenDevice</string>
+    <string name="TEXT_CLOSE_DEVICE">CloseDevice</string>
+    <string name="TEXT_GET_IMAGE">GetImage</string>
+    <string name="TEXT_GET_QUALITY">GetImageQuality</string>
+    <string name="TEXT_CREATE_TEMP">CreateTemplate</string>
+    <string name="TEXT_MATCH_TEMP">CompareTemplates</string>
+    <string name="TEXT_CHAR">Template</string>
+    <string name="TEXT_IMAGE">Image</string>
+    <string name="TEXT_VIDEO">Video</string>
+    <string name="FIRST_TEMPLATE">Template1</string>
+    <string name="SECOND_TEMPLATE">Template2</string>
+
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <!--<string name="app_name">PrintApp1.0.3</string>-->
+    <!-- Toast提示 -->
+    <string name="null_wight_hight">Width or height can not be empty</string>
+    <string name="null_barversion_barerr_barsize">There are empty, please input</string>
+    <string name="max_hight_255">The height can not exceed 255</string>
+    <string name="max_qrchir_6">Magnification can only be 1 to 6</string>
+    <string name="null_zoom">Zoom can not be empty</string>
+    <string name="wrong_version">wrong version</string>
+    <string name="gary_value_large">Value is too large</string>
+    <string name="gary_set_ok">set ok</string>
+    <string name="gary_null_input">please input gray level</string>
+
+    <!-- connect页面 -->
+    <string name="text_type">Printer Name</string>
+    <string name="text_porttype">Port Type</string>
+    <string name="text_printway">Transport Mode </string>
+    <string name="TextView_link">contact us</string>
+    <string name="TextView_close">Close</string>
+    <string name="TextView_linktest">Next Page</string>
+    <string name="mes_confail">Connect Fail</string>
+    <string name="mes_consuccess">Connect Success</string>
+    <string name="mes_nextpage">Please Connect </string>
+    <!-- printmode页面 -->
+    <string name="button_text">Text</string>
+    <string name="button_txt">Print TXT file</string>
+    <string name="button_pic">Graphic</string>
+    <string name="button_label">Label Print</string>
+    <string name="button_print_setting">Print test data</string>
+    <string name="button_paper_in">PaperFeed</string>
+    <string name="button_paper_out">PaperBack</string>
+    <string name="button_set_gray">Set gray</string>
+    <string name="set_gra_level">Set gray level</string>
+    <string name="set_gra_level_hint">Integer between 0 to 29</string>
+    <string name="dialog_remind_input_line">Please enter the feeding lines</string>
+    <string name="dialog_sure">Sure</string>
+    <string name="dialog_cancel">Cancel</string>
+
+    <string name="exit_dialog_title">Exit?</string>
+    <string name="exit_dialog_message">Determine exit?</string>
+    <string name="exit_dialog_neutral_button_text">Settings</string>
+    <string name="exit_dialog_negative_button_text">Exit</string>
+    <string name="exit_dialog_positive_button_text">Cancel</string>
+    <string name="btnteston_text">Stop Test</string>
+    <string name="btntestoff_text">Start Test</string>
+
+
+    <string name="mes_noeg">This print is not label printer or its not support this printer type currently</string>
+    <!-- general页面 -->
+    <string name="editText1">x</string>
+    <string name="editText2">y</string>
+    <string name="autoCompleteText_text">0006\r\n84339216\r\nB—M2908\r\n215549\r\n2015—02—28\r\n10:40—10:47\r\n2.30\r\n2.6\r\n00:02:29\r\n0\r\n￥13.00\r\n￥0.00\r\n￥0.00\r\n￥13.00\r\n</string>
+    <string name="textView_3">Width</string>
+    <string name="textView_4">Hight</string>
+    <string name="checkBox01">Width</string>
+    <string name="checkBox02">Hight</string>
+    <string name="checkBox03">Bold</string>
+    <string name="checkBox04">Underline</string>
+    <string name="checkBox05">small</string>
+    <string name="checkBox06">Label</string>
+    <string name="checkBox07">Inverse</string>
+    <string name="radio0">Left</string>
+    <string name="radio1">Center</string>
+    <string name="radio2">Right</string>
+    <string name="button_printtext">   Print    </string>
+    <string name="button_state">Printer Status</string>
+    <string name="mes_stateOK">The printer status:Normal state</string>
+    <string name="mes_statePE">The printer status:No Paper</string>
+    <string name="mes_stateNet">The printer status:Network Errors</string>
+
+    <!-- barcode页面 -->
+    <string name="barcode">Barcode</string>
+    <string name="QRcode">QRcode</string>
+    <!-- <string name="bartype">文本</string> -->
+    <string name="textView_bartype">Type</string>
+    <string name="textView_bartext">Content </string>
+    <string name="textView_barwide">Width</string>
+    <string name="textView_barhight">Hight</string>
+    <string name="textView_barhri">Position</string>
+    <string name="textView_barsize">zoom</string>
+    <string name="textView_barversion">Versiom</string>
+    <string name="textView_barerr">Ecc</string>
+    <string name="textView_barlines">Line</string>
+    <string name="button_barPrint">Print</string>
+    <!-- textapply页面和 picapply页面差不多可参考 -->
+    <string name="button_movie">Movie Tickets</string>
+    <string name="button_fire">Train Tickets </string>
+    <string name="button_shopping">Shopping Coupon</string>
+    <!-- lang页面和printdraw,general页面是一样的可以用一个 -->
+    <string name="checkBox_lanlab">Label</string>
+    <string name="textView_lanw">Width</string>
+    <string name="textView_lanh">Hight</string>
+    <string name="button_printlan">Print</string>
+    <string name="autoCompleteText_lan">
+	Chinese --> 我爱你\r\nEnglish --> I love you\r\nFrench --> Je t`aime\r\nGerman --> Ich liebe Dich\r\nFinland --> Minarakastan sinua\r\nHolland --> IK hou van jou\r\nCzech  --> Miluji te\r\nDanish--> Jeg elsker dig\r\nRussian--> Я люблю тебя\r\nJapanese --> あいしてる\r\nKorean --> 사랑해 \r\nThai--> Ch`an Rak Khun\r\nVietnamese --> Em ye`u anh\r\nIcelandic --> e`g elska tig\r\nSwedish --> Jag lskar dig\r\nJewish--> Ani ohev otach\r\nHungarian --> Szeretlek\r\nGreek --> S`agapo\r\nLithuanian --> Tave Myliu\r\n
+	</string>
+    <!-- printdraw页面 -->
+    <string name="checkBox_pic">Label</string>
+    <string name="textView3">Width</string>
+    <string name="textView4">Hight</string>
+    <string name="button_pridraw">Print</string>
+    <!-- picapply页面 -->
+    <string name="button_picmovie">Movie Tickets</string>
+    <string name="button_picfire">Train Tickets</string>
+    <string name="button_picshopping">Shopping Coupon</string>
+    <string name="button_pictable">Table</string>
+    <!-- bluetooth页面 -->
+    <string name="Text_bt">BlueTooth Port</string>
+    <string name="Text_btname">Name</string>
+    <string name="Text_btmax">Mac</string>
+    <string name="button_btcon">Connect</string>
+    <!-- wifi页面 -->
+    <string name="Text_wifi">Wifi Port</string>
+    <string name="Text_ip">Address </string>
+    <string name="Text_port">Port</string>
+    <string name="button_wificon">Connect</string>
+    <!-- usb页面 -->
+    <string name="Text_usbName">USB Port</string>
+    <string name="Text_usb">USB</string>
+    <string name="button_usbcon">Connect</string>
+    <!-- com页面 -->
+    <string name="Text_comName">Serial Port</string>
+    <string name="Text_comBaud">Baudrate</string>
+    <string name="Text_com">Serial</string>
+    <string name="button_comcon">Connect</string>
+    <!-- tab页面 -->
+    <string name="tab_general">General</string>
+    <string name="tab_barcode">Barcode</string>
+    <string name="tab_textapply">Apply</string>
+    <string name="tab_lan">MultLang</string>
+    <string name="tab_pic">Draw</string>
+    <string name="tab_picapply">Apply</string>
+    <!-- link页面 -->
+    <string name="textView_link">About Us:Beijing RuiGong Tech Co., Ltd. (brand: REGO) is a professional printing solution provider in China which is specializing in development, production, sales and service of mini printing equipment, has the experienced R D team which are more than 50 people and hundreds of staff and workers in the office and workshop. We own the dust-free workshop about 3800 square meters. What is more, we also set up the branch offices in many cities in mainland, like Beijing, Shanghai, Shenzhen etc., to provide our clients with the direct and fast services.We have established a complete quality management system.
+\r\nCompany Name:Beijing RuiGong\r\nE_mai:sales@regotek.com\r\nUrl:http://www.regotek.com/\r\nTel :+8610-59487237\r\nAdd:F2 DASCOM Building, No.9 Shangdi East Road, Haidian District, Beijing, 100085 China</string>
+
+    <string name="button_desktop">Desktop Print</string>
+
+    <!-- id2 -->
+
+    <string name="BtnStr_Find">Find</string>
+    <string name="BtnStr_Choose">Choose</string>
+    <string name="BtnStr_Read">Read</string>
+    <string name="BtnStr_Finger">Finger</string>
+    <string name="BtnStr_Send">Send</string>
+    <string name="BtnStr_Auto">Auto</string>
+    <string name="spinner">commands</string>
+    <string name="Togauto_on">Read ON</string>
+    <string name="Togauto_off">Read OFF</string>
+    <string name="Togopen_off">on</string>
+    <string name="Togopen_on">off</string>
+    <string name="StrNull"></string>
+    <string name="Status_OpenSerialFail">Open SerialPort Failed</string>
+    <string name="Status_OpenDevFileFail">Open DevFile Failed</string>
+    <string name="Status_ManipulateFail">Manipulate Device Failed</string>
+    <string name="portrait">photo</string>
+</resources>

@@ -1,0 +1,205 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        layout="xxx" />
+    <EditText
+        android:id="@+id/edv_key_input"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:maxLength="60"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        <requestFocus/>
+        </EditText>
+
+    <GridLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:columnCount="4"
+        android:orientation="horizontal"
+        android:rowCount="6"
+        android:useDefaultMargins="true" >
+
+        <Button
+            android:id="@+id/bv_key_scan"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="scan" />
+
+        <Button
+            android:id="@+id/bv_key_up"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="up" />
+
+        <Button
+            android:id="@+id/bv_key_down"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="down" />
+        <!--
+             <Button
+            android:id="@+id/bv_key_power"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="power" />
+        -->
+
+        <Button
+            android:id="@+id/bv_key_f1"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="F1" />
+
+        <Button
+            android:id="@+id/bv_key_f2"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="F2" />
+
+        <Button
+            android:id="@+id/bv_key_f3"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="F3" />
+
+        <Button
+            android:id="@+id/bv_key_delete"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="delete" />
+
+        <Button
+            android:id="@+id/bv_key_ok"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="OK" />
+
+        <Button
+            android:id="@+id/bv_key_back"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="back" />
+
+        <Button
+            android:id="@+id/bv_key_menu"
+            android:layout_gravity="fill"
+            android:layout_columnSpan="2"
+            android:background="@color/red"
+            android:text="menu" />
+
+        <Button
+            android:id="@+id/bv_key_1"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/bv_key_2"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/bv_key_3"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="3" />
+
+        <Button
+            android:id="@+id/bv_key_xing"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="*" />
+
+        <Button
+            android:id="@+id/bv_key_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/bv_key_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:text="5" />
+
+        <Button
+            android:id="@+id/bv_key_6"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="6" />
+
+        <Button
+            android:id="@+id/bv_key_jing"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="#" />
+
+        <Button
+            android:id="@+id/bv_key_7"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="7" />
+
+        <Button
+            android:id="@+id/bv_key_8"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="8" />
+
+        <Button
+            android:id="@+id/bv_key_9"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="9" />
+
+        <Button
+            android:id="@+id/bv_key_0"
+            android:layout_gravity="fill"
+            android:background="@color/red"
+            android:text="0" />
+    </GridLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/imv_click_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imv_click_me"
+            android:layout_alignRight="@+id/imv_click_me"
+            android:layout_marginRight="50dp"
+            android:text="Click me"
+            android:textColor="@color/deep_gray" />
+    </RelativeLayout>
+
+</LinearLayout>

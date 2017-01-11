@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:orientation="vertical"
+    android:weightSum="1">
+    <TextView
+        android:gravity="top"
+        android:id="@+id/tv_verson"
+        android:paddingRight="15dp"
+        android:textSize="10sp"
+        android:text="/dev/ttyMT1、9600,Mgpio73,Egpio0"
+        android:layout_gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_weight="0.20"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_phone_b"
+            android:layout_width="50dp"
+            android:layout_height="180dp"
+            android:layout_alignBottom="@+id/img_phone"
+            android:layout_toEndOf="@+id/img_phone"
+            android:layout_toRightOf="@+id/img_phone"
+            android:background="@drawable/phone_b"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/img_phone"
+            android:layout_toEndOf="@+id/img_phone"
+            android:layout_toRightOf="@+id/img_phone"
+            android:background="@drawable/phone_top" />
+
+        <com.spdata.em55.lr.view.WaitingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="56dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginBottom="55dp"
+            android:id="@+id/waitingBar"
+            android:layout_alignBottom="@+id/img_phone"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"></com.spdata.em55.lr.view.WaitingBar>
+
+        <ImageView
+            android:id="@+id/img_phone"
+            android:layout_width="70dp"
+            android:layout_height="140dp"
+            android:layout_marginBottom="29dp"
+            android:layout_marginLeft="43dp"
+            android:layout_marginStart="43dp"
+            android:background="@drawable/phone"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="接收数据模式"
+            android:textSize="20sp"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/datas_kuang">
+
+        <Button
+            android:id="@+id/btn_clear"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:background="@drawable/btn_clear" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="130dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@+id/btn_clear"
+            android:layout_toRightOf="@+id/btn_clear"
+            android:background="@drawable/geduan" />
+
+        <EditText
+            android:id="@+id/edv_age"
+            android:layout_width="100dp"
+            android:layout_height="170dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:cursorVisible="false"
+            android:editable="false"
+            android:textSize="19sp"
+            android:background="@drawable/edit"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"></EditText>
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.00 M"
+            android:textColor="@color/red"
+            android:textSize="22sp"
+            android:layout_alignBaseline="@+id/btn_clear"
+            android:layout_alignBottom="@+id/btn_clear"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginBottom="20dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="@color/gray"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="测距"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textSize="15sp" />&ndash;&gt;-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+
+    <!--<Button-->
+    <!--android:id="@+id/btn_clear"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="0.5"-->
+    <!--android:background="@drawable/selector_item_blue"-->
+    <!--android:text="清屏"-->
+    <!--android:textColor="@android:color/white" />-->
+
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="5"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:orientation="horizontal">-->
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:background="@drawable/phone"/>-->
+    <!--<TextView-->
+    <!--android:id="@+id/textView"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:ems="1"-->
+    <!--android:text="接收数据"-->
+    <!--android:textSize="20sp" />-->
+
+
+    <!--</LinearLayout>-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_item_blue"
+            android:text="测距"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_zid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_item_blue"
+            android:text="自动测距"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_item_blue"
+            android:text="测量基准切换"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

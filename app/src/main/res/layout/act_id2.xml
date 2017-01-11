@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_verson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="top"
+        android:paddingRight="15dp"
+        android:text="/dev/ttyMT2、115200,Mgpio88,Egpio6"
+        android:textSize="10sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1"
+        android:background="@drawable/id_pic_a">
+
+        <TextView
+            android:id="@+id/textday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textmouth"
+            android:layout_alignBottom="@+id/textmouth"
+            android:layout_alignEnd="@+id/textminzu"
+            android:layout_alignRight="@+id/textminzu"
+            android:hint="21"
+            android:singleLine="true"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="71dp"
+            android:layout_marginStart="71dp"
+            android:layout_marginTop="31dp"
+            android:hint="张三"
+            android:singleLine="true"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textminzu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textsex"
+            android:layout_alignBottom="@+id/textsex"
+            android:layout_toEndOf="@+id/textmouth"
+            android:layout_toRightOf="@+id/textmouth"
+            android:hint="汉族"
+            android:singleLine="true"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textmouth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textyear"
+            android:layout_alignBottom="@+id/textyear"
+            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@+id/textyear"
+            android:layout_toRightOf="@+id/textyear"
+            android:hint="12"
+            android:singleLine="true"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textsfz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textmouth"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/textmouth"
+            android:layout_marginBottom="22dp"
+            android:hint="101101199509084323                                                     "
+            android:singleLine="true"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textsex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textname"
+            android:layout_alignStart="@+id/textname"
+            android:layout_below="@+id/textname"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:hint="男"
+            android:singleLine="true"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textyear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textsex"
+            android:layout_alignStart="@+id/textsex"
+            android:layout_below="@+id/textsex"
+            android:layout_marginTop="7dp"
+            android:hint="2016"
+            android:singleLine="true"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textaddr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textyear"
+            android:layout_alignStart="@+id/textyear"
+            android:layout_below="@+id/textday"
+            android:layout_marginTop="9dp"
+            android:hint="北京市海淀区上地六街28号致远大厦"
+            android:inputType="textMultiLine"
+            android:maxEms="10"
+            android:singleLine="true"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/imageViewPortrait"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="0.72"
+            android:contentDescription="@string/portrait"
+            android:src="@null" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/id_pic_b">
+
+        <TextView
+            android:id="@+id/textqianfa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textqixian"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="146dp"
+            android:layout_marginStart="146dp"
+            android:layout_weight="1"
+            android:hint="北京市公安局                                                "
+            android:singleLine="true"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textqixian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textqianfa"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/textqianfa"
+            android:layout_marginBottom="19dp"
+            android:layout_weight="1"
+            android:hint="2016.01.01-2026.01.01"
+            android:singleLine="true"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="@string/StrNull"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout0"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1.5"
+        android:orientation="vertical">
+
+        <!--<ToggleButton-->
+        <!--android:id="@+id/button_auto"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textOff="@string/Togauto_off"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:textOn="@string/Togauto_on" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_find"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_alibuybutton"
+                android:text="@string/BtnStr_Find"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/button_choose"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_alibuybutton"
+                android:text="@string/BtnStr_Choose"
+                android:visibility="gone" />
+
+            <CheckBox
+                android:id="@+id/box_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:text="是否获取指纹" />
+
+            <Button
+                android:id="@+id/button_read"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_alibuybutton"
+                android:text="@string/BtnStr_Read" />
+
+
+            <Button
+                android:id="@+id/button_finger"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_alibuybutton"
+                android:text="@string/BtnStr_Finger"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:visibility="gone"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<ToggleButton-->
+        <!--android:id="@+id/toggleButton_power"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@drawable/bg_alibuybutton"-->
+        <!--android:textOff="@string/Togopen_off"-->
+        <!--android:textOn="@string/Togopen_on" />-->
+
+        <!--<EditText-->
+        <!--android:id="@+id/editText_send"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@drawable/edit" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/button_send"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@drawable/bg_alibuybutton"-->
+        <!--android:text="@string/BtnStr_Send" />-->
+        <!--</LinearLayout>-->
+    </LinearLayout>
+</LinearLayout>

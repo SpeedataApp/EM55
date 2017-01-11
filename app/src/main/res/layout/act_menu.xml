@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:text="磁吸扩展功能EM55系列" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:id="@+id/tv_menu_version"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="20dp"
+            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="75dp"
+            android:id="@+id/ly_ceju"
+            android:background="@drawable/shape_border_selector"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/im_ceju"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ceju"
+                />
+
+            <TextView
+                android:layout_marginTop="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="测距"
+                android:textSize="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@id/im_ceju" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/ly_gps"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/shape_border_selector"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/im_gps"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/gps"
+                />
+
+            <TextView
+                android:layout_marginTop="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="GPS"
+                android:textSize="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@id/im_gps" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="75dp"
+            android:id="@+id/ly_wendu"
+            android:background="@drawable/shape_border_selector"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/im_wendu"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/wendu"
+                />
+
+            <TextView
+                android:layout_marginTop="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="温湿度"
+                android:textSize="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@id/im_wendu" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="75dp"
+            android:id="@+id/ly_updata"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_border_selector"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/im_updata"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/updata"
+                />
+
+            <TextView
+                android:layout_marginTop="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="版本更新"
+                android:textSize="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@id/im_wendu" />
+
+        </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:id="@+id/ly_id"
+                android:background="@drawable/shape_border_selector"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/im_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/id"
+                    />
+
+                <TextView
+                    android:layout_marginTop="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="身份证"
+                    android:textSize="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_below="@id/im_id" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/ly_print"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/shape_border_selector"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/im_print"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/print"
+                    />
+
+                <TextView
+                    android:layout_marginTop="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="打印机"
+                    android:textSize="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_below="@id/im_print" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:id="@+id/ly_pasm"
+                android:background="@drawable/shape_border_selector"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/im_pasm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/id"
+                    />
+
+                <TextView
+                    android:layout_marginTop="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="PASM卡"
+                    android:textSize="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_below="@id/im_pasm" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:id="@+id/ly_finger"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_border_selector"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/im_finger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/finger"
+                    />
+
+                <TextView
+                    android:layout_marginTop="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="指纹"
+                    android:textSize="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_below="@id/im_finger" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

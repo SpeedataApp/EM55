@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:gravity="top"
+        android:id="@+id/tv_verson"
+        android:paddingRight="15dp"
+        android:textSize="10sp"
+        android:text="/dev/ttyMT2、9600,Mgpio88,Egpio1"
+        android:layout_gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:text="接收数据："
+            android:textSize="20sp"
+            android:id="@+id/textView" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/textview"
+            android:layout_height="300dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/text_info"/>
+        </ScrollView>
+
+        </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/gps_map"
+        android:layout_alignParentStart="true"
+        android:id="@+id/r">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_item_blue"
+            android:text="开始测试"
+            android:id="@+id/btn_fire"
+            android:layout_marginRight="28dp"
+            android:layout_marginEnd="28dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_item_blue"
+            android:text="AndroiTsGPS"
+            android:id="@+id/btn_gps"
+            android:layout_marginBottom="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/btn_fire"
+            android:layout_alignStart="@+id/btn_fire"></Button>
+    </RelativeLayout>
+
+</LinearLayout>

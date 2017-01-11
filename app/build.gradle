@@ -1,0 +1,31 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "com.spdata.em55"
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.4"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile files('libs/orm.jar')
+    compile files('libs/SerialPort.jar')
+    compile files('libs/HS_CVR100U.jar')
+    compile 'com.speedata:libid2:1.2.5'
+//    compile 'com.speedatagroup:LibMarsdaemon:1.0'
+}

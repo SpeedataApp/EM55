@@ -1,0 +1,32 @@
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+     tools:context="${relativePackage}.${activityClass}" 
+      xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:gravity="center"
+        android:orientation="vertical" 
+        >
+
+    <Button
+        android:id="@+id/button_picmovie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_picmovie"/>
+    <Button
+        android:id="@+id/Button_picfire"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_picfire"/>
+    <Button
+        android:id="@+id/Button_picshopping"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_picshopping" />
+     <Button
+        android:id="@+id/Button_pictable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_pictable" />
+</LinearLayout>
+

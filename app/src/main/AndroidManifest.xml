@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.spdata.em55">
+
+    <uses-feature android:name="android.hardware.usb.host" />
+    <uses-sdk android:minSdkVersion="12" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name=".px.print.utils.ApplicationContext"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <activity android:name="MenuAct"
+            android:windowSoftInputMode="stateHidden"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <receiver android:name=".UnorderedReceiver">
+            <intent-filter>
+                <action android:name="com.geomobile.hallremove" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".lr.CeJuAct"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".lr.GpsAct"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".lr.TemperatureActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".px.finger.FpSDKSampleP11MActivity"
+
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".px.ID2.ID2Act"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".px.pasm.PasmAct"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".px.print.print.demo.firstview.ConnectAvtivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".px.print.print.demo.printview.TextFirstActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".px.print.print.demo.printview.TextSecondActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".px.print.print.demo.printview.TextTabsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".px.print.print.demo.printview.TextThirdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".px.print.print.demo.printview.GraphicThirdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".px.print.print.demo.printview.GraphicSecondActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".px.print.print.demo.printview.GraphicFirstActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".px.print.print.demo.printview.GraphicTabsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".px.print.utils.LinkContactActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".px.print.print.demo.secondview.PrintModeActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>
