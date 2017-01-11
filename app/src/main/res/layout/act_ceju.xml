@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:orientation="vertical"
-    android:weightSum="1">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="5dp"
+              android:layout_marginRight="5dp"
+              android:orientation="vertical"
+              android:weightSum="1">
+
     <TextView
-        android:gravity="top"
         android:id="@+id/tv_verson"
-        android:paddingRight="15dp"
-        android:textSize="10sp"
-        android:text="/dev/ttyMT1、9600,Mgpio73,Egpio0"
-        android:layout_gravity="right"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="top"
+        android:paddingRight="15dp"
+        android:text="/dev/ttyMT1、9600,Mgpio73,Egpio0"
+        android:textSize="10sp"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="240dp"
@@ -29,7 +31,7 @@
             android:layout_toEndOf="@+id/img_phone"
             android:layout_toRightOf="@+id/img_phone"
             android:background="@drawable/phone_b"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/imageView2"
@@ -38,42 +40,42 @@
             android:layout_above="@+id/img_phone"
             android:layout_toEndOf="@+id/img_phone"
             android:layout_toRightOf="@+id/img_phone"
-            android:background="@drawable/phone_top" />
+            android:background="@drawable/phone_top"/>
 
         <com.spdata.em55.lr.view.WaitingBar
+            android:id="@+id/waitingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="56dp"
-            android:layout_marginEnd="56dp"
-            android:layout_marginBottom="55dp"
-            android:id="@+id/waitingBar"
             android:layout_alignBottom="@+id/img_phone"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"></com.spdata.em55.lr.view.WaitingBar>
+            android:layout_marginBottom="55dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"></com.spdata.em55.lr.view.WaitingBar>
 
         <ImageView
             android:id="@+id/img_phone"
             android:layout_width="70dp"
             android:layout_height="140dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_marginBottom="29dp"
             android:layout_marginLeft="43dp"
             android:layout_marginStart="43dp"
-            android:background="@drawable/phone"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:background="@drawable/phone"/>
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="接收数据模式"
-            android:textSize="20sp"
-            android:layout_marginRight="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:text="接收数据模式"
+            android:textSize="20sp"/>
 
 
     </RelativeLayout>
@@ -92,7 +94,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="24dp"
             android:layout_marginStart="24dp"
-            android:background="@drawable/btn_clear" />
+            android:background="@drawable/btn_clear"/>
 
         <ImageView
             android:id="@+id/imageView"
@@ -103,33 +105,33 @@
             android:layout_marginStart="14dp"
             android:layout_toEndOf="@+id/btn_clear"
             android:layout_toRightOf="@+id/btn_clear"
-            android:background="@drawable/geduan" />
+            android:background="@drawable/geduan"/>
 
         <EditText
             android:id="@+id/edv_age"
             android:layout_width="100dp"
             android:layout_height="170dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit"
             android:cursorVisible="false"
             android:editable="false"
-            android:textSize="19sp"
-            android:background="@drawable/edit"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"></EditText>
+            android:textSize="19sp"></EditText>
 
         <TextView
             android:id="@+id/tv_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0.00 M"
-            android:textColor="@color/red"
-            android:textSize="22sp"
             android:layout_alignBaseline="@+id/btn_clear"
             android:layout_alignBottom="@+id/btn_clear"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:text="0.00 M"
+            android:textColor="@color/red"
+            android:textSize="22sp"/>
     </RelativeLayout>
     <!--&lt;!&ndash;<TextView&ndash;&gt;-->
     <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
@@ -190,9 +192,9 @@
             android:background="@drawable/selector_item_blue"
             android:text="测距"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
-        <Button
+        <ToggleButton
             android:id="@+id/btn_zid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -200,9 +202,11 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@drawable/selector_item_blue"
-            android:text="自动测距"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textOff="连续测距"
+            android:textOn="停止"
+            android:checked="false"
+            android:textSize="20sp"/>
 
         <Button
             android:id="@+id/btn_select"
@@ -212,7 +216,7 @@
             android:background="@drawable/selector_item_blue"
             android:text="测量基准切换"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
