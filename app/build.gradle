@@ -26,6 +26,8 @@ dependencies {
     compile files('libs/orm.jar')
     compile files('libs/SerialPort.jar')
     compile files('libs/HS_CVR100U.jar')
-    compile 'com.speedata:libid2:1.2.5'
+    compile 'com.speedata:libid2:1.6'
+    compile 'com.speedata:libuhf:5.3'
+    compile 'com.speedata:deivice:1.1'
 //    compile 'com.speedatagroup:LibMarsdaemon:1.0'
 }
