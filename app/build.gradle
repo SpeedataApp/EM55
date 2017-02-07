@@ -9,7 +9,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
-        versionName "1.4"
+        versionName "1.7.2"
     }
     buildTypes {
         release {
@@ -24,8 +24,13 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile files('libs/orm.jar')
-    compile files('libs/SerialPort.jar')
-    compile files('libs/HS_CVR100U.jar')
-    compile 'com.speedata:libid2:1.2.5'
-//    compile 'com.speedatagroup:LibMarsdaemon:1.0'
+//    compile files('libs/SerialPort.jar')RR
+//    compile 'com.speedata:libid2:1.2.6'
+    //    compile 'com.speedatagroup:LibMarsdaemon:1.0'
+//    compile 'com.speedata:libuhf:5.2'
+    compile 'com.speedata:libid2:1.6'
+    compile 'com.speedata:libuhf:5.3'
+    compile 'com.speedata:deivice:1.1'
+    compile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
