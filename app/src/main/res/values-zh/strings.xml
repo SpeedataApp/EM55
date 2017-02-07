@@ -30,7 +30,7 @@
     <string name="button_pic">图形</string>
     <string name="button_label">标签打印</string>
     <string name="button_print_setting">打印当前参数</string>
-    <string name="button_paper_in">进纸</string>
+    <string name="button_paper_in">走纸</string>
     <string name="button_paper_out">退纸</string>
     <string name="button_set_gray">设置灰度</string>
     <string name="set_gra_level">灰度</string>

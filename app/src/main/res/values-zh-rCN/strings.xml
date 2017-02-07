@@ -6,6 +6,8 @@
     <string name="BtnStr_Read">读卡</string>
     <string name="BtnStr_Finger">指纹</string>
     <string name="BtnStr_Send">发送</string>
+    <string name="Btn_Repetition">自动读卡</string>
+    <string name="Btn_Stop">停止</string>
     <string name="BtnStr_Auto">自动</string>
     <string name="Togauto_on">读卡:开</string>
     <string name="Togauto_off">读卡:关</string>

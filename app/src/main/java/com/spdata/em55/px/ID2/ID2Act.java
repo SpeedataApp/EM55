@@ -1,47 +1,44 @@
 package com.spdata.em55.px.ID2;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.serialport.DeviceControl;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.spdata.em55.BaseAct;
 import com.spdata.em55.R;
+import com.spdata.em55.base.BaseAct;
 import com.speedata.libid2.IDInfor;
 import com.speedata.libid2.IDManager;
 import com.speedata.libid2.IDReadCallBack;
 import com.speedata.libid2.IID2Service;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class ID2Act extends BaseAct implements OnClickListener {
+public class ID2Act extends BaseAct {
 
     private static final String TAG = "ID_DEV";
     private static final String SERIALPORT_PATH = "/dev/ttyMT2";
     private int IDFd, i;
-
-    private ToggleButton powerBtn;
-    private ToggleButton autoBtn;
+    private ToggleButton btnStarRead;
     private Button findBtn;
     private Button chooseBtn;
     private Button readBtn;
     private Button sendBtn;
-    private Button readfingerBtn;
+    private Button btnReadCard;
     private TextView contView;
     private EditText EditTextsend;
     private ImageView mImageViewPhoto;
-
     private TextView mtextname;
     private TextView mtextsex;
     private TextView mtextminzu;
@@ -54,8 +51,6 @@ public class ID2Act extends BaseAct implements OnClickListener {
     private TextView mtextqixian;
     private IDInfor idInfor;
     private Handler handler = new Handler() {
-
-
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -68,7 +63,7 @@ public class ID2Act extends BaseAct implements OnClickListener {
                 mtextyear.setText(idInfor.getYear());
                 mtextmouth.setText(idInfor.getMonth());
                 mtextday.setText(idInfor.getDay());
-                mtextsex.setText(idInfor.getSex());
+//                mtextsex.setText(idInfor.getSex());
                 mtextnum.setText(idInfor.getNum());
                 mtextqianfa.setText(idInfor.getQianFa());
                 mtextqixian.setText(idInfor.getDeadLine());
@@ -79,50 +74,56 @@ public class ID2Act extends BaseAct implements OnClickListener {
                     idInfor.getFingerprStringer();
                     Toast.makeText(ID2Act.this, "该身份证有指纹！", Toast.LENGTH_SHORT).show();
                 }
-
             } else {
                 //TODO ERROR
                 contView.setText(idInfor.getErrorMsg());
+                initID2Info();
             }
 
         }
     };
     private IID2Service iid2Service;
     private CheckBox boxselect;
+    private Timer timers;
+
+    private void initID2Info() {
+        mtextsex.setText("男");
+        mtextname.setText("张三");
+        mtextaddr.setText("北京市海淀区上地六街28致远大厦");
+        mtextminzu.setText("汉");
+        mtextyear.setText("2016");
+        mtextmouth.setText("12");
+        mtextday.setText("21");
+        mtextnum.setText("101101199509084323");
+        mtextqianfa.setText("北京市公安局");
+        mtextqixian.setText("2016.01.01-2026.01.01");
+        mImageViewPhoto.setImageBitmap(null);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = this;
+        setContentView(R.layout.act_id2);
         initUI();
-        Log.i(TAG, "onCreate is called");
-        iid2Service = IDManager.getInstance();
-        try {
-            iid2Service.initDev(this, new IDReadCallBack() {
-                @Override
-                public void callBack(IDInfor infor) {
-                    Message msg = new Message();
-                    msg.obj = infor;
-                    handler.sendMessage(msg);
-                }
-            }, SERIALPORT_PATH, 115200, DeviceControl.PowerType.MAIN_AND_EXPAND, 88, 6);
-//        }, "/dev/ttyMT2", 115200, IID2Service.PowerType.MAIN, 88);只主板上电
-        } catch (IOException e) {
-            e.printStackTrace();
-            finish();
-        }
+        Log.i(TAG, "==onCreate==");
+        initIDService();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initID2Info();
     }
 
     private void initUI() {
-        setContentView(R.layout.act_id2);
         findBtn = (Button) findViewById(R.id.button_find);
-        findBtn.setOnClickListener(this);
         chooseBtn = (Button) findViewById(R.id.button_choose);
-        chooseBtn.setOnClickListener(this);
         readBtn = (Button) findViewById(R.id.button_read);
-        readBtn.setOnClickListener(this);
-        readfingerBtn = (Button) findViewById(R.id.button_finger);
-        readfingerBtn.setOnClickListener(this);
+        btnReadCard = (Button) findViewById(R.id.button_finger);
+//        findBtn.setOnClickListener(this);
+//        chooseBtn.setOnClickListener(this);
+//        readBtn.setOnClickListener(this);
+//        btnReadCard.setOnClickListener(this);
         contView = (TextView) findViewById(R.id.tv_content);
         mtextname = (TextView) findViewById(R.id.textname);
         mtextsex = (TextView) findViewById(R.id.textsex);
@@ -136,54 +137,100 @@ public class ID2Act extends BaseAct implements OnClickListener {
         mtextqixian = (TextView) findViewById(R.id.textqixian);
         mImageViewPhoto = (ImageView) findViewById(R.id.imageViewPortrait);
         boxselect = (CheckBox) findViewById(R.id.box_select);
+        btnStarRead = (ToggleButton) findViewById(R.id.button_startread);
+        btnStarRead.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    startReadCard();
+                } else {
+                    timers.cancel();
+                }
+            }
+        });
+    }
+
+    public void initIDService() {
+        iid2Service = IDManager.getInstance();
+        try {
+            iid2Service.initDev(this, new IDReadCallBack() {
+                @Override
+                public void callBack(IDInfor infor) {
+                    Message msg = new Message();
+                    msg.obj = infor;
+                    handler.sendMessage(msg);
+                }
+            }, SERIALPORT_PATH, 115200, DeviceControl.PowerType.MAIN_AND_EXPAND, 88, 6);
+//        }, "/dev/ttyMT2", 115200, IID2Service.PowerType.MAIN, 88);只主板上电
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            finish();
+        }
     }
 
     public void onDestroy() {
         super.onDestroy();
+        if (timers != null) {
+            timers.cancel();
+        }
         try {
             iid2Service.releaseDev();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    private Context mContext;
-
-    @Override
-    public void onClick(View view) {
-        if (view == findBtn) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    int result = iid2Service.searchCard();
-                    final String msg = iid2Service.parseReturnState(result);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            contView.setText(msg);
-                        }
-                    });
-                }
-            }).start();
-
-        } else if (view == chooseBtn) {
-            int result = iid2Service.selectCard();
-            String msg = iid2Service.parseReturnState(result);
-            contView.setText(msg);
-        } else if (view == readBtn) {
-            contView.setText("");
-            iid2Service.getIDInfor(false);
-
+//分补读取身份证 寻卡-选卡-读卡  ---带指纹读卡
+//    @Override
+//    public void onClick(View view) {
+//        if (view == findBtn) {
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    int result = iid2Service.searchCard();
+//                    final String msg = iid2Service.parseReturnState(result);
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            contView.setText(msg);
+//                        }
+//                    });
+//                }
+//            }).start();
+//
+//        } else if (view == chooseBtn) {
+//            int result = iid2Service.selectCard();
+//            String msg = iid2Service.parseReturnState(result);
+//            contView.setText(msg);
+//        } else if (view == readBtn) {
 //            IDInfor idInfor = iid2Service.readCard(false);
 //            Message msg = new Message();
 //            msg.obj = idInfor;
 //            handler.sendMessage(msg);
-        } else if (view == readfingerBtn) {
-            contView.setText("");
-            iid2Service.getIDInfor(true);
-        } else if (view == sendBtn) {
+//        } else if (view == btnReadCard) {
+//            contView.setText("");
+//            iid2Service.getIDInfor(true);
+//        } else if (view == sendBtn) {
+//        }
+//    }
 
-        }
+    private void startReadCard() {
+        timers = new Timer();
+        timers.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        initID2Info();
+                        contView.setText("");
+                    }
+                });
+                iid2Service.getIDInfor(false);
+            }
+        }, 0, 3000);
     }
+
+
 }

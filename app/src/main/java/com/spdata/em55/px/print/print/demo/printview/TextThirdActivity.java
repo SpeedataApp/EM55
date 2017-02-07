@@ -71,7 +71,7 @@ public class TextThirdActivity extends Activity {
 				context.getObject().ASCII_Print1DBarcode(context.getState(),
 						preDefiniation.BarcodeType.BT_UPCA.getValue(), 2, 28,
 						preDefiniation.Barcode1DHRI.BH_BLEW.getValue(), "123456789012");
-				context.getObject().ASCII_CtrlFeedLines(context.getState(),1);
+				context.getObject().ASCII_CtrlFeedLines(context.getState(),4);
 				context.getObject().ASCII_CtrlReset(context.getState());
 				context.getObject().CON_PageEnd(context.getState(),context.getPrintway());
 			}
@@ -127,7 +127,7 @@ public class TextThirdActivity extends Activity {
 				context.getObject().ASCII_CtrlPrintCRLF(context.getState(),1);
 				context.getObject().ASCII_PrintString(context.getState(),0,
 						0, 0, 0, 0, "谢谢惠顾，欢迎下次光临！", "gb2312");
-				context.getObject().ASCII_CtrlPrintCRLF(context.getState(),1);
+				context.getObject().ASCII_CtrlPrintCRLF(context.getState(),5);
 				context.getObject().ASCII_CtrlReset(context.getState());
 				context.getObject().CON_PageEnd(context.getState(),context.getPrintway());
 
@@ -166,7 +166,9 @@ public class TextThirdActivity extends Activity {
 				context.getObject().ASCII_PrintString(context.getState(),0,
 						0, 0, 0, 0, "仅限当日当次车", "gb2312");
 				context.getObject().ASCII_CtrlPrintCRLF(context.getState(),1);
-				context.getObject().ASCII_Print2DBarcode(context.getState(), preDefiniation.BarcodeType.BT_QRcode.getValue(),"123456789",8,76,2);
+				context.getObject().ASCII_Print2DBarcode(context.getState(),
+						preDefiniation.BarcodeType.BT_QRcode.getValue(),"123456789",8,76,2);
+				context.getObject().ASCII_CtrlFeedLines(context.getState(),4);
 				context.getObject().ASCII_CtrlReset(context.getState());
 				context.getObject().CON_PageEnd(context.getState(),context.getPrintway());
 			}

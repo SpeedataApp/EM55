@@ -1,6 +1,5 @@
 package com.spdata.em55.lr;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -12,10 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.spdata.em55.R;
+import com.spdata.em55.base.BaseAct;
 
 import java.io.IOException;
 
-public class GpsAct extends Activity implements View.OnClickListener {
+public class GpsAct extends BaseAct implements View.OnClickListener {
     TextView textView;
     Button button, btngpsApp;
     SerialPort serialPort;

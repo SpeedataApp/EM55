@@ -15,8 +15,7 @@ public class BaseAct extends Activity {
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            //TODO 退出
-            finish();
+                finish();
         }
     };
 
@@ -24,13 +23,14 @@ public class BaseAct extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         IntentFilter filter = new IntentFilter();
-        filter.addAction("");
+        filter.addAction("com.geomobile.hallremove");
         registerReceiver(receiver, filter);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        finish();
         unregisterReceiver(receiver);
     }
 }

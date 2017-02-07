@@ -1,6 +1,5 @@
 package com.spdata.em55.px.print.print.demo.firstview;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.serialport.DeviceControl;
@@ -10,13 +9,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spdata.em55.R;
+import com.spdata.em55.base.BaseAct;
 import com.spdata.em55.px.print.print.demo.secondview.PrintModeActivity;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 
 import java.io.IOException;
 
 
-public class ConnectAvtivity extends Activity {
+public class ConnectAvtivity extends BaseAct {
 
     public int state;
     public Button con;

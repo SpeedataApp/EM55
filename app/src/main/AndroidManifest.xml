@@ -31,11 +31,11 @@
 
         </activity>
 
-        <receiver android:name=".UnorderedReceiver">
-            <intent-filter>
-                <action android:name="com.geomobile.hallremove" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver android:name=".UnorderedReceiver">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.geomobile.hallremove" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <activity
             android:name=".lr.CeJuAct"
@@ -93,7 +93,11 @@
 
         <activity
             android:name=".px.print.print.demo.secondview.PrintModeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

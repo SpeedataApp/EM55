@@ -252,8 +252,8 @@ public class CeJuActBack extends Activity implements View.OnClickListener {
                 for (byte x : temp) {
                     log+=String.format("0x%x", x);
                 }
-                Log.d(TAG, "erroR" + temp.length + "");
                 Log.d(TAG, "length<8="+log);
+                Log.d(TAG, "erroR" + temp.length + "");
                 return;
             }
             receiveData();

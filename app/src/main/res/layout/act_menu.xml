@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:textSize="28sp"
         android:textColor="@color/black"
         android:layout_gravity="center"
         android:text="磁吸扩展功能EM55系列" />
@@ -214,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/id"
+                    android:src="@drawable/pasm"
                     />
 
                 <TextView

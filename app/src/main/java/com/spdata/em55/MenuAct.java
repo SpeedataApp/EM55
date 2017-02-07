@@ -1,6 +1,5 @@
 package com.spdata.em55;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -9,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.spdata.em55.base.BaseAct;
 import com.spdata.em55.lr.CeJuAct;
 import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.lr.TemperatureActivity;
@@ -23,7 +23,7 @@ import com.spdata.updateversion.UpdateVersion;
  * Created by lenovo_pc on 2016/9/27.
  */
 
-public class MenuAct extends Activity implements View.OnClickListener {
+public class MenuAct extends BaseAct implements View.OnClickListener {
     LinearLayout lygps, lywendu, lyceju, lyupdata;
     LinearLayout layoutid, layoutpasm, layoutprint, layoutfinger;
     private Intent intent;
@@ -52,7 +52,7 @@ public class MenuAct extends Activity implements View.OnClickListener {
         layoutpasm.setOnClickListener(this);
         layoutprint.setOnClickListener(this);
         try {
-            tvversion.setText("Version:"+getVersionName());
+            tvversion.setText("Version_New:"+getVersionName());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,7 +63,6 @@ public class MenuAct extends Activity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         showMenu();
-
     }
 
     public void showMenu() {
@@ -107,19 +106,11 @@ public class MenuAct extends Activity implements View.OnClickListener {
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction("com.geomobile.hallremove");
-//        registerReceiver(new UnorderedReceiver(), filter);
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ly_ceju:
-
                 intent.setClass(MenuAct.this, CeJuAct.class);
                 startActivity(intent);
                 break;

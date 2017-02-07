@@ -167,6 +167,8 @@
     <string name="BtnStr_Choose">Choose</string>
     <string name="BtnStr_Read">Read</string>
     <string name="BtnStr_Finger">Finger</string>
+    <string name="Btn_Repetition">Repetition</string>
+    <string name="Btn_Stop">Stop</string>
     <string name="BtnStr_Send">Send</string>
     <string name="BtnStr_Auto">Auto</string>
     <string name="spinner">commands</string>

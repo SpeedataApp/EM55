@@ -84,7 +84,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/textmouth"
             android:layout_marginBottom="22dp"
-            android:hint="101101199509084323                                                     "
+            android:hint="101101199509084323"
             android:singleLine="true"
             android:textSize="15sp" />
 
@@ -235,8 +235,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:visibility="gone"
-                android:text="是否获取指纹" />
+                android:text="是否获取指纹"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/button_read"
@@ -244,9 +244,20 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:visibility="gone"
                 android:background="@drawable/bg_alibuybutton"
                 android:text="@string/BtnStr_Read" />
-
+            <ToggleButton
+                android:id="@+id/button_startread"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:textOn="@string/Btn_Stop"
+                android:checked="false"
+                android:textOff="@string/Btn_Repetition"
+                android:background="@drawable/bg_alibuybutton"
+                android:text="@string/BtnStr_Read" />
 
             <Button
                 android:id="@+id/button_finger"

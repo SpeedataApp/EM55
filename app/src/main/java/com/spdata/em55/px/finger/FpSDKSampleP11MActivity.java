@@ -2,7 +2,6 @@ package com.spdata.em55.px.finger;
 
 //------------------------------------------------------------------------------------------
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
@@ -21,6 +20,7 @@ import android.widget.TextView;
 
 import com.IDWORLD.LAPI;
 import com.spdata.em55.R;
+import com.spdata.em55.base.BaseAct;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,7 +30,7 @@ import java.io.IOException;
 //------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------
 
-public class FpSDKSampleP11MActivity extends Activity {
+public class FpSDKSampleP11MActivity extends BaseAct {
     //------------------------------------------------------------------------------------------
     private Button btnOffDevice, btnOnDevice;
     private Button btnOpen;

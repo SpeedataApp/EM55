@@ -1,6 +1,5 @@
 package com.spdata.em55.px.pasm;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -20,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spdata.em55.R;
+import com.spdata.em55.base.BaseAct;
 import com.spdata.em55.px.pasm.utils.DataConversionUtils;
 import com.spdata.em55.px.pasm.utils.MyLogger;
 
@@ -29,7 +29,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class PasmAct extends Activity implements View.OnClickListener {
+public class PasmAct extends BaseAct implements View.OnClickListener {
 
     private Button btn1Activite, btn2Activite, btnGetRomdan, btnSendAdpu, btnClear;
     private EditText edvADPU;

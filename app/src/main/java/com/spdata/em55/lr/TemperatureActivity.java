@@ -1,6 +1,5 @@
 package com.spdata.em55.lr;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.spdata.em55.R;
+import com.spdata.em55.base.BaseAct;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TemperatureActivity extends Activity {
+public class TemperatureActivity extends BaseAct {
 	
 	 //private static final String DEVFILE_PATH = "/proc/driver/captwo";
 	 private static final String HUMFILE_PATH = "/sys/class/misc/si7020/hum";

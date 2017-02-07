@@ -380,6 +380,7 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 		setCmd[4] = (byte) level;// (level - 1);
 		setCmd[5] = 0x1b;
 		setCmd[6] = 0x16;
+//		mContext.getObject().CON_SetDensity(mContext.getState(),level);
 		mContext.getObject().ASCII_PrintBuffer(mContext.getState(), setCmd,
 				setCmd.length);
 		System.out.println("setOk");
