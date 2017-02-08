@@ -109,7 +109,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 layoutprint.setEnabled(false);
                 layoutfinger.setEnabled(true);
                 break;
-            case "40"://em55_GX  功能：uhf超高屏，枪柄按键,可以触发主机快捷扫描
+            case "80"://em55_GX  功能：uhf超高屏，枪柄按键,可以触发主机快捷扫描
 
                 try {
                     myDeviceControl = new DeviceControl(DeviceControl.PowerType.EXPAND, 4, 6);
