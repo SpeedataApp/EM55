@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.serialport.DeviceControl;
 import android.serialport.SerialPort;
 import android.util.Log;
@@ -26,7 +25,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
 import com.spdata.em55.lr.view.WaitingBar;
-import com.spdata.em55.px.pasm.utils.DataConversionUtils;
+import com.spdata.em55.px.psam.utils.DataConversionUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -36,31 +35,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
- * Created by brxu on 2017/1/11.
+ * Created by suntianwei on 2017/2/8.
  */
 
 public class CeJuAct extends BaseAct implements View.OnClickListener {
-
-    //控制机发：自动    AT3#
-//    byte[] cmd_repetition = new byte[]{0x41, 0x54, 0x33, 0x23};
-    //ATX#    停止
-
     //发送命令 单次测距：    AT1#
     byte[] cmd_single = new byte[]{0x41, 0x54, 0x31, 0x23};
-
-    //发送命令 连续测距：    AT3#+AT1#
-    byte[] cmd_repetition = new byte[]{0x41, 0x54, 0x33, 0x23, 0x41, 0x54, 0x31, 0x23};
-
-    // 停止测距 ATX#
-    byte[] cmd_stop = new byte[]{0x41, 0x54, 0x58, 0x23};
-
-    byte[] cmd_stop_sigle = new byte[]{0x41, 0x54, 0x31, 0x23, 0x41, 0x54, 0x58, 0x23};
-
     byte[] send = new byte[]{0x41, 0x54, 0x47, 0x23};//ATG# 初始化设备
-
-
     Button btnSingle, btnClear, btnSwitch;
     private ToggleButton btnAuto;
     private ImageView imgtop, imgbottom;
@@ -76,11 +61,8 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
 
     private final String TAG = "RedDATA";
     private WaitingBar bar;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client;
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +74,62 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
+    private void initDevice() {
+        try {
+            mSerialPort = new SerialPort();
+            mSerialPort.OpenSerial(SerialPort.SERIAL_TTYMT1, 9600);//kt55串口
+            control = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 73, 0);
+            control.PowerOnDevice();
+            fd = mSerialPort.getFd();
+            byte[] bytes = mSerialPort.ReadSerial(fd, 1024);
+            if (!Arrays.equals(bytes, ff)) {
+                for (int i = 0; i < 19; i++) {
+                    mSerialPort.WriteSerialByte(fd, send);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        initSoundPool();
+    }
+
+    ReadSerialThread readSerialThread;
+    byte aa[] = {65, 84, 49, 35};//AT1#
+    byte bb[] = {65, 84, 51, 35};//AT3#
+    byte cc[] = {65, 84, 88, 35};//atx#
+    byte dd[] = {65, 84, 51, 35, 65, 84, 49, 35};
+    byte ee[] = {65, 84, 69, 35};//ate# jiq机器发生错误
+    byte ff[] = {65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71,
+            35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71,
+            35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71,
+            35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71,
+            35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71, 35};//atG#  仪器上电复位后,会发ATG# 19次，请上位机收到ATG# 后，才能认为数据有效
+    /**
+     * 数据处理
+     */
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            byte[] data = (byte[]) msg.obj;
+
+            List<String> results = parseData(data);
+            for (String result : results) {
+                String temp = edvRecord.getText().toString();
+                play(2, 0);
+
+                if (temp.length() > 10) {
+                    edvRecord.setText(result + "M\n");
+
+                } else {
+                    edvRecord.append(result + "M\n");
+                }
+                tvResult.setText(result + "M");
+            }
+        }
+    };
+    boolean isStart = true;
 
     private void initUI() {
         btnSingle = (Button) findViewById(R.id.btn_send);
@@ -107,83 +145,60 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
         bar.setVisibility(View.GONE);
         btnSwitch.setOnClickListener(this);
         btnSingle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isFirst = true;
-                mSerialPort.clearPortBuf(fd);
-                mSerialPort.WriteSerialByte(fd, cmd_single);//发送测距命令
-            }
-        });
-        btnAuto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    //开始连续测距
-                    isSecond = true;
-                    mSerialPort.clearPortBuf(fd);
-                    mSerialPort.WriteSerialByte(fd, cmd_repetition);
+                                         @Override
+                                         public void onClick(View v) {
+                                             isStart = true;
+                                             mSerialPort.clearPortBuf(fd);
+                                             mSerialPort.WriteSerialByte(fd, cmd_single);//发送测距命令
+                                             readSerialThread = new ReadSerialThread();
+                                             readSerialThread.start();
+                                         }
+                                     }
 
-//                    mSerialPort.WriteSerialByte(fd, cmd_single);
-                    tvStatus.setText("接收数据中……");
-                    bar.setVisibility(View.VISIBLE);
+        );
+        btnAuto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
 
-                } else {
-                    //Stop
-                    isThird = true;
-                    mSerialPort.clearPortBuf(fd);
-                    mSerialPort.WriteSerialByte(fd, cmd_stop);
-                    bar.setVisibility(View.INVISIBLE);
-                    tvStatus.setText("");
-                }
-            }
-        });
+                                           {
+                                               @Override
+                                               public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                   if (isChecked) {
+                                                       //开始连续测距
+                                                       isStart = true;
+                                                       startTask();
+                                                       readSerialThread = new ReadSerialThread();
+                                                       readSerialThread.start();
+//                                                       mSerialPort.clearPortBuf(fd);
+                                                       tvStatus.setText("接收数据中……");
+                                                       bar.setVisibility(View.VISIBLE);
+                                                   } else {
+                                                       //Stop
+                                                       mSerialPort.clearPortBuf(fd);
+                                                       readSerialThread.interrupt();
+                                                       if (timer != null) {
+                                                           timer.cancel();
+                                                           timer = null;
+                                                       }
+                                                       bar.setVisibility(View.INVISIBLE);
+                                                       tvStatus.setText("");
+                                                   }
+                                               }
+                                           }
+
+        );
         btnClear.setOnClickListener(this);
     }
 
-    private void initDevice() {
-        try {
-            mSerialPort = new SerialPort();
-            mSerialPort.OpenSerial(SerialPort.SERIAL_TTYMT1, 9600);//kt55串口
-            control = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 73, 0);
-            control.PowerOnDevice();
-            fd = mSerialPort.getFd();
-            if (readSerialThread == null) {
-                readSerialThread = new ReadSerialThread();
-            }
-            readSerialThread.start();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void startTask() {
+        if (timer == null) {
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    mSerialPort.WriteSerialByte(fd, cmd_single);
+                }
+            }, 0,1000);
         }
-        initSoundPool();
     }
-
-    /**
-     * 数据处理
-     */
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            byte[] data = (byte[]) msg.obj;
-
-            List<String> results = parseData(data);
-            for (String result : results) {
-                String temp = edvRecord.getText().toString();
-                play(2, 0);
-                if (Arrays.equals(data, ee)) {
-                    edvRecord.setText(result+"err\n");
-                }
-                if (temp.length() > 10) {
-                    edvRecord.setText(result + "M\n");
-
-                } else {
-                    edvRecord.append(result + "M\n");
-                }
-                tvResult.setText(result + "M");
-            }
-        }
-    };
-
 
     /**
      * 计算长度
@@ -216,6 +231,14 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
         if (data.length < 8) {
             Log.e(TAG, "====parseData len error" + DataConversionUtils.byteArrayToStringLog(data,
                     data.length));
+//            if (Arrays.equals(data, aa)) {
+//                isStart = false;
+//            } else {
+//                mSerialPort.WriteSerialByte(fd, cmd_single);//发送测距命令
+//            }
+            if (Arrays.equals(data, ee)) {
+                edvRecord.setText(result + "err\n");
+            }
 
             return result;
         }
@@ -235,7 +258,6 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
                         result.add(object);
                         Log.d(TAG, "====parseData add" + object);
                     }
-
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -245,21 +267,23 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
 
     }
 
-    ReadSerialThread readSerialThread = new ReadSerialThread();
-    private boolean isFirst = false;
-    boolean isThird = false;
-    boolean isSecond = false;
-    boolean isFourthly = true;
-    byte aa[] = {65, 84, 49, 35};//AT1#
-    byte bb[] = {65, 84, 51, 35};//AT3#
-    byte cc[] = {65, 84, 88, 35};//atx#
-    byte dd[] = {65, 84, 51, 35, 65, 84, 49, 35};
-    byte ee[] = {65, 84, 69, 35};//ate# jiq机器发生错误
-    byte ff[] = {65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71,
-            35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71,
-            35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71,
-            35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71,
-            35, 65, 84, 71, 35, 65, 84, 71, 35, 65, 84, 71, 35};//atG#  仪器上电复位后,会发ATG# 19次，请上位机收到ATG# 后，才能认为数据有效
+    @Override
+    public void onStart() {
+        super.onStart();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -277,27 +301,6 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
                 .build();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
-    }
-
-
     /**
      * 读串口线程
      */
@@ -314,45 +317,6 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
                             log += String.format("0x%x", x);
                         }
                         Log.d(TAG, "Read_length=" + log);
-                        if (isFourthly) {
-                            if (!Arrays.equals(bytes, ff)) {
-                                for (int i = 0; i < 19; i++) {
-
-                                    mSerialPort.WriteSerialByte(fd, send);
-                                }
-                            } else {
-                                 /**/
-                                isFourthly = false;
-                            }
-                        }
-
-                        if (isFirst) {
-                            if (Arrays.equals(bytes, aa)) {
-                                isFirst = false;
-                            } else {
-                                mSerialPort.WriteSerialByte(fd, cmd_single);//发送测距命令
-                            }
-                        }
-                        if (isSecond) {
-                            if (Arrays.equals(bytes, dd)) {
-                                isSecond = false;
-                            } else {
-                                Log.d(TAG, "zidong=");
-                                mSerialPort.clearPortBuf(fd);
-                                mSerialPort.WriteSerialByte(fd, cmd_repetition);
-                            }
-                        }
-                        if (isThird) {
-                            if (Arrays.equals(bytes, cc)) {
-                                isThird = false;
-                            } else {
-                                SystemClock.sleep(50);
-                                mSerialPort.clearPortBuf(fd);
-                                mSerialPort.WriteSerialByte(fd, cmd_stop);
-                                Log.d(TAG, "stop=");
-                            }
-                        }
-
                         Message msg = new Message();
                         msg.obj = bytes;
                         handler.sendMessage(msg);
@@ -361,9 +325,7 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
                     e.printStackTrace();
                 }
             }
-
         }
-
     }
 
     @Override
@@ -444,3 +406,5 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
                 0);//播放速率，0为正常速率
     }
 }
+
+

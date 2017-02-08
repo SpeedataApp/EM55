@@ -12,6 +12,10 @@ import android.os.Bundle;
  */
 
 public class BaseAct extends Activity {
+    /**
+     * com.geomobile.hallremove
+     * 监听背夹离开主机的广播
+     */
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -32,5 +36,18 @@ public class BaseAct extends Activity {
         super.onDestroy();
         finish();
         unregisterReceiver(receiver);
+    }
+    /**
+     * 打开指定的Activity页面
+     *
+     * @param actClass Activity页面类
+     */
+    public void openAct( Class<?> actClass) {
+        Intent intent=null;
+        if (intent == null) {
+            intent = new Intent();
+        }
+        intent.setClass(this, actClass);
+       startActivity(intent);
     }
 }
