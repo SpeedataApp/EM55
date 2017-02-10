@@ -96,7 +96,8 @@
 
         <activity
             android:name=".gxandurx.UhfAct"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name="com.spdata.Main2Activity"></activity>
     </application>
 
 </manifest>

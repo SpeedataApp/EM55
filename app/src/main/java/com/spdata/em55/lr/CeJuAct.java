@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.serialport.DeviceControl;
 import android.serialport.SerialPort;
 import android.util.Log;
@@ -50,7 +51,6 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
     private ToggleButton btnAuto;
     private ImageView imgtop, imgbottom;
     private TextView tvResult, tvStatus;
-
     private DeviceControl control;
     private SerialPort mSerialPort;
     private int fd;
@@ -144,47 +144,47 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
         tvStatus = (TextView) findViewById(R.id.textView2);
         bar.setVisibility(View.GONE);
         btnSwitch.setOnClickListener(this);
-        btnSingle.setOnClickListener(new View.OnClickListener() {
-                                         @Override
-                                         public void onClick(View v) {
-                                             isStart = true;
-                                             mSerialPort.clearPortBuf(fd);
-                                             mSerialPort.WriteSerialByte(fd, cmd_single);//发送测距命令
-                                             readSerialThread = new ReadSerialThread();
-                                             readSerialThread.start();
-                                         }
-                                     }
+        btnSingle.setOnClickListener
+                (new View.OnClickListener() {
+                     @Override
+                     public void onClick(View v) {
+                         isStart = true;
+                         mSerialPort.clearPortBuf(fd);
+                         mSerialPort.WriteSerialByte(fd, cmd_single);//发送测距命令
+                         readSerialThread = new ReadSerialThread();
+                         readSerialThread.start();
+                     }
+                 }
 
-        );
-        btnAuto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+                );
+        btnAuto.setOnCheckedChangeListener
+                (new CompoundButton.OnCheckedChangeListener() {
+                     @Override
+                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                         if (isChecked) {
+                             //开始连续测距
+                             isStart = true;
+                             mSerialPort.clearPortBuf(fd);
+                             startTask();
+                             readSerialThread = new ReadSerialThread();
+                             readSerialThread.start();
+                             tvStatus.setText("接收数据中……");
+                             bar.setVisibility(View.VISIBLE);
+                         } else {
+                             //Stop
+//                             mSerialPort.clearPortBuf(fd);
+                             readSerialThread.interrupt();
+                             if (timer != null) {
+                                 timer.cancel();
+                                 timer = null;
+                             }
+                             bar.setVisibility(View.INVISIBLE);
+                             tvStatus.setText("");
+                         }
+                     }
+                 }
 
-                                           {
-                                               @Override
-                                               public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                   if (isChecked) {
-                                                       //开始连续测距
-                                                       isStart = true;
-                                                       startTask();
-                                                       readSerialThread = new ReadSerialThread();
-                                                       readSerialThread.start();
-//                                                       mSerialPort.clearPortBuf(fd);
-                                                       tvStatus.setText("接收数据中……");
-                                                       bar.setVisibility(View.VISIBLE);
-                                                   } else {
-                                                       //Stop
-                                                       mSerialPort.clearPortBuf(fd);
-                                                       readSerialThread.interrupt();
-                                                       if (timer != null) {
-                                                           timer.cancel();
-                                                           timer = null;
-                                                       }
-                                                       bar.setVisibility(View.INVISIBLE);
-                                                       tvStatus.setText("");
-                                                   }
-                                               }
-                                           }
-
-        );
+                );
         btnClear.setOnClickListener(this);
     }
 
@@ -195,8 +195,24 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
                 @Override
                 public void run() {
                     mSerialPort.WriteSerialByte(fd, cmd_single);
+//                    SystemClock.sleep(200);
+//                    try {
+//                        byte[] bytes = mSerialPort.ReadSerial(mSerialPort.getFd(), 1024);
+//                        if (bytes != null) {
+//                            String log = "";
+//                            for (byte x : bytes) {
+//                                log += String.format("0x%x", x);
+//                            }
+//                            Log.d(TAG, "Read_length=" + log);
+//                            Message msg = new Message();
+//                            msg.obj = bytes;
+//                            handler.sendMessage(msg);
+//                        }
+//                    } catch (UnsupportedEncodingException e) {
+//                        e.printStackTrace();
+//                    }
                 }
-            }, 0,1000);
+            }, 0, 1000);
         }
     }
 
@@ -231,11 +247,11 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
         if (data.length < 8) {
             Log.e(TAG, "====parseData len error" + DataConversionUtils.byteArrayToStringLog(data,
                     data.length));
-//            if (Arrays.equals(data, aa)) {
-//                isStart = false;
-//            } else {
-//                mSerialPort.WriteSerialByte(fd, cmd_single);//发送测距命令
-//            }
+            if (Arrays.equals(data, aa)) {
+                isStart = false;
+            } else {
+                mSerialPort.WriteSerialByte(fd, cmd_single);//发送测距命令
+            }
             if (Arrays.equals(data, ee)) {
                 edvRecord.setText(result + "err\n");
             }
@@ -309,22 +325,23 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
         public void run() {
             super.run();
             while (!isInterrupted()) {
-                try {
-                    byte[] bytes = mSerialPort.ReadSerial(mSerialPort.getFd(), 1024);
-                    if (bytes != null) {
-                        String log = "";
-                        for (byte x : bytes) {
-                            log += String.format("0x%x", x);
-                        }
-                        Log.d(TAG, "Read_length=" + log);
-                        Message msg = new Message();
-                        msg.obj = bytes;
-                        handler.sendMessage(msg);
+            try {
+                byte[] bytes = mSerialPort.ReadSerial(mSerialPort.getFd(), 1024);
+                SystemClock.sleep(200);
+                if (bytes != null) {
+                    String log = "";
+                    for (byte x : bytes) {
+                        log += String.format("0x%x", x);
                     }
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+                    Log.d(TAG, "Read_length=" + log);
+                    Message msg = new Message();
+                    msg.obj = bytes;
+                    handler.sendMessage(msg);
                 }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
+        }
         }
     }
 
@@ -334,6 +351,10 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
             if (readSerialThread != null) {
                 readSerialThread.interrupt();
                 readSerialThread = null;
+            }
+            if (timer!=null) {
+                timer.cancel();
+                timer=null;
             }
             mSerialPort.CloseSerial(fd);
             control.PowerOffDevice();

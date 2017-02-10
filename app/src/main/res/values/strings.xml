@@ -7,7 +7,7 @@
     <string name="start">start</string>
     <string name="stop">stop</string>
     <string name="data">StartAndStop</string>
-    <!--finger-->
+    <!--fingerprint-->
     <string name="hello">Welcome to Finger SDK</string>
     <string name="TEXT_OPEN_DEVICE">OpenDevice</string>
     <string name="TEXT_CLOSE_DEVICE">CloseDevice</string>

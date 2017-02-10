@@ -171,7 +171,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 updateVersion.startUpdate();
                 break;
             case R.id.ly_uhf:
-                openAct(CeJuAct.class);
+                openAct(UhfAct.class);
                 break;
         }
         if (v == layoutid) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">EM55</string>
+  <string name="app_name">EM55</string>
     
     <!-- Toast提示 -->
   <string name="null_wight_hight">宽或高不能为空</string>
@@ -147,4 +147,25 @@
 \r\n公司名称：北京瑞工科技有限公司\r\n邮箱：mk@rgprt.com\r\n网址：http://www.rgprt.com/\r\n联系电话：010-62985019\r\n地址：北京市海淀区上地东路9号得实大厦二层中区5号</string>
 
     <string name="button_desktop">桌面打印</string>
+
+  <!--<string name="app_name">身份证测试</string>-->
+  <string name="BtnStr_Find">寻卡</string>
+  <string name="BtnStr_Choose">选卡</string>
+  <string name="BtnStr_Read">读卡</string>
+  <string name="BtnStr_Finger">指纹</string>
+  <string name="BtnStr_Send">发送</string>
+  <string name="Btn_Repetition">自动读卡</string>
+  <string name="Btn_Stop">停止</string>
+  <string name="BtnStr_Auto">自动</string>
+  <string name="Togauto_on">读卡:开</string>
+  <string name="Togauto_off">读卡:关</string>
+  <string name="Togopen_off">上电</string>
+  <string name="Togopen_on">下电</string>
+  <string name="spinner">命令</string>
+  <string name="StrNull"></string>
+  <string name="Status_OpenSerialFail">打开串口失败</string>
+  <string name="Status_OpenDevFileFail">打开设备文件失败</string>
+  <string name="Status_ManipulateFail">操作设备失败</string>
+  <string name="portrait">照片</string>
+  
 </resources>
