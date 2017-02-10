@@ -41,7 +41,7 @@ import java.util.Map;
  * Created by brxu on 2017/1/11.
  */
 
-public class CeJuActback extends BaseAct implements View.OnClickListener {
+public class CeJuActBack extends BaseAct implements View.OnClickListener {
 
     //控制机发：自动    AT3#
 //    byte[] cmd_repetition = new byte[]{0x41, 0x54, 0x33, 0x23};

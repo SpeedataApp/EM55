@@ -19,8 +19,6 @@ import com.spdata.em55.px.print.print.demo.firstview.ConnectAvtivity;
 import com.spdata.em55.px.psam.PsamAct;
 import com.spdata.updateversion.UpdateVersion;
 
-import java.io.IOException;
-
 
 /**
  * Created by lenovo_pc on 2016/9/27.
@@ -109,13 +107,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 layoutprint.setEnabled(false);
                 layoutfinger.setEnabled(true);
                 break;
-            case "40"://em55_GX  功能：uhf超高屏，枪柄按键,可以触发主机快捷扫描
-
-                try {
-                    myDeviceControl = new DeviceControl(DeviceControl.PowerType.EXPAND, 4, 6);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            case "80"://em55_GX  功能：uhf超高屏，枪柄按键,可以触发主机快捷扫描
                 lyceju.setEnabled(false);
                 lygps.setEnabled(false);
                 lywendu.setEnabled(false);
@@ -126,11 +118,6 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 layoutfinger.setEnabled(true);
                 break;
             case "64"://em55_URX  功能：电容式指纹采集识别，R2000 UHF超高频 ，旗联超高频
-                try {
-                    myDeviceControl = new DeviceControl(DeviceControl.PowerType.EXPAND, 4, 6);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 lyceju.setEnabled(false);
                 lygps.setEnabled(false);
                 lywendu.setEnabled(false);

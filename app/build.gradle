@@ -27,10 +27,11 @@ dependencies {
 //    compile files('libs/SerialPort.jar')RR
 //    compile 'com.speedata:libid2:1.2.6'
     //    compile 'com.speedatagroup:LibMarsdaemon:1.0'
-//    compile 'com.speedata:libuhf:5.2'
+    compile 'com.speedata:libuhf:5.9'
     compile 'com.speedata:libid2:1.6'
-    compile 'com.speedata:libuhf:5.3'
-    compile 'com.speedata:deivice:1.1'
+//    compile 'com.speedata:libuhf:+'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.speedata:deivice:+'
     compile 'com.android.support.test.espresso:espresso-core:2.2.2'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
