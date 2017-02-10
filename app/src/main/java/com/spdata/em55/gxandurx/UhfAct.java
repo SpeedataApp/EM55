@@ -17,9 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.spdata.em55.GetEm55External;
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
@@ -69,7 +67,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient client;
+//    private GoogleApiClient client;
     private DeviceControl myDeviceControl6;
     private DeviceControl myDeviceControl4;
 
@@ -110,7 +108,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+//        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -350,14 +348,14 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+//        client.connect();
+//        AppIndex.AppIndexApi.start(client, getIndexApiAction());
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
+//        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+//        client.disconnect();
     }
 }

@@ -113,7 +113,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 lywendu.setEnabled(false);
                 layoutpasm.setEnabled(false);
                 lyUhf.setEnabled(true);
-                layoutid.setEnabled(true);
+                layoutid.setEnabled(false);
                 layoutprint.setEnabled(false);
                 layoutfinger.setEnabled(true);
                 break;
@@ -156,9 +156,6 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
             case R.id.ly_updata:
                 UpdateVersion updateVersion = new UpdateVersion(this);
                 updateVersion.startUpdate();
-                break;
-            case R.id.ly_uhf:
-                openAct(CeJuAct.class);
                 break;
         }
         if (v == layoutid) {
