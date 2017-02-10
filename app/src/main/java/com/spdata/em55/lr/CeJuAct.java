@@ -326,8 +326,8 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
             super.run();
             while (!isInterrupted()) {
             try {
-                byte[] bytes = mSerialPort.ReadSerial(mSerialPort.getFd(), 1024);
                 SystemClock.sleep(200);
+                byte[] bytes = mSerialPort.ReadSerial(mSerialPort.getFd(), 1024);
                 if (bytes != null) {
                     String log = "";
                     for (byte x : bytes) {

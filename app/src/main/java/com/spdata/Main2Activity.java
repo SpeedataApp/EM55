@@ -1,8 +1,10 @@
 package com.spdata;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.serialport.DeviceControl;
 import android.serialport.SerialPort;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +63,14 @@ public class Main2Activity extends AppCompatActivity {
             for (byte x : data) {
                 log += String.format("0x%x", x);
             }
-            eee.setText(log);
+            if (data.length>4){
+                eee.setTextColor(Color.BLUE);
+                eee.append(log);
+            }else {
+                eee.setTextColor(Color.RED);
+                eee.append(log);
+            }
+
 
         }
     };
@@ -106,7 +115,8 @@ public class Main2Activity extends AppCompatActivity {
             super.run();
             while (!isInterrupted()) {
                 try {
-                    byte[] bytes = mSerialPort.ReadSerial(mSerialPort.getFd(), 1024);
+                    SystemClock.sleep(200);
+                    byte[] bytes = mSerialPort.ReadSerial(mSerialPort.getFd(), 2048);
                     if (bytes != null) {
                         String log = "";
                         for (byte x : bytes) {
@@ -121,6 +131,7 @@ public class Main2Activity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+
         }
     }
 
