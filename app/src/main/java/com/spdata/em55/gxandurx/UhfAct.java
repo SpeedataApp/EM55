@@ -1,11 +1,11 @@
 package com.spdata.em55.gxandurx;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.serialport.DeviceControl;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,7 +20,9 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.spdata.em55.GetEm55External;
 import com.spdata.em55.R;
+import com.spdata.em55.base.BaseAct;
 import com.spdata.em55.gxandurx.dialog.LockTagDialog;
 import com.spdata.em55.gxandurx.dialog.ReadTagDialog;
 import com.spdata.em55.gxandurx.dialog.SearchTagDialog;
@@ -36,9 +38,10 @@ import com.speedata.libuhf.utils.SharedXmlUtil;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import static com.speedata.libuhf.UHFManager.mContext;
+import java.io.IOException;
 
-public class UhfAct extends Activity implements View.OnClickListener {
+
+public class UhfAct extends BaseAct implements View.OnClickListener {
     /**
      * Called when the activity is first created.
      */
@@ -67,16 +70,31 @@ public class UhfAct extends Activity implements View.OnClickListener {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private DeviceControl myDeviceControl6;
+    private DeviceControl myDeviceControl4;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String readEm55 = GetEm55External.readEm55();
+        if (readEm55.equals("80") || readEm55.equals("64")) {
+            try {
+                myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 6);
+                myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND
+                        , 4);
+                myDeviceControl4.PowerOnDevice();
+                myDeviceControl6.PowerOnDevice();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
         iuhfService = UHFManager.getUHFService(UhfAct.this);
         if (iuhfService == null) {
-            Toast.makeText(mContext, "模块不识别", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UhfAct.this, "模块不识别", Toast.LENGTH_SHORT).show();
             return;
         }
-        modle = SharedXmlUtil.getInstance(mContext).read("modle", "");
+        modle = SharedXmlUtil.getInstance(UhfAct.this).read("modle", "");
         initUI();
 
         newWakeLock();
@@ -100,6 +118,7 @@ public class UhfAct extends Activity implements View.OnClickListener {
         super.onResume();
         if (openDev()) return;
     }
+
 
     @Override
     protected void onPause() {
@@ -215,6 +234,12 @@ public class UhfAct extends Activity implements View.OnClickListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        try {
+            myDeviceControl4.PowerOffDevice();
+            myDeviceControl6.PowerOffDevice();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         wK.release();
     }
 
@@ -293,10 +318,10 @@ public class UhfAct extends Activity implements View.OnClickListener {
             case KeyEvent.ACTION_DOWN:
                 if ((System.currentTimeMillis() - mkeyTime) > 2000) {
                     mkeyTime = System.currentTimeMillis();
-                    Toast.makeText(mContext, "再按一次退出", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UhfAct.this, "再按一次退出", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
-                        finish();
+                        UhfAct.this.finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
