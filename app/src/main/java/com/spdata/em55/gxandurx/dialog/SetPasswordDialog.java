@@ -3,6 +3,8 @@ package com.spdata.em55.gxandurx.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -74,27 +76,48 @@ public class SetPasswordDialog extends Dialog implements
     public void onClick(View v) {
         // TODO Auto-generated method stub
         if (v == Ok) {
-            String cur_pass = access_passwd.getText().toString();
-            String new_pass = new_passwd.getText().toString();
-            int which = area_select.getSelectedItemPosition();
-            int reval = iuhfService.set_Password(which, cur_pass,
-                    new_pass);
-            if (reval == 0) {
-                EventBus.getDefault().post(new MsgEvent("setPWD_Status", ""));
-                dismiss();
-            } else if (reval == -1) {
-                Status.setText(R.string.Status_Write_Error);
-            } else if (reval == -2) {
-                Status.setText(R.string.Status_Passwd_Length_Error);
-            } else if (reval == -3) {
-                Status.setText(R.string.Status_Content_Length_Error);
-            } else if (reval == -4) {
-                Status.setText(R.string.Status_InvalidNumber);
-            } else if (reval == -5) {
-                Status.setText(R.string.Status_Wrong_Password_Type);
-            }
+            final String cur_pass = access_passwd.getText().toString();
+            final String new_pass = new_passwd.getText().toString();
+            final int which = area_select.getSelectedItemPosition();
+            Status.setText("正在修改密码中....");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    int reval = iuhfService.set_Password(which, cur_pass,
+                            new_pass);
+                    Message message=new Message();
+                    message.what=1;
+                    message.obj=reval;
+                    handler.sendMessage(message);
+                }
+            }).start();
+
         } else if (v == Cancle) {
             dismiss();
         }
     }
+
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what==1){
+                int reval= (int) msg.obj;
+                if (reval == 0) {
+                    EventBus.getDefault().post(new MsgEvent("setPWD_Status", ""));
+                    dismiss();
+                } else if (reval == -1) {
+                    Status.setText(R.string.Status_Write_Error);
+                } else if (reval == -2) {
+                    Status.setText(R.string.Status_Passwd_Length_Error);
+                } else if (reval == -3) {
+                    Status.setText(R.string.Status_Content_Length_Error);
+                } else if (reval == -4) {
+                    Status.setText(R.string.Status_InvalidNumber);
+                } else if (reval == -5) {
+                    Status.setText(R.string.Status_Wrong_Password_Type);
+                }
+            }
+        }
+    };
 }
