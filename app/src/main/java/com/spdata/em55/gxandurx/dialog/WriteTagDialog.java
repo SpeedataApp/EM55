@@ -3,6 +3,8 @@ package com.spdata.em55.gxandurx.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,28 +72,47 @@ public class WriteTagDialog extends Dialog implements
     public void onClick(View v) {
         // TODO Auto-generated method stub
         if (v == Ok) {
-            String str_addr = Write_Addr.getText().toString();
-            String str_count = Write_Count.getText().toString();
-            String str_passwd = Write_Passwd.getText().toString();
-            int rev=iuhfService.write_area(which_choose,str_addr,str_passwd,str_count
-                    ,str_content);
-
-            if (rev == 0) {
-                EventBus.getDefault().post(new MsgEvent("write_Status","" ));
-                dismiss();
-            } else if (rev == -1) {
-                Status.setText(R.string.Status_Write_Error);
-            } else if (rev == -2) {
-                Status.setText(R.string.Status_Content_Length_Error);
-            } else if (rev == -3) {
-                Status.setText(R.string.Status_InvalidNumber);
-            }else {
-                Status.setText(R.string.Status_Write_Error);
-            }
+            final String str_addr = Write_Addr.getText().toString();
+            final String str_count = Write_Count.getText().toString();
+            final String str_passwd = Write_Passwd.getText().toString();
+            Status.setText("正在写卡中....");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    int rev=iuhfService.write_area(which_choose,str_addr,str_passwd,str_count
+                            ,str_content);
+                    Message message=new Message();
+                    message.what=1;
+                    message.obj=rev;
+                    handler.sendMessage(message);
+                }
+            }).start();
 
         } else if (v == Cancle) {
             dismiss();
         }
     }
 
+
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what==1){
+                int rev= (int) msg.obj;
+                if (rev == 0) {
+                    EventBus.getDefault().post(new MsgEvent("write_Status","" ));
+                    dismiss();
+                } else if (rev == -1) {
+                    Status.setText(R.string.Status_Write_Error);
+                } else if (rev == -2) {
+                    Status.setText(R.string.Status_Content_Length_Error);
+                } else if (rev == -3) {
+                    Status.setText(R.string.Status_InvalidNumber);
+                }else {
+                    Status.setText(R.string.Status_Write_Error);
+                }
+            }
+        }
+    };
 }
