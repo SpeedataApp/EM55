@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.Thing;
-import com.spdata.em55.GetEm55External;
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
 import com.spdata.em55.gxandurx.dialog.LockTagDialog;
@@ -74,7 +73,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String readEm55 = GetEm55External.readEm55();
+        String readEm55 = readEm55();
         if (readEm55.equals("80") || readEm55.equals("64")) {
             try {
                 myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 6);

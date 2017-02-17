@@ -4,7 +4,7 @@ Speedata Android SDK
 
 文件说明
 
-“UHF_AS”文件夹中存放了超高频的android stuido版开发源码，包含了lib文件。
+“EM55”文件夹中存放了超高频的android stuido版开发源码，包含了lib文件。
 
 “UHF_Eclipse”文件夹内分别存放了超高频dome的源码以及其需要导入的lib文件“SpeedataUhfLibs”和“LibDevice”
 安装包文件“uhfDome.apk”是超高频的demo文件。
@@ -25,4 +25,9 @@ Speedata Android SDK
 “LibDevice”作为library，被"SpeedataUhfLibs"调用。
 API文档
 
-详细的接口说明在showdoc，地址：http://www.showdoc.cc/11073?page_id=90826
+详细的接口说明在showdoc，地址：
+UHF :http://www.showdoc.cc/11073?page_id=90826
+ID2 :https://www.showdoc.cc/11034?page_id=107003
+PASM:https://www.showdoc.cc/12704?page_id=109428
+
+

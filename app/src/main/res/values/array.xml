@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="languages">
-        <item>19200</item>
         <item>9600</item>
+        <item>19200</item>
+        <item>38400</item>
         <item>115200</item>
-
     </string-array>
     <string-array name="gpio">
-        <item>GPIO14（KT45）</item>
-        <item>GPIO93（KT45Q）</item>
-        <item>GPIO7（KT40Q）</item>
         <item>GPIO48（KT40）</item>
-        <item>GPIO120（KT55）</item>
+        <item>GPIO7（KT40Q）</item>
+        <item>GPIO14（KT45）</item>
+        <item>GPIO96（KT45Q）</item>
+        <item>GPIO88（KT55）</item>
 
     </string-array>
     <string-array name="serialport">
@@ -19,6 +19,15 @@
         <item>ttyMT1</item>
         <item>ttyMT2</item>
         <item>ttyMT3</item>
-
+    </string-array>
+    <string-array name="wgpio">
+        <item>WGPIO0</item>
+        <item>WGPIO1</item>
+        <item>WGPIO2</item>
+        <item>WGPIO3</item>
+        <item>WGPIO4</item>
+        <item>WGPIO5</item>
+        <item>WGPIO6</item>
+        <item>WGPIO7</item>
     </string-array>
 </resources>

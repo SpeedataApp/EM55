@@ -97,6 +97,7 @@
             android:name=".gxandurx.UhfAct"
             android:screenOrientation="portrait" />
         <activity android:name="com.spdata.Main2Activity"></activity>
+        <activity android:name="com.spdata.em55.lr.CeJuActBack"></activity>
     </application>
 
 </manifest>

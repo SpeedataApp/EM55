@@ -1,16 +1,13 @@
 package com.spdata.em55;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.serialport.DeviceControl;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.spdata.em55.base.BaseAct;
 import com.spdata.em55.gxandurx.UhfAct;
-import com.spdata.em55.lr.CeJuAct;
+import com.spdata.em55.lr.CeJuActBack;
 import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.lr.TemperatureAct;
 import com.spdata.em55.px.ID2.ID2Act;
@@ -61,7 +58,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         lyUhf = (LinearLayout) findViewById(R.id.ly_uhf);
         lyUhf.setOnClickListener(this);
         try {
-            tvversion.setText("Version_New:" + getVersionName());
+            tvversion.setText("Version_New:" + getVersion());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,10 +70,8 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         showMenu();
     }
 
-    DeviceControl myDeviceControl;
-
     public void showMenu() {
-        switch (GetEm55External.readEm55()) {
+        switch (readEm55()) {
             case "0"://em55_px 主要功能为二代证读取 打印机 pasm卡 指纹
                 lyceju.setEnabled(false);
                 lygps.setEnabled(false);
@@ -145,7 +140,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ly_ceju:
-                openAct(CeJuAct.class);
+                openAct(CeJuActBack.class);
                 break;
             case R.id.ly_gps:
                 openAct(GpsAct.class);
@@ -169,17 +164,5 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         } else if (v == lyUhf) {
             openAct(UhfAct.class);
         }
-    }
-
-    /*
-    * 获取当前程序的版本号
-    */
-    private String getVersionName() throws Exception {
-        // 获取packagemanager的实例
-        PackageManager packageManager = this.getPackageManager();
-        // getPackageName()是你当前类的包名，0代表是获取版本信息
-        PackageInfo packInfo = packageManager.getPackageInfo(
-                this.getPackageName(), 0);
-        return packInfo.versionName;
     }
 }

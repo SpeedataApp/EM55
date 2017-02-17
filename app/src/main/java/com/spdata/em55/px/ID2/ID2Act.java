@@ -56,6 +56,8 @@ public class ID2Act extends BaseAct {
             super.handleMessage(msg);
             idInfor = (IDInfor) msg.obj;
             if (idInfor.isSuccess()) {
+                contView.setText("读卡成功");
+                play(1,0);
                 mtextsex.setText(idInfor.getSex());
                 mtextname.setText(idInfor.getName());
                 mtextaddr.setText(idInfor.getAddress());
@@ -76,6 +78,7 @@ public class ID2Act extends BaseAct {
                 }
             } else {
                 //TODO ERROR
+                play(3,0);
                 contView.setText(idInfor.getErrorMsg());
                 initID2Info();
             }
@@ -84,7 +87,7 @@ public class ID2Act extends BaseAct {
     };
     private IID2Service iid2Service;
     private CheckBox boxselect;
-    private Timer timers;
+    private Timer timers = null;
 
     private void initID2Info() {
         mtextsex.setText("男");
@@ -144,7 +147,11 @@ public class ID2Act extends BaseAct {
                 if (isChecked) {
                     startReadCard();
                 } else {
-                    timers.cancel();
+                    contView.setText("");
+                    if (timers != null) {
+                        timers.cancel();
+                        timers = null;
+                    }
                 }
             }
         });
@@ -161,10 +168,8 @@ public class ID2Act extends BaseAct {
                     handler.sendMessage(msg);
                 }
             }, SERIALPORT_PATH, 115200, DeviceControl.PowerType.MAIN_AND_EXPAND, 88, 6);
-//        }, "/dev/ttyMT2", 115200, IID2Service.PowerType.MAIN, 88);只主板上电
         } catch (IOException e) {
             e.printStackTrace();
-
             finish();
         }
     }
@@ -173,6 +178,7 @@ public class ID2Act extends BaseAct {
         super.onDestroy();
         if (timers != null) {
             timers.cancel();
+            timers = null;
         }
         try {
             iid2Service.releaseDev();
@@ -216,21 +222,22 @@ public class ID2Act extends BaseAct {
 //    }
 
     private void startReadCard() {
-        timers = new Timer();
+        if (timers == null) {
+            timers = new Timer();
+        }
         timers.schedule(new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        initID2Info();
-                        contView.setText("");
+//                        initID2Info();
+//                        contView.setText("");
                     }
                 });
                 iid2Service.getIDInfor(false);
             }
         }, 0, 3000);
     }
-
 
 }

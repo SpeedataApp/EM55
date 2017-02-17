@@ -1,7 +1,5 @@
 package com.spdata.em55.lr;
 
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,9 +31,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -57,7 +53,6 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
     private boolean isTop = true;
     private EditText edvRecord;
     float results = 0;
-    private SoundPool sp; //声音池
 
     private final String TAG = "RedDATA";
     private WaitingBar bar;
@@ -91,7 +86,6 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        initSoundPool();
     }
 
     ReadSerialThread readSerialThread;
@@ -361,9 +355,6 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (sp != null) {
-            sp.release();
-        }
         super.onDestroy();
     }
 
@@ -404,27 +395,6 @@ public class CeJuAct extends BaseAct implements View.OnClickListener {
             value += (bytes[i] & 0x000000FF) << shift;// 往高位游
         }
         return value;
-    }
-
-    private Map<Integer, Integer> mapSRC;
-
-    //初始化声音池
-    private void initSoundPool() {
-        sp = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        mapSRC = new HashMap<Integer, Integer>();
-        mapSRC.put(2, sp.load(this, R.raw.welcome, 0));
-    }
-
-    /**
-     * 播放声音池的声音
-     */
-    private void play(int sound, int number) {
-        sp.play(mapSRC.get(sound),//播放的声音资源
-                1.0f,//左声道，范围为0--1.0
-                1.0f,//右声道，范围为0--1.0
-                0, //优先级，0为最低优先级
-                number,//循环次数,0为不循环
-                0);//播放速率，0为正常速率
     }
 }
 

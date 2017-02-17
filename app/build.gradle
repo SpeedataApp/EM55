@@ -9,7 +9,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
-        versionName "1.7.4"
+        versionName "1.7.5"
     }
     buildTypes {
         release {
@@ -28,7 +28,8 @@ dependencies {
 //    compile 'com.speedata:libid2:1.2.6'
     //    compile 'com.speedatagroup:LibMarsdaemon:1.0'
     compile 'com.speedata:libuhf:5.9'
-    compile 'com.speedata:libid2:1.6'
+    compile 'com.speedata:libid2:1.7'
+    compile 'com.speedata:psam:1.1'
 //    compile 'com.speedata:libuhf:+'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.speedata:deivice:+'

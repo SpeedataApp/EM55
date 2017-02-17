@@ -1,7 +1,5 @@
 package com.spdata.em55.lr;
 
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,9 +31,9 @@ import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by brxu on 2017/1/11.
@@ -72,7 +70,6 @@ public class CeJuActBack extends BaseAct implements View.OnClickListener {
     private boolean isTop = true;
     private EditText edvRecord;
     float results = 0;
-    private SoundPool sp; //声音池
 
     private final String TAG = "RedDATA";
     private WaitingBar bar;
@@ -93,6 +90,8 @@ public class CeJuActBack extends BaseAct implements View.OnClickListener {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+    boolean aaaa = false;
+
     private void initUI() {
         btnSingle = (Button) findViewById(R.id.btn_send);
         btnAuto = (ToggleButton) findViewById(R.id.btn_zid);
@@ -112,27 +111,7 @@ public class CeJuActBack extends BaseAct implements View.OnClickListener {
                 isFirst = true;
                 mSerialPort.clearPortBuf(fd);
                 mSerialPort.WriteSerialByte(fd, cmd_single);//发送测距命令
-//                try {
-//                    byte[] bytes = mSerialPort.ReadSerial(fd, 1024);
-//                    if (bytes!=null) {
-//                        if (isFirst) {
-//                            byte[] cmd = new byte[4];
-//                            System.arraycopy(bytes, 0, cmd, 0, 4);
-//                            if (!Arrays.equals(cmd, aa)) {
-//                                mSerialPort.WriteSerialByte(fd, cmd_single);//发送测距命令
-//                            } else {
-//                                isFirst = false;
-//                            }
-//                        }
-//                    }else {
-//                        Message msg = new Message();
-//                        msg.obj = bytes;
-//                        handler.sendMessage(msg);
-//                    }
-//
-//                } catch (UnsupportedEncodingException e) {
-//                    e.printStackTrace();
-//                }
+
             }
         });
         btnAuto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -141,24 +120,24 @@ public class CeJuActBack extends BaseAct implements View.OnClickListener {
                 if (isChecked) {
                     //开始连续测距
                     isSecond = true;
-//                    if (readSerialThread == null) {
-//                        readSerialThread = new ReadSerialThread();
-//                    }
-//                    readSerialThread.start();
+                    isThird = false;
+                    aaaa = true;
+                    btnSingle.setEnabled(false);
                     mSerialPort.clearPortBuf(fd);
                     mSerialPort.WriteSerialByte(fd, cmd_repetition);
-
-//                    mSerialPort.WriteSerialByte(fd, cmd_single);
                     tvStatus.setText("接收数据中……");
+                    Log.d(TAG, "btn_start=");
                     bar.setVisibility(View.VISIBLE);
-
                 } else {
                     //Stop
                     isThird = true;
-//                    readSerialThread.interrupt();
+                    aaaa = false;
+                    isSecond = false;
+                    btnSingle.setEnabled(true);
                     mSerialPort.clearPortBuf(fd);
                     mSerialPort.WriteSerialByte(fd, cmd_stop);
                     bar.setVisibility(View.INVISIBLE);
+                    Log.d(TAG, "btn_stop=");
                     tvStatus.setText("");
                 }
             }
@@ -180,7 +159,6 @@ public class CeJuActBack extends BaseAct implements View.OnClickListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        initSoundPool();
     }
 
     /**
@@ -333,68 +311,88 @@ public class CeJuActBack extends BaseAct implements View.OnClickListener {
             while (!isInterrupted()) {
                 try {
                     byte[] bytes = mSerialPort.ReadSerial(mSerialPort.getFd(), 1024);
+
+                    if (isFourthly) {
+                        if (!Arrays.equals(bytes, ff)) {
+                            for (int i = 0; i < 19; i++) {
+                                mSerialPort.WriteSerialByte(fd, send);
+                            }
+                        } else {
+                            isFourthly = false;
+                        }
+                    }
+                    if (isFirst) {
+                        if (Arrays.equals(bytes, aa)) {
+                            isFirst = false;
+                        } else {
+                            mSerialPort.WriteSerialByte(fd, cmd_single);//发送测距命令
+                        }
+                    }
+                    Log.d(TAG, isSecond + "--isSecond@@@@@");
+                    if (isSecond) {
+                        if (bytes==null){
+                           chaoshi();
+                        }
+                        if (Arrays.equals(bytes, dd)) {
+                            isSecond = false;
+                        } else {
+                            Log.d(TAG, "start=");
+                            mSerialPort.clearPortBuf(fd);
+                            mSerialPort.WriteSerialByte(fd, cmd_repetition);
+                        }
+                    }
+                    Log.d(TAG, isThird + "--isThird$$$$");
+                    if (isThird) {
+                        if (Arrays.equals(bytes, cc)) {
+                            isThird = false;
+                        } else {
+                            SystemClock.sleep(50);
+                            mSerialPort.clearPortBuf(fd);
+                            mSerialPort.WriteSerialByte(fd, cmd_stop);
+                            SystemClock.sleep(50);
+                            mSerialPort.clearPortBuf(fd);
+                            mSerialPort.WriteSerialByte(fd, cmd_stop);
+                            SystemClock.sleep(50);
+                            mSerialPort.clearPortBuf(fd);
+                            mSerialPort.WriteSerialByte(fd, cmd_stop);
+                            Log.d(TAG, "stop=");
+                            continue;
+                        }
+                    }
                     if (bytes != null) {
                         String log = "";
                         for (byte x : bytes) {
                             log += String.format("0x%x", x);
                         }
                         Log.d(TAG, "Read_length=" + log);
-//                        if (isFourthly) {
-//                            if (!Arrays.equals(bytes, ff)) {
-//                                for (int i = 0; i < 19; i++) {
-//                                    mSerialPort.WriteSerialByte(fd, send);
-//                                }
-//                            } else {
-//                                 /**/
-//                                isFourthly = false;
-//                            }
-//                        }
-
-                        if (isFirst) {
-                            if (Arrays.equals(bytes, aa)) {
-                                isFirst = false;
-                            } else {
-                                mSerialPort.WriteSerialByte(fd, cmd_single);//发送测距命令
-                            }
-                        }
-                        if (isSecond) {
-                            if (Arrays.equals(bytes, dd)) {
-                                isSecond = false;
-                            } else {
-                                Log.d(TAG, "zidong=");
-                                mSerialPort.clearPortBuf(fd);
-                                mSerialPort.WriteSerialByte(fd, cmd_repetition);
-                            }
-                        }
-                        if (isThird) {
-                            if (Arrays.equals(bytes, cc)) {
-                                isThird = false;
-                            } else {
-                                SystemClock.sleep(50);
-                                mSerialPort.clearPortBuf(fd);
-                                mSerialPort.WriteSerialByte(fd, cmd_stop);
-                                SystemClock.sleep(50);
-                                mSerialPort.clearPortBuf(fd);
-                                mSerialPort.WriteSerialByte(fd, cmd_stop);
-                                SystemClock.sleep(50);
-                                mSerialPort.clearPortBuf(fd);
-                                mSerialPort.WriteSerialByte(fd, cmd_stop);
-                                Log.d(TAG, "stop=");
-                            }
-                        }
-
                         Message msg = new Message();
                         msg.obj = bytes;
                         handler.sendMessage(msg);
+                    } else {
+//                        if (aaaa) {
+//                            chaoshi();
+//                            Log.d(TAG, "CHAOSHI=");
+//                        }
                     }
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
             }
-
         }
-
     }
+
+    Timer timer = null;
+
+    private void chaoshi() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                mSerialPort.WriteSerialByte(fd, cmd_repetition);
+            }
+        }, 1000);
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -407,9 +405,6 @@ public class CeJuActBack extends BaseAct implements View.OnClickListener {
             control.PowerOffDevice();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        if (sp != null) {
-            sp.release();
         }
         super.onDestroy();
     }
@@ -451,26 +446,5 @@ public class CeJuActBack extends BaseAct implements View.OnClickListener {
             value += (bytes[i] & 0x000000FF) << shift;// 往高位游
         }
         return value;
-    }
-
-    private Map<Integer, Integer> mapSRC;
-
-    //初始化声音池
-    private void initSoundPool() {
-        sp = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        mapSRC = new HashMap<Integer, Integer>();
-        mapSRC.put(2, sp.load(this, R.raw.welcome, 0));
-    }
-
-    /**
-     * 播放声音池的声音
-     */
-    private void play(int sound, int number) {
-        sp.play(mapSRC.get(sound),//播放的声音资源
-                1.0f,//左声道，范围为0--1.0
-                1.0f,//右声道，范围为0--1.0
-                0, //优先级，0为最低优先级
-                number,//循环次数,0为不循环
-                0);//播放速率，0为正常速率
     }
 }
