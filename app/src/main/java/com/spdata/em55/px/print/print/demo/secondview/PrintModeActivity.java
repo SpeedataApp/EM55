@@ -133,7 +133,13 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mContext.printSettings();
+
+				if (firstPrint){
+					firstPrint=false;
+					mContext.printSettings();
+					firstPrint=true;
+				}
+
 			}
 		});
 		// 压力测试按钮监听
@@ -159,8 +165,18 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 
 	}
 
-	// 压力测试
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (timer!=null){
+            stopTest();
+        }
+    }
 
+
+    // 压力测试
+
+	private Boolean firstPrint=true;
 	private final int period = 1000;
 	private Timer timer;
 

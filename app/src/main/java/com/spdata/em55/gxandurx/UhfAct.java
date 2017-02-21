@@ -77,8 +77,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         if (readEm55.equals("80") || readEm55.equals("64")) {
             try {
                 myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 6);
-                myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND
-                        , 4);
+                myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND, 4);
                 myDeviceControl4.PowerOnDevice();
                 myDeviceControl6.PowerOnDevice();
             } catch (IOException e) {
@@ -86,6 +85,11 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
             }
 
         }
+        String em55 = SharedXmlUtil.getInstance(UhfAct.this).read("readEm55", "");
+        if (em55 != null && !em55.equals(readEm55)) {
+            SharedXmlUtil.getInstance(UhfAct.this).write("modle", "");
+        }
+        SharedXmlUtil.getInstance(UhfAct.this).write("readEm55", readEm55);
         iuhfService = UHFManager.getUHFService(UhfAct.this);
         if (iuhfService == null) {
             Toast.makeText(UhfAct.this, "模块不识别", Toast.LENGTH_SHORT).show();

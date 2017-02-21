@@ -90,7 +90,7 @@ public class ApplicationContext extends Application {
     /**
      * 将打印n行空行。n的值应该在0-255之间
      *
-     * @param n
+     * @param
      */
 
     public void PrintNLine(int lines) {
