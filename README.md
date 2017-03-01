@@ -23,11 +23,12 @@ Speedata Android SDK
 和 compile 'com.speedata:libuhf:+'
 使用Eclipse的开发人员，需要把”eclipse源码“文件夹中的三个源码都导入开发工具，其中“SpeedataUhfLibs”和“LibDevice”作为library，被Uhfdome程序源码调用。
 “LibDevice”作为library，被"SpeedataUhfLibs"调用。
-API文档
 
+API文档
 详细的接口说明在showdoc，地址：
 UHF :http://www.showdoc.cc/11073?page_id=90826
 ID2 :https://www.showdoc.cc/11034?page_id=107003
 PASM:https://www.showdoc.cc/12704?page_id=109428
+Em55-LR:https://www.showdoc.cc/13641?page_id=119465
 
 
