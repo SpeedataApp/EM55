@@ -14,18 +14,12 @@ import android.widget.TextView;
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Timer;
-import java.util.TimerTask;
+
+import speedatacom.humitures.HumitureManager;
+import speedatacom.humitures.IHumiture;
 
 public class TemperatureAct extends BaseAct implements View.OnClickListener {
-
-    //private static final String DEVFILE_PATH = "/proc/driver/captwo";
-    private static final String HUMFILE_PATH = "/sys/class/misc/si7020/hum";
-    private static final String TEMFILE_PATH = "/sys/class/misc/si7020/tem";
     private TextView Temperature;
     private TextView Humidity;
     private Button btnstart;
@@ -33,38 +27,27 @@ public class TemperatureAct extends BaseAct implements View.OnClickListener {
     private PowerManager pM = null;
     private WakeLock wK = null;
     private Timer timer = null;
-    private String Hum = "0";
-    private String Tem = "0";
-    private BufferedReader read_Hum;
-    private BufferedReader read_Tem;
     private boolean isRunning = false;
-    File HumName;
-    File TemName;
-
-    /**
-     * Called when the activity is first created.
-     */
+    IHumiture humitureManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_wsd);
         initUI();
+        humitureManager = HumitureManager.getHumitureIntance();
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnstart) {
             isRunning = true;
-            startTimerTask();
+            humitureManager.startTimerTask(handler);
         } else if (v == btnstop) {
             isRunning = false;
             Humidity.setText("%");
             Temperature.setText("℃");
-            if (timer != null) {
-                timer.cancel();
-                timer = null;
-            }
+            humitureManager.stopTimerTask();
         }
     }
 
@@ -91,10 +74,6 @@ public class TemperatureAct extends BaseAct implements View.OnClickListener {
         btnstop.setOnClickListener(this);
         Temperature.setTextColor(Color.BLACK);
         Humidity.setTextColor(Color.BLACK);
-
-        HumName = new File(HUMFILE_PATH);
-        TemName = new File(TEMFILE_PATH);
-
         pM = (PowerManager) getSystemService(POWER_SERVICE);
         if (pM != null) {
             wK = pM.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "lockpsam");
@@ -109,43 +88,13 @@ public class TemperatureAct extends BaseAct implements View.OnClickListener {
         }
         if (isRunning) {
             isRunning = true;
-            startTimerTask();
+            humitureManager.startTimerTask(handler);
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
-    }
-
-    private void startTimerTask() {
-        if (timer == null) {
-            timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    try {
-                        read_Hum = new BufferedReader(new FileReader(HumName));
-                        Hum = read_Hum.readLine();
-                        read_Tem = new BufferedReader(new FileReader(TemName));
-                        Tem = read_Tem.readLine();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Log.d("#######", Hum + Tem);
-                    float[] data = new float[2];
-                    data[0] = Float.parseFloat(Hum);
-                    data[1] = Float.parseFloat(Tem) / 100;
-                    Message message = new Message();
-                    message.what = 1;
-                    message.obj = data;
-                    handler.sendMessage(message);
-                }
-            }, 0, 1000);
-        }
+        humitureManager.stopTimerTask();
     }
 }

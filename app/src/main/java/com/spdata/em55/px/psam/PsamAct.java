@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
-import com.spdata.em55.px.psam.utils.MyLogger;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -42,7 +41,6 @@ public class PsamAct extends BaseAct implements View.OnClickListener {
     private int psamflag = 0;
     private DeviceControl mDeviceControl;
     private DeviceControl mDeviceControl2;
-    private MyLogger logger = MyLogger.jLog();
     private Context mContext;
     private Timer timer;
     private Button btnReSet;
@@ -104,7 +102,7 @@ public class PsamAct extends BaseAct implements View.OnClickListener {
             String action = intent.getAction();
             if (action.equals(POWER_ACTION)) {
                 result = intent.getBooleanExtra(POWER_RESULT, false);
-//                tvShowData.setText("Psam activite： " + result + "\n");
+                tvShowData.setText("Psam activite： " + result + "\n");
             }
         }
     };
@@ -114,17 +112,9 @@ public class PsamAct extends BaseAct implements View.OnClickListener {
         if (v == btnPsam1) {
             psamflag = 1;
             psam.PsamPower(IPsam.PowerType.Psam1);
-            if (result)
-                tvShowData.setText("Psam1 activite ok\n");
-            else
-                tvShowData.setText("Psam1 activite failed\n");
         } else if (v == btnPsam2) {
             psamflag = 2;
             psam.PsamPower(IPsam.PowerType.Psam2);
-            if (result)
-                tvShowData.setText("Psam2 activite ok\n");
-            else
-                tvShowData.setText("Psam2 activite failed\n");
         } else if (v == btnGetRamdon) {
             if (psamflag == 1) {
                 int len = psam.sendData(new byte[]{0x00, (byte) 0x84, 0x00, 0x00,
@@ -172,6 +162,7 @@ public class PsamAct extends BaseAct implements View.OnClickListener {
             tvShowData.setText("");
         } else if (v == btnReSet) {
             psam.resetDev(DeviceControl.PowerType.EXPAND, 1);
+            Toast.makeText(PsamAct.this,"reset ok",Toast.LENGTH_SHORT).show();
         } else if (v == btnPower) {
             PowerOpenDev();
         }
@@ -204,7 +195,7 @@ public class PsamAct extends BaseAct implements View.OnClickListener {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             byte[] temp_cmd = (byte[]) msg.obj;
-            tvShowData.append("rece data:" + com.speedata.libutils.DataConversionUtils.byteArrayToString(temp_cmd));
+            tvShowData.append("rece data:" + com.speedata.libutils.DataConversionUtils.byteArrayToString(temp_cmd)+"\n");
         }
     };
 }

@@ -144,6 +144,7 @@
             android:layout_width="80dp"
             android:layout_height="75dp"
             android:id="@+id/ly_updata"
+            android:visibility="gone"
             android:layout_marginTop="20dp"
             android:background="@drawable/shape_border_selector"
             android:orientation="vertical">
@@ -249,7 +250,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="PASM卡"
+                    android:text="PSAM卡"
                     android:textSize="15dp"
                     android:layout_marginBottom="5dp"
                     android:layout_below="@id/im_pasm" />

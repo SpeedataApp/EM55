@@ -57,7 +57,7 @@ public class ID2Act extends BaseAct {
             idInfor = (IDInfor) msg.obj;
             if (idInfor.isSuccess()) {
                 contView.setText("读卡成功");
-                play(1,0);
+                play(1, 0);
                 mtextsex.setText(idInfor.getSex());
                 mtextname.setText(idInfor.getName());
                 mtextaddr.setText(idInfor.getAddress());
@@ -73,12 +73,13 @@ public class ID2Act extends BaseAct {
                 mImageViewPhoto.setImageBitmap(idInfor.getBmps());
                 if (idInfor.isWithFinger()) {
                     //有zhiwen
-                    idInfor.getFingerprStringer();
+                    byte[] fp = new byte[1024];
+                    fp = idInfor.getFingerprStringer();
                     Toast.makeText(ID2Act.this, "该身份证有指纹！", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 //TODO ERROR
-                play(3,0);
+                play(3, 0);
                 contView.setText(idInfor.getErrorMsg());
                 initID2Info();
             }
@@ -235,7 +236,7 @@ public class ID2Act extends BaseAct {
 //                        contView.setText("");
                     }
                 });
-                iid2Service.getIDInfor(false);
+                iid2Service.getIDInfor(true);
             }
         }, 0, 3000);
     }

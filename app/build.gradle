@@ -1,15 +1,14 @@
 apply plugin: 'com.android.application'
 //apply plugin: 'pmd'
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
-
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "com.spdata.em55"
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
-        versionName "1.7.5"
+        versionName "1.7.7"
     }
     buildTypes {
         release {
@@ -17,8 +16,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-
 }
 
 dependencies {
@@ -26,15 +23,13 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile files('libs/orm.jar')
-//    compile files('libs/SerialPort.jar')RR
-//    compile 'com.speedata:libid2:1.2.6'
-    //    compile 'com.speedatagroup:LibMarsdaemon:1.0'
-    compile 'com.speedata:libuhf:5.9'
-    compile 'com.speedata:libid2:1.7'
-    compile 'com.speedata:psam:1.1'
-//    compile 'com.speedata:libuhf:+'
+    compile 'com.speedata:libuhf:5.9'//uhf
+    compile 'com.speedata:libid2:1.7'//身份证
+    compile 'com.speedata:psam:1.3'
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.speedata:deivice:+'
+    compile 'com.speedata:deivice:+'//串口
+    compile 'com.speedata:Distance:1.0'//测距
+    compile 'com.speedata:humiture2:1.0'//温湿度
     compile 'com.android.support.test.espresso:espresso-core:2.2.2'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }

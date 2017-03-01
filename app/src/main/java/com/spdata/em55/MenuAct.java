@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.spdata.em55.base.BaseAct;
 import com.spdata.em55.gxandurx.UhfAct;
-import com.spdata.em55.lr.CeJuActBack;
+import com.spdata.em55.lr.DistanceAct;
 import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.lr.TemperatureAct;
 import com.spdata.em55.px.ID2.ID2Act;
@@ -32,6 +32,8 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_menu);
         initUI();
+        UpdateVersion updateVersion = new UpdateVersion(this);
+        updateVersion.startUpdate();
     }
 
     private void initUI() {
@@ -140,7 +142,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ly_ceju:
-                openAct(CeJuActBack.class);
+                openAct(DistanceAct.class);
                 break;
             case R.id.ly_gps:
                 openAct(GpsAct.class);
