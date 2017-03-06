@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.serialport.DeviceControl;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -56,8 +58,8 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     private IUHFService iuhfService;
     private String current_tag_epc = null;
     private Button Speedt;
-//    private PowerManager pM = null;
-//    private PowerManager.WakeLock wK = null;
+    private PowerManager pM = null;
+    private PowerManager.WakeLock wK = null;
     private int init_progress = 0;
     private String modle;
     /**
@@ -95,8 +97,8 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         }
         modle = SharedXmlUtil.getInstance(UhfAct.this).read("modle", "");
         initUI();
-        if (openDev()) return;
-//        newWakeLock();
+//        if (openDev()) return;
+        newWakeLock();
         org.greenrobot.eventbus.EventBus.getDefault().register(this);
         Set_Tag.setEnabled(true);
         Search_Tag.setEnabled(true);
@@ -115,7 +117,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-//        if (openDev()) return;
+        if (openDev()) return;
     }
 
 
@@ -123,7 +125,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     protected void onPause() {
         super.onPause();
 //        Log.d("r2000_kt45", "called ondestory");
-//        iuhfService.CloseDev();
+        iuhfService.CloseDev();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -159,22 +161,22 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         }
     }
 
-//    private void newWakeLock() {
-//        init_progress++;
-//        pM = (PowerManager) getSystemService(POWER_SERVICE);
-//        if (pM != null) {
-//            wK = pM.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK
-//                    | PowerManager.ON_AFTER_RELEASE, "lock3992");
-//            if (wK != null) {
-//                wK.acquire();
-//                init_progress++;
-//            }
-//        }
-//
-//        if (init_progress == 1) {
-//            Log.w("3992_6C", "wake lock init failed");
-//        }
-//    }
+    private void newWakeLock() {
+        init_progress++;
+        pM = (PowerManager) getSystemService(POWER_SERVICE);
+        if (pM != null) {
+            wK = pM.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK
+                    | PowerManager.ON_AFTER_RELEASE, "lock3992");
+            if (wK != null) {
+                wK.acquire();
+                init_progress++;
+            }
+        }
+
+        if (init_progress == 1) {
+            Log.w("3992_6C", "wake lock init failed");
+        }
+    }
 
     private boolean openDev() {
         if (iuhfService.OpenDev() != 0) {
@@ -236,8 +238,8 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         try {
             myDeviceControl4.PowerOffDevice();
             myDeviceControl6.PowerOffDevice();
-            iuhfService.CloseDev();
-//            wK.release();
+//            iuhfService.CloseDev();
+            wK.release();
         } catch (IOException e) {
             e.printStackTrace();
         }
