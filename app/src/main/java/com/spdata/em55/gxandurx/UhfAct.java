@@ -97,7 +97,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         }
         modle = SharedXmlUtil.getInstance(UhfAct.this).read("modle", "");
         initUI();
-        if (openDev()) return;
+//        if (openDev()) return;
         newWakeLock();
         org.greenrobot.eventbus.EventBus.getDefault().register(this);
         Set_Tag.setEnabled(true);
@@ -117,7 +117,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-//        if (openDev()) return;
+        if (openDev()) return;
     }
 
 
@@ -125,7 +125,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     protected void onPause() {
         super.onPause();
 //        Log.d("r2000_kt45", "called ondestory");
-//        iuhfService.CloseDev();
+        iuhfService.CloseDev();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -238,7 +238,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         try {
             myDeviceControl4.PowerOffDevice();
             myDeviceControl6.PowerOffDevice();
-            iuhfService.CloseDev();
+//            iuhfService.CloseDev();
             wK.release();
         } catch (IOException e) {
             e.printStackTrace();
