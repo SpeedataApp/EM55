@@ -2,8 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spdata.em55">
 
-    <uses-feature android:name="android.hardware.usb.host" />
+    <uses-feature
+        android:name="android.hardware.usb.host"
+        android:required="true" />
 
+    <uses-permission
+        android:name="android.hardware.usb.host"
+        android:required="false" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,6 +18,13 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <uses-feature
+        android:name="android.hardware.usb.host"
+        android:required="true" />
+
+    <uses-permission
+        android:name="android.hardware.usb.host"
+        android:required="false" />
     <application
         android:name=".px.print.utils.ApplicationContext"
         android:allowBackup="true"
@@ -91,7 +103,8 @@
         <activity
             android:name=".gxandurx.UhfAct"
             android:screenOrientation="portrait" />
-        <activity android:name=".lr.DistanceAct"
+        <activity
+            android:name=".lr.DistanceAct"
             android:screenOrientation="portrait">
 
         </activity>

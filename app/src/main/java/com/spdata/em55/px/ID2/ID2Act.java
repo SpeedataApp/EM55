@@ -55,8 +55,8 @@ public class ID2Act extends BaseAct {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             idInfor = (IDInfor) msg.obj;
+//            iid2Service.getIDInfor(false);
             if (idInfor.isSuccess()) {
-                contView.setText("读卡成功");
                 play(1, 0);
                 mtextsex.setText(idInfor.getSex());
                 mtextname.setText(idInfor.getName());
@@ -79,9 +79,9 @@ public class ID2Act extends BaseAct {
                 }
             } else {
                 //TODO ERROR
-                play(3, 0);
-                contView.setText(idInfor.getErrorMsg());
-                initID2Info();
+//                play(3, 0);
+//                contView.setText(idInfor.getErrorMsg());
+//                initID2Info();
             }
 
         }
@@ -119,6 +119,7 @@ public class ID2Act extends BaseAct {
         initID2Info();
     }
 
+
     private void initUI() {
         findBtn = (Button) findViewById(R.id.button_find);
         chooseBtn = (Button) findViewById(R.id.button_choose);
@@ -147,8 +148,12 @@ public class ID2Act extends BaseAct {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     startReadCard();
+//                    iid2Service.getIDInfor(false);
+//                    readIDinfo = new readIDinfo();
+//                    readIDinfo.start();
                 } else {
                     contView.setText("");
+                    initID2Info();
                     if (timers != null) {
                         timers.cancel();
                         timers = null;
@@ -229,16 +234,9 @@ public class ID2Act extends BaseAct {
         timers.schedule(new TimerTask() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        initID2Info();
-//                        contView.setText("");
-                    }
-                });
-                iid2Service.getIDInfor(true);
+                iid2Service.getIDInfor(false);
             }
-        }, 0, 3000);
+        }, 20, 2700);
     }
 
 }

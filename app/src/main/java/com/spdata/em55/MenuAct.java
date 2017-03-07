@@ -74,7 +74,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
 
     public void showMenu() {
         switch (readEm55()) {
-            case "0"://em55_px 主要功能为二代证读取 打印机 pasm卡 指纹
+            case "1"://em55_px 主要功能为二代证读取 打印机 pasm卡 指纹
                 lyceju.setEnabled(false);
                 lygps.setEnabled(false);
                 lywendu.setEnabled(false);
