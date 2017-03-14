@@ -93,6 +93,12 @@ public class TemperatureAct extends BaseAct implements View.OnClickListener {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        humitureManager.stopTimerTask();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         humitureManager.stopTimerTask();

@@ -131,7 +131,7 @@ public class LAPI {
 	// Purpose   : This function finalizes the Finger Recognition SDK Library.
  	// Function  : CloseDevice
 	// Arguments : 
-	//      (In£© : int device : used with the return of function "OpenDevice()"
+	//      (In?? : int device : used with the return of function "OpenDevice()"
 	// Return    : int
 	//			      If successful, return 1, else 0 	
 	//------------------------------------------------------------------------------------------------//
@@ -147,8 +147,8 @@ public class LAPI {
 	// Purpose   : This function return image captured from this device.
 	// Function  : GetImage
 	// Arguments : 
-	//      (In£© : int device : used with the return of function "OpenDevice()"
-	//  (In/Out£© : byte[] image : image captured from this device
+	//      (In?? : int device : used with the return of function "OpenDevice()"
+	//  (In/Out?? : byte[] image : image captured from this device
 	// Return    : int
 	//			      If successful, return 1, else 0 	
 	//------------------------------------------------------------------------------------------------//
@@ -157,7 +157,7 @@ public class LAPI {
 	// Purpose   : This function lets calibration of this sensor device.
 	// Function  : Calibration
 	// Arguments : 
-	//      (In£© : int device : used with the return of function "OpenDevice()"
+	//      (In?? : int device : used with the return of function "OpenDevice()"
 	// Return    :  
 	//			   int :   If successful, return 1, else 0 	
 	//------------------------------------------------------------------------------------------------//
@@ -166,7 +166,7 @@ public class LAPI {
 	// Purpose   : This function checks whether finger is on sensor of this device or not.
 	// Function  : IsPressFinger
 	// Arguments : 
-	//      (In£© : int device : used with the return of function "OpenDevice()"
+	//      (In?? : int device : used with the return of function "OpenDevice()"
 	//		(In) : byte[] image : image return by function "GetImage()"
 	// Return    : int 
 	//				   return percent value measured finger-print on sensor(0~100). 	
@@ -176,7 +176,7 @@ public class LAPI {
 	// Purpose   : This function creates the ANSI standard template from the uncompressed raw image. 
 	// Function  : CreateStdTemplate
 	// Arguments : 
-	//      (In£©: int device : used with the return of function "OpenDevice()"
+	//      (In??: int device : used with the return of function "OpenDevice()"
 	//		(In) : byte[] image : image return by function "GetImage()"
 	//	(In/Out) : byte[] itemplate : template created from image.
 	// Return    : int : 
@@ -187,7 +187,7 @@ public class LAPI {
 	// Purpose   : This function gets the quality value of fingerprint raw image. 
 	// Function  : GetImageQuality
 	// Arguments : 
-	//      (In£©: int device : used with the return of function "OpenDevice()"
+	//      (In??: int device : used with the return of function "OpenDevice()"
 	//		(In) : byte[] image : image return by function "GetImage()"
 	// Return    : int : 
 	//				   return quality value(0~100) of fingerprint raw image. 	
@@ -198,7 +198,7 @@ public class LAPI {
 	//             This function is for 1:1 Matching and only used in finger-print verification. 
 	// Function  : CompareTemplates
 	// Arguments : 
-	//          (In£©: int device : used with the return of function "OpenDevice()"
+	//          (In??: int device : used with the return of function "OpenDevice()"
 	//			(In) : byte[] itemplateToMatch : template to match : 
 	//                 This template must be used as that is created by function "CreateANSITemplate()".  
 	//                 or function "CreateISOTemplate()".

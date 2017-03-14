@@ -43,9 +43,9 @@ public class GraphicSecondActivity extends Activity {
 		wight = (EditText) findViewById(R.id.editText_picwide);
 		hight = (EditText) findViewById(R.id.editText_pichight);
 		final InputStream bitmap = this.getResources().openRawResource(
-				R.drawable.star);
+				+R.drawable.star);
 		final InputStream bitmaptwo = this.getResources().openRawResource(
-				R.drawable.printico);
+				+R.drawable.printico);
 		context = (ApplicationContext) getApplicationContext();
 
 		mobileprinter = context.getObject();

@@ -47,6 +47,12 @@ public class DistanceAct extends BaseAct implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_ceju);
         initUI();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initDevice();
     }
 
@@ -111,7 +117,12 @@ public class DistanceAct extends BaseAct implements View.OnClickListener {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             byte[] data = (byte[]) msg.obj;
-            List<String> results = distanceManage.parseData(data,isTop);
+            List<String> results = null;
+            try {
+                results = distanceManage.parseData(data,isTop);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (results==null){
                 edvRecord.setText("err\n");
                  btnAuto.setChecked(false);
@@ -133,14 +144,20 @@ public class DistanceAct extends BaseAct implements View.OnClickListener {
     };
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         try {
             distanceManage.releaseDev();
             distanceManage.stopReadThread();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 
     @Override

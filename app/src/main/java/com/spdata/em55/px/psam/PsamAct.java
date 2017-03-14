@@ -55,6 +55,12 @@ public class PsamAct extends BaseAct implements View.OnClickListener {
         setContentView(R.layout.act_pasm);
         mContext = this;
         initUI();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         PowerOpenDev();
         //接受软上电
         IntentFilter intentFilter = new IntentFilter();
@@ -178,12 +184,23 @@ public class PsamAct extends BaseAct implements View.OnClickListener {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        try {
+            psam.stopReadThread();
+            psam.releaseDev();
+            unregisterReceiver(broadcastReceiver);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         try {
             psam.stopReadThread();
             psam.releaseDev();
-            unregisterReceiver(broadcastReceiver);
         } catch (IOException e) {
             e.printStackTrace();
         }

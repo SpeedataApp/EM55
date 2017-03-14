@@ -71,6 +71,23 @@ public class FingerPrintAct extends BaseAct {
     @Override
     protected void onResume() {
         super.onResume();
+        try {
+            deviceControl=new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND,63,6);
+            deviceControl.PowerOnDevice();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        CLOSE_DEVICE();
+        try {
+            deviceControl.PowerOffDevice();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -83,6 +100,7 @@ public class FingerPrintAct extends BaseAct {
         }
         super.onDestroy();
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,12 +119,6 @@ public class FingerPrintAct extends BaseAct {
         radio1 = (RadioButton) findViewById(R.id.firstTemp);
         radio2 = (RadioButton) findViewById(R.id.secondTemp);
         EnableAllButtons(true, false);
-//        try {
-//            deviceControl=new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND,63,5);
-//            deviceControl.PowerOnDevice();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         m_cLAPI = new LAPI(this);
 
         btnOpen.setOnClickListener(new OnClickListener() {

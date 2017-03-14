@@ -32,8 +32,8 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_menu);
         initUI();
-        UpdateVersion updateVersion = new UpdateVersion(this);
-        updateVersion.startUpdate();
+//        UpdateVersion updateVersion = new UpdateVersion(this);
+//        updateVersion.startUpdate();
     }
 
     private void initUI() {

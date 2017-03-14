@@ -120,6 +120,19 @@ public class GpsAct extends BaseAct implements View.OnClickListener {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if (thread != null) {
+            thread.interrupt();
+        }
+        try {
+            deviceControl.PowerOffDevice();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (thread != null) {

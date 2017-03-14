@@ -10,7 +10,7 @@
 		android:id="@+id/tv_verson"
 		android:paddingRight="15dp"
 		android:textSize="10sp"
-		android:text="Mgpio63,Egpio5"
+		android:text="Mgpio63,Egpio6"
 		android:layout_gravity="right"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content" />

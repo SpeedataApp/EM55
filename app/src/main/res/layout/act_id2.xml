@@ -12,7 +12,7 @@
         android:layout_gravity="right"
         android:gravity="top"
         android:paddingRight="15dp"
-        android:text="/dev/ttyMT2、115200,Mgpio88,Egpio6"
+        android:text="/dev/ttyMT2、115200,Mgpio88,Egpio7"
         android:textSize="10sp" />
 
     <RelativeLayout

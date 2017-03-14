@@ -81,7 +81,7 @@ public class ConnectAvtivity extends BaseAct {
                         + android.os.Build.VERSION.RELEASE, Toast.LENGTH_LONG)
                 .show();
         try {
-            devCtrl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 73,3);
+            devCtrl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 73,4);
             devCtrl.PowerOnDevice();
         } catch (IOException e) {
             e.printStackTrace();
