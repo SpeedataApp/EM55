@@ -26,6 +26,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.spdata.em55.R;
+import com.spdata.em55.px.print.print.demo.firstview.ConnectAvtivity;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.spdata.em55.px.print.utils.TXTUtil;
 import com.spdata.em55.px.print.utils.preDefiniation;
@@ -34,8 +35,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static com.spdata.em55.px.print.print.demo.firstview.ConnectAvtivity.mActivity;
 
 
 public class PrintModeActivity extends Activity implements OnClickListener {
@@ -239,8 +238,12 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 
 		// 先finishConnectActivity
-		mActivity.finish();
-		finish();
+		try {
+			ConnectAvtivity.mActivity.finish();
+			PrintModeActivity.this.finish();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	// 点击选择

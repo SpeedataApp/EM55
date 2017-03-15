@@ -65,6 +65,7 @@ public class ConnectAvtivity extends BaseAct {
                 context.setState(state);
                 context.setName("RG-E48");
                 startActivity(intent);
+//                ConnectAvtivity.mActivity.finish();
             } else {
                 Toast.makeText(ConnectAvtivity.this, R.string.mes_confail,
                         Toast.LENGTH_SHORT).show();
@@ -75,11 +76,11 @@ public class ConnectAvtivity extends BaseAct {
     private void modelJudgmen() {
         state = context.getObject().CON_ConnectDevices("RG-E487",
                 "/dev/ttyMT1:115200", 200);
-        Toast.makeText(
-                this,
-                "" + android.os.Build.MODEL + " release:"
-                        + android.os.Build.VERSION.RELEASE, Toast.LENGTH_LONG)
-                .show();
+//        Toast.makeText(
+//                this,
+//                "" + android.os.Build.MODEL + " release:"
+//                        + android.os.Build.VERSION.RELEASE, Toast.LENGTH_LONG)
+//                .show();
         try {
             devCtrl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 73,4);
             devCtrl.PowerOnDevice();
