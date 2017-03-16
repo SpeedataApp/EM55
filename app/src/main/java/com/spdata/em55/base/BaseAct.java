@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.spdata.em55.R;
+import com.spdata.em55.px.print.utils.ApplicationContext;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,8 +37,7 @@ public class BaseAct extends Activity {
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            System.exit(0);
-//              finish();
+            ApplicationContext.getInstance().exit();
         }
     };
 

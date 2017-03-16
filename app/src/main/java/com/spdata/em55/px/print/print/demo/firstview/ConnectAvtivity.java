@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
+import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.px.print.print.demo.secondview.PrintModeActivity;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 
@@ -30,6 +31,7 @@ public class ConnectAvtivity extends BaseAct {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApplicationContext.getInstance().addActivity(ConnectAvtivity.this);
         initUI();
         connect();
     }

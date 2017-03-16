@@ -28,6 +28,8 @@ import android.widget.TextView;
 import com.IDWORLD.LAPI;
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
+import com.spdata.em55.lr.GpsAct;
+import com.spdata.em55.px.print.utils.ApplicationContext;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -105,6 +107,7 @@ public class FingerPrintAct extends BaseAct {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApplicationContext.getInstance().addActivity(FingerPrintAct.this);
         setContentView(R.layout.act_finger);
         btnOpen = (Button) findViewById(R.id.btnOpenDevice);
         btnClose = (Button) findViewById(R.id.btnCloseDevice);

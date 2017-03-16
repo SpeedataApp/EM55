@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.spdata.em55.R;
+import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.spdata.em55.px.print.utils.preDefiniation;
 
@@ -19,6 +20,7 @@ public class TextThirdActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ApplicationContext.getInstance().addActivity(TextThirdActivity.this);
 		setContentView(R.layout.activity_textapply);
 		fire = (Button) findViewById(R.id.Button_fire);
 		move = (Button) findViewById(R.id.button_movie);

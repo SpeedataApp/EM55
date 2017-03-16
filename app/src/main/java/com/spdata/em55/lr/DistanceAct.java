@@ -18,6 +18,7 @@ import android.widget.ToggleButton;
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
 import com.spdata.em55.lr.view.WaitingBar;
+import com.spdata.em55.px.print.utils.ApplicationContext;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,6 +46,7 @@ public class DistanceAct extends BaseAct implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApplicationContext.getInstance().addActivity(DistanceAct.this);
         setContentView(R.layout.act_ceju);
         initUI();
 

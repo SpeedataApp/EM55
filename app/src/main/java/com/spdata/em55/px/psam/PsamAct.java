@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
+import com.spdata.em55.lr.GpsAct;
+import com.spdata.em55.px.print.utils.ApplicationContext;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -52,6 +54,7 @@ public class PsamAct extends BaseAct implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+        ApplicationContext.getInstance().addActivity(PsamAct.this);
         setContentView(R.layout.act_pasm);
         mContext = this;
         initUI();

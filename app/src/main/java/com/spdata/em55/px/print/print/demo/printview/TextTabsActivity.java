@@ -10,6 +10,8 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.spdata.em55.R;
+import com.spdata.em55.lr.GpsAct;
+import com.spdata.em55.px.print.utils.ApplicationContext;
 
 /**
  * @author Adil Soomro
@@ -22,6 +24,7 @@ public class TextTabsActivity extends TabActivity {
 	/** Called when the activity is first created. */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ApplicationContext.getInstance().addActivity(TextTabsActivity.this);
 		setContentView(R.layout.activity_textmain);
 		tabHost = getTabHost();
 		setTabs();

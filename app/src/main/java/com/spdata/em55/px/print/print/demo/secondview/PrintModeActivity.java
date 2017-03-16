@@ -26,6 +26,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.spdata.em55.R;
+import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.px.print.print.demo.firstview.ConnectAvtivity;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.spdata.em55.px.print.utils.TXTUtil;
@@ -61,6 +62,7 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ApplicationContext.getInstance().addActivity(PrintModeActivity.this);
 		setContentView(R.layout.activity_printmode);
 		mContext = (ApplicationContext) getApplicationContext();
 		text = (Button) findViewById(R.id.button_text);

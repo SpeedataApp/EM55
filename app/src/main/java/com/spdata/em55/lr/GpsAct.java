@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.spdata.em55.MenuAct;
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
+import com.spdata.em55.px.print.utils.ApplicationContext;
 
 import java.io.IOException;
 
@@ -27,6 +29,7 @@ public class GpsAct extends BaseAct implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApplicationContext.getInstance().addActivity(GpsAct.this);
         setContentView(R.layout.act_gps);
         button = (Button) findViewById(R.id.btn_fire);
         btngpsApp = (Button) findViewById(R.id.btn_gps);

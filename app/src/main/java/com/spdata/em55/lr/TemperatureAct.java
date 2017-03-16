@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
+import com.spdata.em55.px.print.utils.ApplicationContext;
 
 import java.util.Timer;
 
@@ -33,6 +34,7 @@ public class TemperatureAct extends BaseAct implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApplicationContext.getInstance().addActivity(TemperatureAct.this);
         setContentView(R.layout.act_wsd);
         initUI();
         humitureManager = HumitureManager.getHumitureIntance();

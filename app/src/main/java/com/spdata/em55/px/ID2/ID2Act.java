@@ -15,6 +15,7 @@ import android.widget.ToggleButton;
 
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
+import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.speedata.libid2.IDInfor;
 import com.speedata.libid2.IDManager;
 import com.speedata.libid2.IDReadCallBack;
@@ -98,6 +99,7 @@ public class ID2Act extends BaseAct {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApplicationContext.getInstance().addActivity(ID2Act.this);
         setContentView(R.layout.act_id2);
         initUI();
         Log.i(TAG, "==onCreate==");

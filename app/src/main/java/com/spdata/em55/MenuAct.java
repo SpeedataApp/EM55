@@ -34,6 +34,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         initUI();
 //        UpdateVersion updateVersion = new UpdateVersion(this);
 //        updateVersion.startUpdate();
+//        ApplicationContext.getInstance().addActivity(MenuAct.this);
     }
 
     private void initUI() {

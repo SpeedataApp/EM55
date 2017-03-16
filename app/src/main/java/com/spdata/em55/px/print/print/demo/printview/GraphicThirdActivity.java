@@ -26,6 +26,7 @@ public class GraphicThirdActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ApplicationContext.getInstance().addActivity(GraphicThirdActivity.this);
 		setContentView(R.layout.activity_picapply);
 
 		lab = (Button) findViewById(R.id.Button_pictable);

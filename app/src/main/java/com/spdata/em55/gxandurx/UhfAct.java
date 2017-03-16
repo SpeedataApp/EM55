@@ -28,6 +28,8 @@ import com.spdata.em55.gxandurx.dialog.SetModuleDialog;
 import com.spdata.em55.gxandurx.dialog.SetPasswordDialog;
 import com.spdata.em55.gxandurx.dialog.SpeedTestDialog;
 import com.spdata.em55.gxandurx.dialog.WriteTagDialog;
+import com.spdata.em55.lr.GpsAct;
+import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.speedata.libuhf.IUHFService;
 import com.speedata.libuhf.UHFManager;
 import com.speedata.libuhf.utils.SharedXmlUtil;
@@ -73,6 +75,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApplicationContext.getInstance().addActivity(UhfAct.this);
         String readEm55 = readEm55();
         if (readEm55.equals("80") || readEm55.equals("64")) {
             try {
