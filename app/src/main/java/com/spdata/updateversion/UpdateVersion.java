@@ -74,7 +74,7 @@ public class UpdateVersion {
             try {
                 // 从资源文件获取服务器 地址
                 // http://218.247.237.138/speedataApps/kt55/em55_version.xml
-                String path = "http://218.247.237.138/speedataApps/kt55/em55_version.xml";
+                String path = "http://218.247.237.138/speedataApps/kt55/em55_version_new.xml";
                 // 包装成url的对象
                 URL url = new URL(path);
                 HttpURLConnection conn = (HttpURLConnection) url
@@ -184,7 +184,7 @@ public class UpdateVersion {
                 public void run() {
                     try {
                         File file = DownLoadManager.getFileFromServer(
-                                info.getUrl(), pd, "PlumBreak.apk");
+                                info.getUrl(), pd, "em55_new.apk");
 //						File filemd5 = DownLoadManager.getFileFromServer(
 //								info.getMd5(), pd, "md5.tar");
                         sleep(1000);

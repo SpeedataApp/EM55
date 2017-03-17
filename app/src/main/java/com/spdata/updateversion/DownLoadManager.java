@@ -33,7 +33,7 @@ public class DownLoadManager {
 		pd.setMax(conn.getContentLength());
 		InputStream is = conn.getInputStream();
 		// 路径 需要root权限 /system/app
-		File file = new File(Environment.getExternalStorageDirectory(),"em55.apk");
+		File file = new File(Environment.getExternalStorageDirectory(),"em55_new.apk");
 //		File file_md5 = new File("/data/etc/", "WristSideMonitor.md5");// getExternalStorageDirectory(),
 																// "updata.apk");
 		FileOutputStream fos = new FileOutputStream(file);
