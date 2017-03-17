@@ -1,109 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--<string name="app_name">身份证测试</string>-->
-    <string name="BtnStr_Find">寻卡</string>
-    <string name="BtnStr_Choose">选卡</string>
-    <string name="BtnStr_Read">读卡</string>
-    <string name="BtnStr_Finger">指纹</string>
-    <string name="BtnStr_Send">发送</string>
-    <string name="Btn_Repetition">自动读卡</string>
-    <string name="Btn_Stop">停止</string>
-    <string name="BtnStr_Auto">自动</string>
-    <string name="Togauto_on">读卡:开</string>
-    <string name="Togauto_off">读卡:关</string>
-    <string name="Togopen_off">上电</string>
-    <string name="Togopen_on">下电</string>
-    <string name="spinner">命令</string>
-    <string name="StrNull"></string>
-    <string name="Status_OpenSerialFail">打开串口失败</string>
-    <string name="Status_OpenDevFileFail">打开设备文件失败</string>
-    <string name="Status_ManipulateFail">操作设备失败</string>
-    <string name="portrait">照片</string>
 
-    <string name="Search_Btn_T">选择</string>
-    <string name="Read_Btn_T">读</string>
-    <string name="Write_Btn_T">写</string>
-    <string name="Name_item">Current Card(by EPC):</string>
-    <string name="read_addr">地址(hex)</string>
-    <string name="read_count">块数</string>
-    <string name="write_addr">地址(hex)</string>
-    <string name="write_count">块数</string>
-    <string name="write_passwd">密码(hex)</string>
-    <string name="Ok_btn">OK</string>
-    <string name="Cancle_btn">取消</string>
-    <string name="Item_Read">读卡</string>
-    <string name="Item_Write">写卡</string>
-    <string name="Item_Search">选卡</string>
-    <string name="Choose_Item">请选取一张卡</string>
-    <string name="Choose_Btn_T">选择</string>
-    <string name="Item_Choose">选择一张卡(by EPC)</string>
-    <string name="Set_Btn">设置Param</string>
-    <string name="Set_Btn_set">设置</string>
-    <string name="Item_OutLevel">Output level</string>
-    <string name="Item_Sensitivity">灵敏度</string>
-    <string name="Item_FreqStart">开始频率(Khz)</string>
-    <string name="Item_FreqStop">终止频率(Khz)</string>
-    <string name="Item_FreqIncrement">增量(Khz)</string>
-    <string name="Item_Rssi">RSSI Threshold(dbm)</string>
-    <string name="Item_Set_Title">设置</string>
-    <string name="Set_Return_Btn">返回</string>
-    <string name="Status_SetFreqOK">设置频率成功</string>
-    <string name="Status_SetFreqFailed">设置频率失败</string>
-    <string name="Status_SetOutputLevelOk">Set Output Level Ok</string>
-    <string name="Status_SetOutputLevelFailed">Set Output Level Failed</string>
-    <string name="Status_SetSensOK">灵敏度设置成功</string>
-    <string name="Status_SetSensFailed">灵敏度设置失败</string>
-    <string name="Status_InvalidNumber">无效的数字或字符</string>
-    <string name="Status_OutOfRange">值太大了</string>
-    <string name="Status_Underflow">值太小了</string>
-    <string name="Status_comerror">通信错误</string>
-    <string name="TextView_Null"> </string>
-    <string name="SetEPC_Btn">设置\nEPC</string>
-    <string name="SetPasswd_Btn">设置\n密码</string>
-    <string name="Lock_Btn">锁/解锁</string>
-    <string name="Kill_Btn">Kill Tag</string>
-    <string name="Item_Tag_EPC">EPC标签</string>
-    <string name="Item_Access_Pswd">Access Password</string>
-    <string name="Item_Pswd_Type">密码类型</string>
-    <string name="Item_New_Password">新的密码</string>
-    <string name="Item_EPC_Length">EPC长度(words)</string>
-    <string name="Item_New_EPC">新的EPC</string>
-    <string name="Item_Lock_Area">Memory Space</string>
-    <string name="Item_Lock_Action">Action</string>
-    <string name="Start_Search_Btn">开始</string>
-    <string name="Stop_Search_Btn">停止</string>
-    <string name="Status_Passwd_Length_Error">密码长度错误</string>
-    <string name="Status_Content_Length_Error">内容长度错误</string>
-    <string name="Status_Write_Error">写卡错误</string>
-    <string name="Status_Lock_Card_Error">锁卡错误</string>
-    <string name="Status_Wrong_Password_Type">错误的密码类型</string>
-    <string name="Status_Select_Card_Ok">选卡成功</string>
-    <string name="Status_Select_Card_Faild">选卡失败</string>
-    <string name="Status_Read_Card_Ok">读成功</string>
-    <string name="Status_Read_Card_Faild">读失败</string>
-    <string name="Status_Write_Card_Ok">写成功</string>
-    <string name="Status_Write_Card_Faild">写失败</string>
-    <string name="Status_No_Card_Select">没有选卡</string>
-    <string name="Status_Set_EPC_Error">设置EPC错误</string>
-    <string name="Status_Read_Pc_Error">读取PC错误</string>
-    <string name="Status_Freq_List_Full">Too Many Freq is add to list, Only some of success added.</string>
-    <string name="SearchEAS_Btn">选择EAS</string>
-    <string name="Item_EAS">选择EAS</string>
-    <string name="if_status">Please select a protocol to demo</string>
-    <string name="if_btn_6B">ISO18000-6B</string>
-    <string name="if_btn_6C">ISO18000-6C</string>
-    <string name="ISO6B_DEMO">Start Demo</string>
-    <string name="DEV_OPEN_ERR">Device open failed！Software will quit！</string>
-    <string name="DIA_ALERT">警告！</string>
-    <string name="DIA_CHECK">确定</string>
-    <string name="VALUE_ZERO">0</string>
-    <string name="btn_set">设置</string>
-    <string name="view_wt">工作时间</string>
-    <string name="view_rt">休息时间</string>
-    <string name="btn_bk">返回</string>
-    <string name="cb_beep">beep new</string>
-    <string name="text_null"></string>
-    <string name="antenna_p">天线功率</string>
-    <string name="spt">速度\n测试</string>
-    <string name="sptss">开始</string>
+  <string name="app_name">EM55</string>
+    
+    <!-- Toast提示 -->
+  <string name="null_wight_hight">宽或高不能为空</string>
+  <string name="null_barversion_barerr_barsize">有空白项,请确认</string>
+  <string name="max_hight_255">高度不能超过255</string>
+  <string name="max_qrchir_6">放大倍数只能是1到6</string>
+  <string name="null_zoom">放大倍数不能为空</string>
+  <string name="wrong_version">错误的版本</string>
+  <string name="gary_value_large">数值必须小于30</string>
+  <string name="gary_set_ok">设置成功</string>
+  <string name="gary_null_input">请输入灰度</string>
+  
+    <!-- connect页面 -->
+    <string name="text_type">机型</string>
+    <string name="text_porttype">接口</string>
+    <string name="text_printway">传输方式</string>
+    <string name="TextView_link">联系我们</string>
+    <string name="TextView_linktest">跳转到下一页</string>
+    <string name="TextView_close">关闭</string>
+    <string name="mes_confail">连接失败</string>
+    <string name="mes_consuccess">连接成功</string>
+    <string name="mes_nextpage">请先连接</string>
+    <!-- printmode页面 -->
+    <string name="button_text">文本</string>
+     <string name="button_txt">打印TXT文件</string>
+    <string name="button_pic">图形</string>
+    <string name="button_label">标签打印</string>
+    <string name="button_print_setting">打印当前参数</string>
+    <string name="button_paper_in">走纸</string>
+    <string name="button_paper_out">退纸</string>
+    <string name="button_set_gray">设置灰度</string>
+    <string name="set_gra_level">灰度</string>
+    <string name="set_gra_level_hint">请输入0到29之间的整数</string>
+    <string name="dialog_remind_input_line">请输入走纸行数</string>
+    <string name="dialog_sure">走纸</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="btnteston_text">疲劳测试</string>
+    <string name="btntestoff_text">开始测试</string>
+    
+    <string name="exit_dialog_title">退出程序?</string>
+    <string name="exit_dialog_message">确定退出吗?</string>
+    <string name="exit_dialog_neutral_button_text">设置</string>
+    <string name="exit_dialog_negative_button_text">退出</string>
+    <string name="exit_dialog_positive_button_text">取消</string>
+    
+    <string name="mes_noeg">当前选择的不是标签打印机或当前打印机类型不支持</string>
+    <!-- general页面 -->
+    <string name="editText1">x</string>
+    <string name="editText2">y</string>
+    <string name="autoCompleteText_text">0006\r\n84339216\r\nB—M2908\r\n215549\r\n2015—02—28\r\n10:40—10:47\r\n2.30\r\n2.6\r\n00:02:29\r\n0\r\n￥13.00\r\n￥0.00\r\n￥0.00\r\n￥13.00\r\n</string>
+    <string name="textView_3">宽</string>
+    <string name="textView_4">高</string>
+    <string name="checkBox01">倍宽</string>
+    <string name="checkBox02">倍高</string>
+    <string name="checkBox03">加粗</string>
+    <string name="checkBox04">下划线</string>
+    <string name="checkBox05">小字体</string>
+    <string name="checkBox06">标签</string>
+    <string name="checkBox07">反白</string>
+    <string name="radio0">左对齐</string>
+    <string name="radio1">居中</string>
+    <string name="radio2">右对齐</string>
+    <string name="button_printtext"> 打                 印  </string>
+    <string name="button_state">状态查询</string>
+     <string name="mes_stateOK">打印机状态：正确</string>
+    <string name="mes_statePE">打印机状态：缺纸</string>
+    <string name="mes_stateNet">打印机状态：网络异常</string>
+    <!-- barcode页面 -->
+    <string name="barcode">一维码</string>
+    <string name="QRcode">二维码</string>
+    <!-- <string name="bartype">文本</string> -->
+    <string name="textView_bartype">类型</string>
+    <string name="textView_bartext">内容</string>
+    <string name="textView_barwide">宽度</string>
+    <string name="textView_barhight">高度</string>
+    <string name="textView_barhri">位置</string>
+    <string name="textView_barsize">放大</string>
+    <string name="textView_barversion">版本</string>
+    <string name="textView_barerr">纠错</string>
+    <string name="textView_barlines">行字</string>
+    <string name="button_barPrint">打印</string>
+    <!-- textapply页面和 picapply页面差不多可参考 -->
+    <string name="button_movie">电影票</string>
+    <string name="button_fire">火车票</string>
+    <string name="button_shopping">购物劵</string>
+    <!-- lang页面和printdraw,general页面是一样的可以用一个 -->
+    <string name="checkBox_lanlab">标签</string>
+    <string name="textView_lanw">宽</string>
+    <string name="textView_lanh">高</string>
+    <string name="button_printlan">打印</string>
+    <string name="autoCompleteText_lan">汉语 --> 我爱你\r\n英语 --> I love you\r\n法语 --> Je t`aime \r\n德语 --> Ich liebe Dich\r\n芬兰 --> Minarakastan sinua\r\n荷兰 --> IK hou van jou\r\n捷克 --> Miluji te\r\n丹麦 --> Jeg elsker dig\r\n
+	俄罗斯 --> Я люблю тебя\r\n
+	日本 --> あいしてる \r\n 
+	韩语 --> 사랑해 \r\n
+	泰国 --> Ch`an Rak Khun\r\n
+	越南 --> Em ye`u anh \r\n
+	冰岛 --> e`g elska tig\r\n
+	瑞典 --> Jag lskar dig\r\n
+	犹太语 --> Ani ohev otach\r\n
+	匈牙利 --> Szeretlek\r\n
+	希腊语 --> S`agapo\r\n
+	阿拉伯语-->أحبك\r\n
+	立陶宛 --> Tave Myliu\r\n </string>
+    <!-- printdraw页面 -->
+    <string name="checkBox_pic">标签</string>
+    <string name="textView3">宽</string>
+    <string name="textView4">高</string>
+    <string name="button_pridraw">打印</string>
+    <!-- picapply页面 -->
+    <string name="button_picmovie">电影票</string>
+    <string name="button_picfire">火车票</string>
+    <string name="button_picshopping">购物劵</string>
+    <string name="button_pictable">打印表格</string>
+    <!-- bluetooth页面 -->
+    <string name="Text_bt">蓝牙端口</string>
+    <string name="Text_btname">蓝牙名称</string>
+    <string name="Text_btmax">蓝牙地址</string>
+    <string name="button_btcon">连接</string>
+    <!-- wifi页面 -->
+    <string name="Text_wifi">无线端口</string>
+    <string name="Text_ip">IP地址</string>
+    <string name="Text_port">端口</string>
+    <string name="button_wificon">连接</string>
+    <!-- usb页面 -->
+    <string name="Text_usbName">USB端口</string>
+    <string name="Text_usb">USB</string>
+    <string name="button_usbcon">连接</string>
+    <!-- com页面 -->
+
+    <string name="Text_comName">串口端口</string>
+    <string name="Text_com">串口</string>
+    <string name="Text_comBaud">波特率</string>
+    <string name="button_comcon">连接</string>
+    <!-- tab页面 -->
+    <string name="tab_general">通用</string>
+    <string name="tab_barcode">条码</string>
+    <string name="tab_textapply">应用</string>
+    <string name="tab_lan">多语言</string>
+    <string name="tab_pic">绘图</string>
+    <string name="tab_picapply">应用</string>
+    <!-- link页面 -->
+    <string name="textView_link">公司简介：北京瑞工科技发展有限公司是专业从事特种打印的高科技企业；是同时具备研发、生产和销售能力的业内领航者；是特种打印方案的开创者、集成者和优化者。瑞工产品涉及便携式打印机、蓝牙打印机、标签/条码打印机、无线打印服务器等全系产品。
+\r\n公司名称：北京瑞工科技有限公司\r\n邮箱：mk@rgprt.com\r\n网址：http://www.rgprt.com/\r\n联系电话：010-62985019\r\n地址：北京市海淀区上地东路9号得实大厦二层中区5号</string>
+
+    <string name="button_desktop">桌面打印</string>
+
+  <!--<string name="app_name">身份证测试</string>-->
+  <string name="BtnStr_Find">寻卡</string>
+  <string name="BtnStr_Choose">选卡</string>
+  <string name="BtnStr_Read">读卡</string>
+  <string name="BtnStr_Finger">指纹</string>
+  <string name="BtnStr_Send">发送</string>
+  <string name="Btn_Repetition">自动读卡</string>
+  <string name="Btn_Stop">停止</string>
+  <string name="BtnStr_Auto">自动</string>
+  <string name="Togauto_on">读卡:开</string>
+  <string name="Togauto_off">读卡:关</string>
+  <string name="Togopen_off">上电</string>
+  <string name="Togopen_on">下电</string>
+  <string name="spinner">命令</string>
+  <string name="StrNull">" "</string>
+  <string name="Status_OpenSerialFail">打开串口失败</string>
+  <string name="Status_OpenDevFileFail">打开设备文件失败</string>
+  <string name="Status_ManipulateFail">操作设备失败</string>
+  <string name="portrait">照片</string>
+
+  <string name="Search_Btn_T">选择</string>
+  <string name="Read_Btn_T">读</string>
+  <string name="Write_Btn_T">写</string>
+  <string name="Name_item">Current Card(by EPC):</string>
+  <string name="read_addr">地址(hex)</string>
+  <string name="read_count">块数</string>
+  <string name="write_addr">地址(hex)</string>
+  <string name="write_count">块数</string>
+  <string name="write_passwd">密码(hex)</string>
+  <string name="Ok_btn">OK</string>
+  <string name="Cancle_btn">取消</string>
+  <string name="Item_Read">读卡</string>
+  <string name="Item_Write">写卡</string>
+  <string name="Item_Search">选卡</string>
+  <string name="Choose_Item">请选取一张卡</string>
+  <string name="Choose_Btn_T">选择</string>
+  <string name="Item_Choose">选择一张卡(by EPC)</string>
+  <string name="Set_Btn">设置Param</string>
+  <string name="Set_Btn_set">设置</string>
+  <string name="Item_OutLevel">Output level</string>
+  <string name="Item_Sensitivity">灵敏度</string>
+  <string name="Item_FreqStart">开始频率(Khz)</string>
+  <string name="Item_FreqStop">终止频率(Khz)</string>
+  <string name="Item_FreqIncrement">增量(Khz)</string>
+  <string name="Item_Rssi">RSSI Threshold(dbm)</string>
+  <string name="Item_Set_Title">设置</string>
+  <string name="Set_Return_Btn">返回</string>
+  <string name="Status_SetFreqOK">设置频率成功</string>
+  <string name="Status_SetFreqFailed">设置频率失败</string>
+  <string name="Status_SetOutputLevelOk">Set Output Level Ok</string>
+  <string name="Status_SetOutputLevelFailed">Set Output Level Failed</string>
+  <string name="Status_SetSensOK">灵敏度设置成功</string>
+  <string name="Status_SetSensFailed">灵敏度设置失败</string>
+  <string name="Status_InvalidNumber">无效的数字或字符</string>
+  <string name="Status_OutOfRange">值太大了</string>
+  <string name="Status_Underflow">值太小了</string>
+  <string name="Status_comerror">通信错误</string>
+  <string name="TextView_Null"> </string>
+  <string name="SetEPC_Btn">设置\nEPC</string>
+  <string name="SetPasswd_Btn">设置\n密码</string>
+  <string name="Lock_Btn">锁/解锁</string>
+  <string name="Kill_Btn">Kill Tag</string>
+  <string name="Item_Tag_EPC">EPC标签</string>
+  <string name="Item_Access_Pswd">Access Password</string>
+  <string name="Item_Pswd_Type">密码类型</string>
+  <string name="Item_New_Password">新的密码</string>
+  <string name="Item_EPC_Length">EPC长度(words)</string>
+  <string name="Item_New_EPC">新的EPC</string>
+  <string name="Item_Lock_Area">Memory Space</string>
+  <string name="Item_Lock_Action">Action</string>
+  <string name="Start_Search_Btn">开始</string>
+  <string name="Stop_Search_Btn">停止</string>
+  <string name="Status_Passwd_Length_Error">密码长度错误</string>
+  <string name="Status_Content_Length_Error">内容长度错误</string>
+  <string name="Status_Write_Error">写卡错误</string>
+  <string name="Status_Lock_Card_Error">锁卡错误</string>
+  <string name="Status_Wrong_Password_Type">错误的密码类型</string>
+  <string name="Status_Select_Card_Ok">选卡成功</string>
+  <string name="Status_Select_Card_Faild">选卡失败</string>
+  <string name="Status_Read_Card_Ok">读成功</string>
+  <string name="Status_Read_Card_Faild">读失败</string>
+  <string name="Status_Write_Card_Ok">写成功</string>
+  <string name="Status_Write_Card_Faild">写失败</string>
+  <string name="Status_No_Card_Select">没有选卡</string>
+  <string name="Status_Set_EPC_Error">设置EPC错误</string>
+  <string name="Status_Read_Pc_Error">读取PC错误</string>
+  <string name="Status_Freq_List_Full">Too Many Freq is add to list, Only some of success added.</string>
+  <string name="SearchEAS_Btn">选择EAS</string>
+  <string name="Item_EAS">选择EAS</string>
+  <string name="if_status">Please select a protocol to demo</string>
+  <string name="if_btn_6B">ISO18000-6B</string>
+  <string name="if_btn_6C">ISO18000-6C</string>
+  <string name="ISO6B_DEMO">Start Demo</string>
+  <string name="DEV_OPEN_ERR">Device open failed！Software will quit！</string>
+  <string name="DIA_ALERT">警告！</string>
+  <string name="DIA_CHECK">确定</string>
+  <string name="VALUE_ZERO">0</string>
+  <string name="btn_set">设置</string>
+  <string name="view_wt">工作时间</string>
+  <string name="view_rt">休息时间</string>
+  <string name="btn_bk">返回</string>
+  <string name="cb_beep">beep new</string>
+  <string name="text_null">" "</string>
+  <string name="antenna_p">天线功率</string>
+  <string name="spt">速度\n测试</string>
+  <string name="sptss">开始</string>
+  <string name="SECOND_TEMPLATE">Template2</string>
+  <string name="FIRST_TEMPLATE">Template1</string>
+  <string name="Humidity">湿度检测</string>
+  <string name="Humidity_value">%</string>
+  <string name="TEXT_CHAR">Template</string>
+  <string name="TEXT_CLOSE_DEVICE">CloseDevice</string>
+  <string name="TEXT_CREATE_TEMP">CreateTemplate</string>
+  <string name="TEXT_GET_IMAGE">GetImage</string>
+  <string name="TEXT_GET_QUALITY">GetImageQuality</string>
+  <string name="TEXT_IMAGE">Image</string>
+  <string name="TEXT_MATCH_TEMP">CompareTemplates</string>
+  <string name="TEXT_OPEN_DEVICE">OpenDevice</string>
+  <string name="TEXT_VIDEO">Video</string>
+  <string name="Temperature">温度检测</string>
+  <string name="Temperature_value">℃</string>
+  <string name="action_settings">Settings</string>
+  <string name="data">StartAndStop</string>
+  <string name="hello">Welcome to Finger SDK</string>
+  <string name="hello_world">Hello world!</string>
+  <string name="start">start</string>
+  <string name="stop">stop</string>
 </resources>

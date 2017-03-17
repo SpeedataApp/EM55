@@ -9,8 +9,8 @@ import android.serialport.SerialPort;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.spdata.em55.MenuAct;
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
 import com.spdata.em55.px.print.utils.ApplicationContext;
@@ -68,7 +68,11 @@ public class GpsAct extends BaseAct implements View.OnClickListener {
             thread = new readeThread();
             thread.start();
         } else if (v == btngpsApp) {
-            intentApp("com.androits.gps.test.pro");
+            try {
+                intentApp("com.androits.gps.test.pro");
+            } catch (Exception e) {
+                Toast.makeText(this,"请先下载AndroiTS GPS Test Pro软件",Toast.LENGTH_SHORT).show();
+            }
         }
 
     }

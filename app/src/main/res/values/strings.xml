@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">EM55</string>
-    <string name="Humidity">湿度检测</string>
+    <string name="Humidity">Humidity detection</string>
     <string name="Humidity_value">%</string>
     <string name="Temperature">温度检测</string>
     <string name="Temperature_value">℃</string>
@@ -176,7 +176,7 @@
     <string name="Togauto_off">Read OFF</string>
     <string name="Togopen_off">on</string>
     <string name="Togopen_on">off</string>
-    <string name="StrNull"></string>
+    <string name="StrNull">" "</string>
     <string name="Status_OpenSerialFail">Open SerialPort Failed</string>
     <string name="Status_OpenDevFileFail">Open DevFile Failed</string>
     <string name="Status_ManipulateFail">Manipulate Device Failed</string>
@@ -268,7 +268,7 @@
     <string name="view_rt">rest time</string>
     <string name="btn_bk">back</string>
     <string name="cb_beep">beep new</string>
-    <string name="text_null"></string>
+    <string name="text_null">" "</string>
     <string name="antenna_p">antenna power</string>
     <string name="spt">speed\ntest</string>
     <string name="sptss">start</string>

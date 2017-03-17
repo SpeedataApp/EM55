@@ -41,10 +41,10 @@ public class ApplicationContext extends Application {
                 activity.finish();
             }
         }
-        int id = android.os.Process.myPid();
-        if (id != 0) {
-            android.os.Process.killProcess(id);
-        }
+//        int id = android.os.Process.myPid();
+//        if (id != 0) {
+//            android.os.Process.killProcess(id);
+//        }
     }
     public static Context getContext() {
         return context;
