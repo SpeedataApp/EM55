@@ -22,3 +22,26 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+//task pmd(type: Pmd){
+//    ignoreFailures=false
+//    ruleSetFiles=files("$configDir/pmd/pmd-ruleset.xml")
+//    ruleSets=[]
+//
+//    source 'src'
+//    include '**/*.java'
+//    exclude '**/gen/**'
+//    exclude 'androidTest/**'
+//    exclude 'test/**'
+//
+//    reports{
+//        xml.enabled=false
+//        html.enabled=true
+//        xml{
+//            destination "$reportsDir/pmd/pmd.xml"
+//        }
+//        html{
+//            destination "$reportsDir/pmd/pmd.html"
+//        }
+//    }
+//}

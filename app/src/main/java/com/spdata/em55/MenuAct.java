@@ -13,6 +13,7 @@ import com.spdata.em55.lr.TemperatureAct;
 import com.spdata.em55.px.ID2.ID2Act;
 import com.spdata.em55.px.fingerprint.FingerPrintAct;
 import com.spdata.em55.px.print.print.demo.firstview.ConnectAvtivity;
+import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.spdata.em55.px.psam.PsamAct;
 import com.spdata.updateversion.UpdateVersion;
 
@@ -34,7 +35,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         initUI();
 //        UpdateVersion updateVersion = new UpdateVersion(this);
 //        updateVersion.startUpdate();
-//        ApplicationContext.getInstance().addActivity(MenuAct.this);
+        ApplicationContext.getInstance().addActivity(MenuAct.this);
     }
 
     private void initUI() {

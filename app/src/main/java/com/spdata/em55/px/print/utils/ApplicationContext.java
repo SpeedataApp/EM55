@@ -3,11 +3,16 @@ package com.spdata.em55.px.print.utils;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+
+import com.spdata.em55.MenuAct;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import rego.printlib.export.regoPrinter;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class ApplicationContext extends Application {
     private regoPrinter printer;
@@ -41,6 +46,9 @@ public class ApplicationContext extends Application {
                 activity.finish();
             }
         }
+        Intent intent=new Intent(this, MenuAct.class);
+        intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
 //        int id = android.os.Process.myPid();
 //        if (id != 0) {
 //            android.os.Process.killProcess(id);
