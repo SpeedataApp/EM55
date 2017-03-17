@@ -26,7 +26,6 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.spdata.em55.R;
-import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.px.print.print.demo.firstview.ConnectAvtivity;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.spdata.em55.px.print.utils.TXTUtil;
@@ -154,7 +153,9 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 				if (isChecked) {
 					startTest();
 				} else {
-					stopTest();
+					if (timer!=null){
+						stopTest();
+					}
 				}
 			}
 		});
