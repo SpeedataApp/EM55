@@ -28,7 +28,6 @@ import com.spdata.em55.gxandurx.dialog.SetModuleDialog;
 import com.spdata.em55.gxandurx.dialog.SetPasswordDialog;
 import com.spdata.em55.gxandurx.dialog.SpeedTestDialog;
 import com.spdata.em55.gxandurx.dialog.WriteTagDialog;
-import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.speedata.libuhf.IUHFService;
 import com.speedata.libuhf.UHFManager;
@@ -79,8 +78,8 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         String readEm55 = readEm55();
         if (readEm55.equals("80") || readEm55.equals("64")) {
             try {
-                myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 6);
-                myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND, 4);
+                myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 7);
+                myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND, 5);
                 myDeviceControl4.PowerOnDevice();
                 myDeviceControl6.PowerOnDevice();
             } catch (IOException e) {
