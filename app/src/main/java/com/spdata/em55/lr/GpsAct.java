@@ -1,6 +1,5 @@
 package com.spdata.em55.lr;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -10,12 +9,15 @@ import android.serialport.SerialPort;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.spdata.em55.R;
+import com.spdata.em55.base.BaseAct;
+import com.spdata.em55.px.print.utils.ApplicationContext;
 
 import java.io.IOException;
 
-public class GpsAct extends Activity implements View.OnClickListener {
+public class GpsAct extends BaseAct implements View.OnClickListener {
     TextView textView;
     Button button, btngpsApp;
     SerialPort serialPort;
@@ -27,6 +29,7 @@ public class GpsAct extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApplicationContext.getInstance().addActivity(GpsAct.this);
         setContentView(R.layout.act_gps);
         button = (Button) findViewById(R.id.btn_fire);
         btngpsApp = (Button) findViewById(R.id.btn_gps);
@@ -65,7 +68,11 @@ public class GpsAct extends Activity implements View.OnClickListener {
             thread = new readeThread();
             thread.start();
         } else if (v == btngpsApp) {
-            intentApp("com.androits.gps.test.pro");
+            try {
+                intentApp("com.androits.gps.test.pro");
+            } catch (Exception e) {
+                Toast.makeText(this,"请先下载AndroiTS GPS Test Pro软件",Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
@@ -117,6 +124,19 @@ public class GpsAct extends Activity implements View.OnClickListener {
         tStringBuf.append(tChars);
         nRcvString = tStringBuf.toString(); // nRcvString从tBytes转成了String类型的"123"
         return nRcvString;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (thread != null) {
+            thread.interrupt();
+        }
+        try {
+            deviceControl.PowerOffDevice();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

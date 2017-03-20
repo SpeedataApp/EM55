@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:textSize="28sp"
         android:textColor="@color/black"
         android:layout_gravity="center"
         android:text="磁吸扩展功能EM55系列" />
@@ -23,8 +23,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
         android:gravity="center">
-
-
+   />
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
@@ -114,6 +113,33 @@
                 android:layout_below="@id/im_wendu" />
 
         </LinearLayout>
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:id="@+id/ly_uhf"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_border_selector"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/im_uhf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/uhf"
+                    />
+
+                <TextView
+                    android:layout_marginTop="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="UHF"
+                    android:textSize="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_below="@id/im_uhf" />
+
+            </LinearLayout>
         <LinearLayout
             android:layout_width="80dp"
             android:layout_height="75dp"
@@ -182,6 +208,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/shape_border_selector"
                 android:orientation="vertical">
+
                 <ImageView
                     android:id="@+id/im_print"
                     android:layout_width="wrap_content"
@@ -214,7 +241,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/id"
+                    android:src="@drawable/pasm"
                     />
 
                 <TextView
@@ -222,7 +249,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="PASM卡"
+                    android:text="PSAM卡"
                     android:textSize="15dp"
                     android:layout_marginBottom="5dp"
                     android:layout_below="@id/im_pasm" />

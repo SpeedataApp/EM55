@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spdata.em55.R;
+import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 
 
@@ -49,6 +50,7 @@ public class TextSecondActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ApplicationContext.getInstance().addActivity(TextSecondActivity.this);
 		setContentView(R.layout.actvity_barcode);
 		context = (ApplicationContext) getApplicationContext();
 		// 文字显示

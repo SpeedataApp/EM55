@@ -1,9 +1,18 @@
 package com.spdata.em55.px.print.utils;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+
+import com.spdata.em55.MenuAct;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import rego.printlib.export.regoPrinter;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class ApplicationContext extends Application {
     private regoPrinter printer;
@@ -13,7 +22,38 @@ public class ApplicationContext extends Application {
     private static Context context;
     private preDefiniation.TransferMode printmode = preDefiniation.TransferMode.TM_NONE;
     private boolean labelmark = true;
+    private static ApplicationContext instance = null;
 
+    public static ApplicationContext getInstance() {
+        if (null == instance) {
+            instance = new ApplicationContext();
+        }
+        return instance;
+
+    }
+    public ApplicationContext() {
+    }
+    private List<Activity> activityList = new LinkedList<Activity>();
+
+    public void addActivity(Activity activity) {
+        activityList.add(activity);
+    }
+
+    public void exit() {
+
+        for (Activity activity : activityList) {
+            if (!activity.isFinishing()) {
+                activity.finish();
+            }
+        }
+        Intent intent=new Intent(this, MenuAct.class);
+        intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+//        int id = android.os.Process.myPid();
+//        if (id != 0) {
+//            android.os.Process.killProcess(id);
+//        }
+    }
     public static Context getContext() {
         return context;
     }
@@ -33,6 +73,7 @@ public class ApplicationContext extends Application {
 
         super.onCreate();
         context = getApplicationContext();
+        instance = this;
     }
 
     public int getAlignType() {
@@ -90,7 +131,7 @@ public class ApplicationContext extends Application {
     /**
      * 将打印n行空行。n的值应该在0-255之间
      *
-     * @param n
+     * @param
      */
 
     public void PrintNLine(int lines) {

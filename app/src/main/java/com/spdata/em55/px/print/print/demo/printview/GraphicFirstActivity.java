@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.spdata.em55.R;
+import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 
 
@@ -25,6 +26,7 @@ public class GraphicFirstActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ApplicationContext.getInstance().addActivity(GraphicFirstActivity.this);
 		setContentView(R.layout.activity_language);
 
 		wight = (EditText) findViewById(R.id.editText_lanwide);

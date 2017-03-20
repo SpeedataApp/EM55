@@ -25,14 +25,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.spdata.em55.MenuAct;
 import com.spdata.em55.R;
 import com.spdata.em55.px.print.print.demo.firstview.ConnectAvtivity;
+import com.spdata.em55.px.print.print.demo.printview.GraphicTabsActivity;
+import com.spdata.em55.px.print.print.demo.printview.TextTabsActivity;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.spdata.em55.px.print.utils.TXTUtil;
-import com.spdata.em55.px.print.utils.preDefiniation;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -40,7 +41,6 @@ import java.util.TimerTask;
 public class PrintModeActivity extends Activity implements OnClickListener {
 	public Button text;
 	public Button pic;
-	public Bundle b;
 
 
 	private ApplicationContext mContext;
@@ -61,6 +61,7 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ApplicationContext.getInstance().addActivity(PrintModeActivity.this);
 		setContentView(R.layout.activity_printmode);
 		mContext = (ApplicationContext) getApplicationContext();
 		text = (Button) findViewById(R.id.button_text);
@@ -94,24 +95,21 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 		// 初始化并监听
 		btnIn = (Button) findViewById(R.id.button_paper_in);
 		btnOut = (Button) findViewById(R.id.button_paper_out);
-		// btnOut.setVisibility(View.GONE);
-		// btnIn.setVisibility(View.GONE);
 		btnSertGray = (Button) findViewById(R.id.button_set_gray);
 		btnIn.setOnClickListener(this);
 		btnOut.setOnClickListener(this);
 		btnSertGray.setOnClickListener(this);
 		evGrayLevel = (EditText) findViewById(R.id.ev_gray_level);
 		btntest = (ToggleButton) findViewById(R.id.button_test);
+		tvVersion.setText(getVersion());
 
-//		tvVersion.setText(getVersion());
-//
 		text.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(PrintModeActivity.this,
-						com.spdata.em55.px.print.print.demo.printview.TextTabsActivity.class);
+						TextTabsActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -122,7 +120,7 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(PrintModeActivity.this,
-						com.spdata.em55.px.print.print.demo.printview.GraphicTabsActivity.class);
+						GraphicTabsActivity.class);
 				// 图形是true
 				startActivity(intent);
 			}
@@ -178,7 +176,13 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 					new byte[] { 0x0a }, 1);
 		}
 	}
-
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (timer!=null){
+			stopTest();
+		}
+	}
 	private void stopTest() {
 		timer.cancel();
 		timer = null;
@@ -191,6 +195,7 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 		timer.schedule(new TestTimerTask(), 1000, period);
 
 	}
+
 
 	/**
 	 * 获取当前应用程序的版本号
@@ -224,8 +229,12 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 
 		// 先finishConnectActivity
-		ConnectAvtivity.mActivity.finish();
-		finish();
+		try {
+			ConnectAvtivity.mActivity.finish();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		PrintModeActivity.this.finish();
 	}
 
 	// 点击选择
@@ -291,17 +300,7 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 				if (fileType.startsWith("text"))// 判断用户选择的是否为图片
 				{
 					// 根据返回的uri获取图片路径
-//					Cursor cursor = resolver.query(uri,
-//							new String[] { MediaStore.Images.Media.DATA },
-//							null, null, null);
-//					cursor.moveToFirst();
-//					String path = cursor.getString(cursor
-//							.getColumnIndex(MediaStore.Images.Media.DATA));
-//					String firstUri=uri.toString();
-//					String secondUri=firstUri.substring(firstUri.indexOf("//"), firstUri.length());
-//					String thirdUri=secondUri.replace("%3A", "/").replace("//", "");
-//					String resultUri=thirdUri.replace("%2F", "/");
-					com.spdata.em55.px.print.print.demo.secondview.NewGetPath newGetPath=new com.spdata.em55.px.print.print.demo.secondview.NewGetPath();
+					NewGetPath newGetPath=new NewGetPath();
 					String resultUri=newGetPath.getPath(mContext, uri);
 					String resultTXT= TXTUtil.readTxtFile(resultUri.toString(),code);
 					byte[] gbks = null;
@@ -316,7 +315,6 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 
 					Toast.makeText(PrintModeActivity.this, resultTXT + "",
 							Toast.LENGTH_LONG).show();
-					// do anything you want
 				}
 			}
 		}
@@ -383,606 +381,5 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 		mContext.getObject().ASCII_PrintBuffer(mContext.getState(), setCmd,
 				setCmd.length);
 		System.out.println("setOk");
-	}
-
-	public void zeb() {
-		mContext.getObject()
-				.CON_PageStart(mContext.getState(), false, 480, 320);
-		// 第一行
-		ArrayList<String> param = new ArrayList<String>();
-		param.add("28");
-		param.add("30");
-		param.add("0");
-		param.add("8");
-		param.add("1");
-		param.add("1");
-		param.add("N");
-		param.add("10-19 08:27");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("20");
-		param.add("60");
-		param.add("190");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-		// 第2行
-		param.clear();
-		param.add("20");
-		param.add("110");
-		param.add("190");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		param.clear();
-		param.add("30");
-		param.add("114");
-		param.add("0");
-		param.add("8");
-		param.add("1");
-		param.add("1");
-		param.add("N");
-		param.add("东街揽投部");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-		param.clear();
-		param.add("198");
-		param.add("122");
-		param.add("0");
-		param.add("8");
-		param.add("1");
-		param.add("1");
-		param.add("N");
-		param.add("局收 号码");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("30");
-		param.add("160");
-		param.add("0");
-		param.add("8");
-		param.add("1");
-		param.add("1");
-		param.add("N");
-		param.add("福州55件");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-		param.clear();
-		param.add("198");
-		param.add("162");
-		param.add("0");
-		param.add("8");
-		param.add("1");
-		param.add("1");
-		param.add("N");
-		param.add("局发 重量");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("20");
-		param.add("150");
-		param.add("190");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-		param.clear();
-		param.add("20");
-		param.add("190");
-		param.add("190");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		param.clear();
-		param.add("260");
-		param.add("8");
-		param.add("0");
-		param.add("8");
-		param.add("1");
-		param.add("2");
-		param.add("N");
-		param.add("邮特2014");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("303");
-		param.add("57");
-		param.add("0");
-		param.add("8");
-		param.add("2");
-		param.add("2");
-		param.add("N");
-		param.add("特快");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("347");
-		param.add("118");
-		param.add("0");
-		param.add("8");
-		param.add("1");
-		param.add("1");
-		param.add("N");
-		param.add("AAAA");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("345");
-		param.add("150");
-		param.add("120");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		param.clear();
-		param.add("347");
-		param.add("160");
-		param.add("0");
-		param.add("8");
-		param.add("1");
-		param.add("1");
-		param.add("N");
-		param.add("2.00");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("345");
-		param.add("190");
-		param.add("120");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		param.clear();
-		param.add("20");
-		param.add("205");
-		param.add("0");
-		param.add("1");
-		param.add("2");
-		param.add("9");
-		param.add("70");
-		param.add("B");
-		param.add("10803-100-2-121-AA");
-		mContext.getObject().ASCII_Print1DBarcode(mContext.getState(), param,
-				"gb2312");
-		param.clear();
-		param.add("303");
-		param.add("57");
-		param.add("s4");
-		param.add("123456");
-
-		mContext.getObject().ASCII_Print2DBarcode(mContext.getState(),
-				preDefiniation.BarcodeType.BT_QRcode.getValue(), param, "gb2312");
-
-		// 打印一维条码 条码x,y,旋转, 条码窄度，条码宽度，条码高度， 可显示B/N，条码内容
-		mContext.getObject().CON_PageEnd(mContext.getState(),
-				mContext.getPrintway());
-	}
-
-	private void LQ58() {
-		mContext.getObject().CON_PageStart(mContext.getState(), false, 55, 33);
-		mContext.getObject().CON_SetPrintDirection(mContext.getState(), 0);
-		// 第一行
-		ArrayList<String> param = new ArrayList<String>();
-		param.add("28");
-		param.add("30");
-		param.add("1");
-		param.add("1");
-		param.add("10-19 08:27");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-		param.clear();
-		param.add("20");
-		param.add("60");
-		param.add("190");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		param.clear();
-		param.add("30");
-		param.add("114");
-		param.add("2");
-		param.add("1");
-		param.add("东街揽投部");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-		param.clear();
-		param.add("20");
-		param.add("150");
-		param.add("190");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		param.clear();
-		param.add("20");
-		param.add("155");
-		param.add("40");
-		param.add("1");
-		param.add("2");
-		param.add("10803-100-2-121-AA");
-		mContext.getObject().ASCII_Print1DBarcode(mContext.getState(), param,
-				"gb2312");
-		param.clear();
-		param.add("20");
-		param.add("155");
-		param.add("5");
-		param.add("10803");
-		mContext.getObject().ASCII_Print2DBarcode(mContext.getState(),
-				preDefiniation.BarcodeType.BT_QRcode.getValue(), param,
-				"gb2312");
-		mContext.getObject().CON_PageEnd(mContext.getState(),
-				mContext.getPrintway());
-	}
-
-	public void LP80B() {
-		mContext.getObject().CON_PageStart(mContext.getState(), false, 60, 40);
-		mContext.getObject().CON_SetPrintDirection(mContext.getState(), 14);
-		// 第一行
-		ArrayList<String> param = new ArrayList<String>();
-		param.add("28");
-		param.add("30");
-		param.add("TSS24.BF2");
-		param.add("0");// 旋转角度
-		param.add("1");
-		param.add("1");
-		param.add("10-19 08:27");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-		param.clear();
-		param.add("20");
-		param.add("60");
-		param.add("190");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		// 第2行
-		param.clear();
-		param.add("20");
-		param.add("110");
-		param.add("190");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-		param.clear();
-		param.add("30");
-		param.add("114");
-		param.add("TSS24.BF2");
-		param.add("0");// 旋转角度
-		param.add("1");
-		param.add("1");
-		param.add("东街揽投部");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("198");
-		param.add("122");
-		param.add("TSS24.BF2");
-		param.add("0");// 旋转角度
-		param.add("1");
-		param.add("1");
-		param.add("局收 号码");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("30");
-		param.add("160");
-		param.add("TSS24.BF2");
-		param.add("0");// 旋转角度
-		param.add("1");
-		param.add("1");
-		param.add("福州55件");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("198");
-		param.add("162");
-		param.add("TSS24.BF2");
-		param.add("0");// 旋转角度
-		param.add("1");
-		param.add("1");
-		param.add("局发 重量");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("20");
-		param.add("150");
-		param.add("190");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		param.clear();
-		param.add("20");
-		param.add("190");
-		param.add("190");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		param.clear();
-		param.add("260");
-		param.add("8");
-		param.add("TSS24.BF2");
-
-		param.add("0");// 旋转角度
-		param.add("2");
-		param.add("1");
-		param.add("邮特2014");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("303");
-		param.add("57");
-		param.add("TSS24.BF2");
-		param.add("0");// 旋转角度
-		param.add("2");
-		param.add("2");
-		param.add("特快");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("347");
-		param.add("118");
-		param.add("TSS24.BF2");
-		param.add("0");// 旋转角度
-		param.add("1");
-		param.add("1");
-		param.add("AAAA");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("345");
-		param.add("150");
-		param.add("120");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		param.clear();
-		param.add("347");
-		param.add("160");
-		param.add("TSS24.BF2");
-		param.add("0");// 旋转角度
-		param.add("1");
-		param.add("1");
-		param.add("2.00");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-
-		param.clear();
-		param.add("345");
-		param.add("190");
-		param.add("120");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		param.clear();
-		param.add("5");
-		param.add("205");
-		param.add("39");
-		param.add("40");
-		param.add("1");
-		param.add("0");
-		param.add("2");
-		param.add("4");
-		param.add("10803-100-2-121-AA");
-		mContext.getObject().ASCII_Print1DBarcode(mContext.getState(), param,
-				"gb2312");
-		// 打印一维条码 条码x,y,旋转, 条码窄度，条码宽度，条码高度， 可显示B/N，条码内容
-		mContext.getObject().CON_PageEnd(mContext.getState(),
-				mContext.getPrintway());
-	}
-
-	public void TSC() {
-		// 宽和高是像素点640代表的是80mm
-		mContext.getObject().CON_PageStart(mContext.getState(), true, 480, 400);
-		mContext.getObject().CON_SetPrintDirection(mContext.getState(), 14);
-		// 第一行
-		ArrayList<String> param = new ArrayList<String>();
-
-		param.clear();
-		param.add("20");
-		param.add("60");
-		param.add("190");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-		// 第2行
-		param.clear();
-		param.add("20");
-		param.add("110");
-		param.add("190");
-		param.add("2");
-		// param.add(null);
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		param.clear();
-		param.add("20");
-		param.add("150");
-		param.add("190");
-		param.add("2");
-		// param.add(null);
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-		param.clear();
-		param.add("20");
-		param.add("190");
-		param.add("190");
-		param.add("2");
-		// param.add(null);
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		param.clear();
-		param.add("345");
-		param.add("150");
-		param.add("120");
-		param.add("2");
-		// param.add(null);
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		mContext.getObject().DRAW_PrintText(mContext.getState(), 347, 160,
-				"2.00", 24);
-
-		param.clear();
-		param.add("345");
-		param.add("190");
-		param.add("120");
-		param.add("2");
-		// param.add(null);
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		param.clear();
-		param.add("5");
-		param.add("205");
-		param.add("39");
-		param.add("40");
-		param.add("1");
-		param.add("0");
-		param.add("2");
-		param.add("4");
-		param.add("10803-100-2-121-AA");
-		param.add(null);
-
-		mContext.getObject().ASCII_Print1DBarcode(mContext.getState(), param,
-				"gb2312");
-		mContext.getObject().DRAW_PrintText(mContext.getState(), 260, 8,
-				"邮特2014", 30);
-
-		mContext.getObject().DRAW_PrintText(mContext.getState(), 303, 57, "特快",
-				48);
-
-		mContext.getObject().DRAW_PrintText(mContext.getState(), 347, 118,
-				"AAAA", 24);
-
-		mContext.getObject().DRAW_PrintText(mContext.getState(), 28, 30,
-				"10-19 08:27", 24);
-
-		mContext.getObject().DRAW_PrintText(mContext.getState(), 30, 122,
-				"东街揽投部", 24);
-
-		mContext.getObject().DRAW_PrintText(mContext.getState(), 198, 122,
-				"局收 号码", 24);
-
-		mContext.getObject().DRAW_PrintText(mContext.getState(), 30, 160,
-				"福州55件", 24);
-
-		mContext.getObject().DRAW_PrintText(mContext.getState(), 198, 162,
-				"局发 重量", 24);
-
-		// 打印一维条码 条码x,y,旋转, 条码窄度，条码宽度，条码高度， 可显示B/N，条码内容
-		mContext.getObject().CON_PageEnd(mContext.getState(),
-				mContext.getPrintway());
-	}
-
-	public void lp58a() {
-
-		mContext.getObject().CON_PageStart(mContext.getState(), false, 50, 30);
-
-//		mContext.getObject()
-//				.ASCII_CtrlFloatPosition(mContext.getState(), 1, 22);
-		byte small[] = new byte[3];
-		small[0] = 0x1d;
-		small[1] = 0x66;
-		small[2] = 0x01;
-
-		mContext.getObject().ASCII_PrintBuffer(mContext.getState(), small, 3);
-		mContext.getObject().ASCII_Print1DBarcode(mContext.getState(),
-				preDefiniation.BarcodeType.BT_CODE128.getValue(), 2, 100,
-				preDefiniation.Barcode1DHRI.BH_BLEW.getValue(), "04A1WN171A081");
-		mContext.getObject().CON_PageEnd(mContext.getState(),
-				mContext.getPrintway());
-
-	}
-
-	public ArrayList<String> paramBarcode(String arg0, String arg1,
-										  String arg2, String arg3, String arg4, String arg5, String arg6,
-										  String arg7, String arg8, String arg9) {
-		ArrayList<String> param = new ArrayList<String>();
-		param.add(arg0);
-		param.add(arg1);
-		param.add(arg2);
-		param.add(arg3);
-		param.add(arg4);
-		param.add(arg5);
-		param.add(arg6);
-		param.add(arg7);
-		param.add(arg8);
-		param.add(arg9);
-		return param;
-
-	}
-
-	public ArrayList<String> paramString(int arg0, int arg1, int arg2,
-										 int arg3, String arg4) {
-		ArrayList<String> param = new ArrayList<String>();
-		param.clear();
-		param.add(arg0 + "");
-		param.add(arg1 + "");
-		param.add("TSS24.BF2");
-		param.add("0");
-		param.add(arg2 + "");
-		param.add(arg3 + "");
-		param.add(arg4);
-		param.add(null);
-
-		return param;
-	}
-
-	public ArrayList<String> paramLine(String arg0, String arg1, String arg2,
-									   String arg3) {
-		ArrayList<String> param = new ArrayList<String>();
-		param.clear();
-		param.add(arg0);
-		param.add(arg1);
-		param.add(arg2);
-		param.add(arg3);
-
-		return param;
-	}
-
-	public void LP58() {
-		mContext.getObject().CON_PageStart(mContext.getState(), false, 55, 33);
-		mContext.getObject().CON_SetPrintDirection(mContext.getState(), 14);
-		// 第一行
-		ArrayList<String> param = new ArrayList<String>();
-		param.add("28");
-		param.add("30");
-		param.add("TSS24.BF2");
-		param.add("0");// 旋转角度
-		param.add("1");
-		param.add("1");
-		param.add("10-19 08:27");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-		param.clear();
-		param.add("20");
-		param.add("60");
-		param.add("190");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-
-		// 第2行
-		param.clear();
-		param.add("20");
-		param.add("110");
-		param.add("190");
-		param.add("2");
-		mContext.getObject().ASCII_PrintLine(mContext.getState(), param);
-		param.clear();
-		param.add("30");
-		param.add("114");
-		param.add("TSS24.BF2");
-		param.add("0");// 旋转角度
-		param.add("1");
-		param.add("1");
-		param.add("东街揽投部");
-		mContext.getObject().ASCII_PrintString(mContext.getState(), param,
-				"gb2312");
-		mContext.getObject().CON_PageEnd(mContext.getState(),
-				mContext.getPrintway());
 	}
 }

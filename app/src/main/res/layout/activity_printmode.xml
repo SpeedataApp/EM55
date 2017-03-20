@@ -1,25 +1,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
-    android:padding="20dp"
-    tools:context="${relativePackage}.${activityClass}" >
+    android:padding="20dp">
 
     <LinearLayout
         android:id="@+id/linearlayout001"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/button_paper_in"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginRight="5dp"
+            android:layout_weight="1"
             android:background="@drawable/bg_alibuybutton"
             android:text="@string/button_paper_in" />
 
@@ -36,42 +33,42 @@
         android:id="@+id/button_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_text"
         android:background="@drawable/bg_alibuybutton"
+        android:text="@string/button_text"
         android:textSize="20sp" />
-    
+
     <LinearLayout
         android:id="@+id/ll_coding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Spinner
-            android:entries="@array/coding"
             android:id="@+id/sp_coding"
             android:layout_width="110dp"
-
-            android:layout_height="wrap_content">
-        </Spinner>
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_alibuybutton"
+            android:entries="@array/coding"></Spinner>
 
         <Button
-        android:id="@+id/btn_print_txt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-           android:background="@drawable/bg_alibuybutton"
-        android:text="@string/button_txt"
-        android:textSize="20sp" />
-    
+            android:id="@+id/btn_print_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/bg_alibuybutton"
+            android:text="@string/button_txt"
+            android:textSize="20sp" />
+
     </LinearLayout>
 
     <Button
         android:id="@+id/button_pic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_pic"
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_alibuybutton"
+        android:text="@string/button_pic"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -79,14 +76,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textColor="@color/black"
             android:text="@string/set_gra_level"
+            android:textColor="@color/black"
             android:textSize="20dp" />
 
         <EditText
@@ -96,7 +93,7 @@
             android:layout_weight="1"
             android:background="@drawable/edit"
             android:hint="@string/set_gra_level_hint"
-            android:inputType="number" >
+            android:inputType="number">
 
             <requestFocus />
         </EditText>
@@ -115,14 +112,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/button_print_setting"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
             android:layout_marginRight="5dp"
+            android:layout_weight="1"
             android:background="@drawable/bg_alibuybutton"
             android:text="@string/button_print_setting" />
 
@@ -140,9 +137,9 @@
     <TextView
         android:id="@+id/tv_version"
         android:layout_width="40dp"
-        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:text="1.0.0" />
+        android:text="1.0.0"
+        android:visibility="gone" />
 
 </LinearLayout>

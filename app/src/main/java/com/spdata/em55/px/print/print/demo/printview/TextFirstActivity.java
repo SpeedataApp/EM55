@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spdata.em55.R;
+import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 
 
@@ -52,6 +53,7 @@ public class TextFirstActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ApplicationContext.getInstance().addActivity(TextFirstActivity.this);
 		setContentView(R.layout.activity_general);
 		mContext = this;
 		// 尺寸设置

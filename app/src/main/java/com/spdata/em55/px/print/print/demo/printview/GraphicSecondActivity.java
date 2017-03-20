@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.spdata.em55.R;
+import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.spdata.em55.px.print.utils.preDefiniation;
 
@@ -36,6 +37,7 @@ public class GraphicSecondActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ApplicationContext.getInstance().addActivity(GraphicSecondActivity.this);
 		setContentView(R.layout.activity_picdraw);
 		pridraw = (Button) findViewById(R.id.button_pridraw);
 		// 高宽设置
@@ -43,9 +45,9 @@ public class GraphicSecondActivity extends Activity {
 		wight = (EditText) findViewById(R.id.editText_picwide);
 		hight = (EditText) findViewById(R.id.editText_pichight);
 		final InputStream bitmap = this.getResources().openRawResource(
-				R.drawable.star);
+				+R.drawable.star);
 		final InputStream bitmaptwo = this.getResources().openRawResource(
-				R.drawable.printico);
+				+R.drawable.printico);
 		context = (ApplicationContext) getApplicationContext();
 
 		mobileprinter = context.getObject();

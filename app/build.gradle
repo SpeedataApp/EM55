@@ -1,15 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
 
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "com.spdata.em55"
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
-        versionName "1.4"
+        versionName "1.8.0"
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
     }
     buildTypes {
         release {
@@ -22,12 +27,13 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
     compile files('libs/orm.jar')
-    compile files('libs/SerialPort.jar')
-    compile files('libs/HS_CVR100U.jar')
-    compile 'com.speedata:libid2:1.6'
-    compile 'com.speedata:libuhf:5.3'
-    compile 'com.speedata:deivice:1.1'
-//    compile 'com.speedatagroup:LibMarsdaemon:1.0'
+    compile 'com.speedata:libuhf:5.9'//uhf
+    compile 'com.speedata:libid2:2.4'//身份证
+    compile 'com.speedata:psam:1.3'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.speedata:deivice:1.4.3'//串口
+    compile 'com.speedata:Distance:1.1'//测距
+    compile 'com.speedata:humiture2:1.0'//温湿度
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<string-array name="comName">
+<item>/dev/ttyS0</item>
+<item>/dev/ttyS1</item>
+<item>/dev/ttyS2</item>
+<item>/dev/ttyS3</item>
+<item>/dev/ttyS4</item>
+<item>/dev/ttyS5</item>
+<item>/dev/ttyS6</item>
+<item>/dev/ttyS7</item>
+<item>/dev/ttyS8</item>
+<item>/dev/ttyS9</item>
+</string-array>
+<string-array name="comBaud">
+<item>1200</item>
+<item>2400</item>
+<item>4800</item>
+<item>9600</item>
+<item>19200</item>
+<item>38400</item>
+<item>57600</item>
+<item>115200</item>
+</string-array>
+<string-array name="usbName">
+<item>usb</item>
+</string-array>
+<string-array name="printWay">
+<item>透传模式（无）</item>
+<item>WP-100</item>
+<item>WP-200</item>
+<item>页模式</item>
+</string-array>
+<string-array name="Interface">
+<item>Bluetooth</item>
+<item>WIFI</item>
+<item>USB</item>
+<item>Serial</item>
+</string-array>
+<array name="barcodepic">
+<item>@drawable/upc_a</item>
+<item>@drawable/upc_e</item>
+<item>@drawable/jan13</item>
+<item>@drawable/jan8</item>
+<item>@drawable/code39</item>
+<item>@drawable/itf</item>
+<item>@drawable/codabar</item>
+<item>@drawable/code93</item>
+<item>@drawable/code128</item>
+</array>
+<array name="barcodedefault">
+<item>123456789012,2,28,1</item>
+<item>012300000456,2,28,1</item>
+<item>1234567890123,2,28,1</item>
+<item>12345678,2,28,1</item>
+<item>12345678,2,28,1</item>
+<item>12345678,2,28,1</item>
+<item>A12345678B,2,28,1</item>
+<item>12345678,2,28,1</item>
+<item>12345678,2,28,1</item>
+</array>
+<array name="QRpic">
+<item>@drawable/pdf417</item>
+<item>@drawable/data_matrix</item>
+<item>@drawable/qr_code</item>
+</array>
+<array name="QRdefault">
+<item>123456789,8,7,2</item>
+<item>123456789,40,40,2</item>
+<item>123456789,0,76,6</item>
+</array>
+<string-array name="barcodetype">
+<item>UPC-A</item>
+<item>UPC-E</item>
+<item>JAN13 (EAN13)</item>
+<item>JAN8 (EAN8)</item>
+<item>CODE39</item>
+<item>ITF</item>
+<item>CODABAR</item>
+<item>CODE93</item>
+<item>CODE128</item>
+</string-array>
+<string-array name="QRtype">
+<item>PDF417</item>
+<item>DATA MATRIX</item>
+<item>QR CODE</item>
+</string-array>
+<string-array name="hripostion">
+<item>No</item>
+<item>Above</item>
+<item>Below</item>
+</string-array>
+<string-array name="coding">
+<item>GBK</item>
+<item>UTF-8</item>
+</string-array>
+</resources>

@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.spdata.em55.R;
+import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.spdata.em55.px.print.utils.preDefiniation;
 
@@ -19,6 +20,7 @@ public class TextThirdActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ApplicationContext.getInstance().addActivity(TextThirdActivity.this);
 		setContentView(R.layout.activity_textapply);
 		fire = (Button) findViewById(R.id.Button_fire);
 		move = (Button) findViewById(R.id.button_movie);
@@ -71,7 +73,7 @@ public class TextThirdActivity extends Activity {
 				context.getObject().ASCII_Print1DBarcode(context.getState(),
 						preDefiniation.BarcodeType.BT_UPCA.getValue(), 2, 28,
 						preDefiniation.Barcode1DHRI.BH_BLEW.getValue(), "123456789012");
-				context.getObject().ASCII_CtrlFeedLines(context.getState(),1);
+				context.getObject().ASCII_CtrlFeedLines(context.getState(),4);
 				context.getObject().ASCII_CtrlReset(context.getState());
 				context.getObject().CON_PageEnd(context.getState(),context.getPrintway());
 			}
@@ -127,7 +129,7 @@ public class TextThirdActivity extends Activity {
 				context.getObject().ASCII_CtrlPrintCRLF(context.getState(),1);
 				context.getObject().ASCII_PrintString(context.getState(),0,
 						0, 0, 0, 0, "谢谢惠顾，欢迎下次光临！", "gb2312");
-				context.getObject().ASCII_CtrlPrintCRLF(context.getState(),1);
+				context.getObject().ASCII_CtrlPrintCRLF(context.getState(),5);
 				context.getObject().ASCII_CtrlReset(context.getState());
 				context.getObject().CON_PageEnd(context.getState(),context.getPrintway());
 
@@ -166,7 +168,9 @@ public class TextThirdActivity extends Activity {
 				context.getObject().ASCII_PrintString(context.getState(),0,
 						0, 0, 0, 0, "仅限当日当次车", "gb2312");
 				context.getObject().ASCII_CtrlPrintCRLF(context.getState(),1);
-				context.getObject().ASCII_Print2DBarcode(context.getState(), preDefiniation.BarcodeType.BT_QRcode.getValue(),"123456789",8,76,2);
+				context.getObject().ASCII_Print2DBarcode(context.getState(),
+						preDefiniation.BarcodeType.BT_QRcode.getValue(),"123456789",8,76,2);
+				context.getObject().ASCII_CtrlFeedLines(context.getState(),4);
 				context.getObject().ASCII_CtrlReset(context.getState());
 				context.getObject().CON_PageEnd(context.getState(),context.getPrintway());
 			}

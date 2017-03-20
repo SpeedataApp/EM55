@@ -26,6 +26,7 @@ public class GraphicThirdActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ApplicationContext.getInstance().addActivity(GraphicThirdActivity.this);
 		setContentView(R.layout.activity_picapply);
 
 		lab = (Button) findViewById(R.id.Button_pictable);
@@ -140,15 +141,15 @@ public class GraphicThirdActivity extends Activity {
 				// TODO Auto-generated method stub
 
 				context.getObject().CON_PageStart(context.getState(), true,
-						384, 300);
+						384, 370);
 				context.getObject().DRAW_SetFillMode(false,0);
 				context.getObject().DRAW_SetLineWidth(2);
-				context.getObject().DRAW_PrintText(context.getState(), 325, 30,
-						"北京", 14);
-				context.getObject().DRAW_PrintCircle(context.getState(), 373,
-						33, 15);
-				context.getObject().DRAW_PrintText(context.getState(), 364, 30,
-						"售", 14);
+				context.getObject().DRAW_PrintText(context.getState(), 130, 20,
+						"北京", 20);
+				context.getObject().DRAW_PrintCircle(context.getState(), 200,
+						30, 15);
+				context.getObject().DRAW_PrintText(context.getState(), 190, 20,
+						"售", 20);
 				context.getObject().DRAW_PrintText(context.getState(), 50, 60,
 						"北 京", 22);
 				context.getObject().DRAW_PrintText(context.getState(), 290, 60,
@@ -174,10 +175,10 @@ public class GraphicThirdActivity extends Activity {
 				context.getObject().DRAW_PrintText(context.getState(), 20, 185,
 						"仅限当日当次车", 16);
 
-				context.getObject().DRAW_PrintText(context.getState(), 35, 260,
+				context.getObject().DRAW_PrintText(context.getState(), 135, 260,
 						"123456789012345", 16);
 				context.getObject().DRAW_Print1D2DBarcode(context.getState(),
-						preDefiniation.BarcodeType.BT_QRcode.getValue(), 320, 200, 80, 80,
+						preDefiniation.BarcodeType.BT_QRcode.getValue(), 180, 200, 80, 80,
 						"火车票");
 				context.getObject().CON_PageEnd(context.getState(),
 						context.getPrintway());
@@ -190,7 +191,7 @@ public class GraphicThirdActivity extends Activity {
 				// TODO Auto-generated method stub
 				int size = 20;
 				context.getObject().CON_PageStart(context.getState(), true,
-						576, 600);
+						576, 500);
 				context.getObject().DRAW_SetFillMode(false,0);
 				context.getObject().DRAW_SetLineWidth(2);
 				context.getObject().DRAW_PrintText(context.getState(), 100, 5,
@@ -225,7 +226,6 @@ public class GraphicThirdActivity extends Activity {
 						"地址：北京得实大厦", size);
 				context.getObject().DRAW_PrintText(context.getState(), 5, 305,
 						"谢谢惠顾，欢迎下次光临！", size);
-
 				context.getObject().CON_PageEnd(context.getState(),
 						context.getPrintway());
 			}
@@ -237,7 +237,7 @@ public class GraphicThirdActivity extends Activity {
 				// TODO Auto-generated method stub
 
 				context.getObject().CON_PageStart(context.getState(), true,
-						384, 384);
+						384, 510);
 				context.getObject().DRAW_SetFillMode(false,0);
 				context.getObject().DRAW_SetLineWidth(4);
 				context.getObject().DRAW_PrintText(context.getState(), 95, 25,
@@ -289,7 +289,8 @@ public class GraphicThirdActivity extends Activity {
 				context.getObject().DRAW_Print1D2DBarcode(context.getState(),
 						preDefiniation.BarcodeType.BT_UPCA.getValue(), 70, 365, 240, 30,
 						"123456789012");
-
+//				context.getObject().CPCL_PostFeed(context.getState(),4);
+//				context.getObject().ASCII_CtrlReset(context.getState());
 				context.getObject().CON_PageEnd(context.getState(),
 						context.getPrintway());
 			}

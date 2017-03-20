@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-/*
-**
-** Copyright 2007 The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    
-    <string-array name="commands">
-        <item>获取8029版本</item>
-        <item>查看8029状态</item>
-        <item>使能sam卡</item>
-        <item>发送APDU数据</item>
-        <item>断开sam卡</item>
+<resources>
+    <string-array name="languages">
+        <item>9600</item>
+        <item>19200</item>
+        <item>38400</item>
+        <item>115200</item>
+    </string-array>
+    <string-array name="gpio">
+        <item>GPIO48（KT40）</item>
+        <item>GPIO7（KT40Q）</item>
+        <item>GPIO14（KT45）</item>
+        <item>GPIO96（KT45Q）</item>
+        <item>GPIO88（KT55）</item>
+
+    </string-array>
+    <string-array name="serialport">
+        <item>ttyMT0</item>
+        <item>ttyMT1</item>
+        <item>ttyMT2</item>
+        <item>ttyMT3</item>
+    </string-array>
+    <string-array name="wgpio">
+        <item>WGPIO0</item>
+        <item>WGPIO1</item>
+        <item>WGPIO2</item>
+        <item>WGPIO3</item>
+        <item>WGPIO4</item>
+        <item>WGPIO5</item>
+        <item>WGPIO6</item>
+        <item>WGPIO7</item>
     </string-array>
 
-    <string name="action_settings">Settings</string>
-
+    <string-array name="commands">
+        <item>Check Mask Version</item>
+        <item>Get Reader Status</item>
+        <item>Activate Card</item>
+        <item>Send An APDU</item>
+        <item>POWER_OFF</item>
+    </string-array>
 
 </resources>
