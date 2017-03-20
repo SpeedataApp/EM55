@@ -1,147 +1,150 @@
 package com.spdata.em55.px.psam;
 
-import android.content.BroadcastReceiver;
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.os.SystemClock;
-import android.serialport.DeviceControl;
-import android.serialport.SerialPort;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spdata.em55.R;
-import com.spdata.em55.base.BaseAct;
-import com.spdata.em55.lr.GpsAct;
-import com.spdata.em55.px.print.utils.ApplicationContext;
+import com.speedata.libutils.ConfigUtils;
+import com.speedata.libutils.DataConversionUtils;
+import com.speedata.libutils.ReadBean;
 
 import java.io.IOException;
-import java.util.Timer;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import speedatacom.a3310libs.PsamManager;
 import speedatacom.a3310libs.inf.IPsam;
 
-import static speedatacom.a3310libs.realize.Psam3310Realize.POWER_ACTION;
-import static speedatacom.a3310libs.realize.Psam3310Realize.POWER_RESULT;
+public class PsamAct extends Activity implements View.OnClickListener {
 
-
-public class PsamAct extends BaseAct implements View.OnClickListener {
-
-    private Button btnPsam1, btnPsam2, btnGetRamdon, btnSendAdpu, btnClear;
+    //19200 9600
+    private Button btn1Activite, btn2Activite, btnGetRomdan, btnSendAdpu, btnClear;
     private EditText edvADPU;
     private TextView tvShowData;
-    private SerialPort mSerialPort;
-    private int fd;
     private int psamflag = 0;
-    private DeviceControl mDeviceControl;
-    private DeviceControl mDeviceControl2;
     private Context mContext;
-    private Timer timer;
-    private Button btnReSet;
-    private Button btnPower;
     private TextView tvVerson;
-    private String send_data = "";
+    private TextView tvConfig;
+    private ImageView imgReset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        ApplicationContext.getInstance().addActivity(PsamAct.this);
-        setContentView(R.layout.act_pasm);
         mContext = this;
         initUI();
-
+        showConfig();
+        initDevice();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        PowerOpenDev();
-        //接受软上电
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(POWER_ACTION);
-        registerReceiver(broadcastReceiver, intentFilter);
+    private void showConfig() {
+
+        String verson = getVersion();
+        tvVerson.setText("V" + verson);
+
+        boolean isExit = ConfigUtils.isConfigFileExists();
+        if (isExit)
+            tvConfig.setText("定制配置：\n");
+        else
+            tvConfig.setText("标准配置：\n");
+        ReadBean.PasmBean pasm = ConfigUtils.readConfig(this).getPasm();
+        String gpio = "";
+        List<Integer> gpio1 = pasm.getGpio();
+        for (Integer s : gpio1) {
+            gpio += s + ",";
+        }
+        tvConfig.append("串口:" + pasm.getSerialPort() + "  波特率：" + pasm.getBraut() + " 上电类型:" +
+                pasm.getPowerType() + " GPIO:" + gpio + " resetGpio:" + pasm.getResetGpio());
     }
+
 
     private void initUI() {
-        btnPsam1 = (Button) findViewById(R.id.btn1_active);
-        btnPsam2 = (Button) findViewById(R.id.btn2_active);
-        btnGetRamdon = (Button) findViewById(R.id.btn_get_ramdon);
+        setContentView(R.layout.activity_main);
+        imgReset = (ImageView) findViewById(R.id.img_reset);
+        imgReset.setOnClickListener(this);
+        tvConfig = (TextView) findViewById(R.id.tv_config);
+        btn1Activite = (Button) findViewById(R.id.btn1_active);
+        btn2Activite = (Button) findViewById(R.id.btn2_active);
+        btnGetRomdan = (Button) findViewById(R.id.btn_get_ramdon);
         btnSendAdpu = (Button) findViewById(R.id.btn_send_adpu);
-        btnReSet = (Button) findViewById(R.id.btn_reset);
-        btnPower = (Button) findViewById(R.id.btn_power);
         btnClear = (Button) findViewById(R.id.btn_clear);
         tvVerson = (TextView) findViewById(R.id.tv_verson);
-        btnPower.setOnClickListener(this);
-        btnPsam1.setOnClickListener(this);
-        btnPsam2.setOnClickListener(this);
-        btnGetRamdon.setOnClickListener(this);
+        btn1Activite.setOnClickListener(this);
+        btn2Activite.setOnClickListener(this);
+        btnGetRomdan.setOnClickListener(this);
         btnSendAdpu.setOnClickListener(this);
-        btnReSet.setOnClickListener(this);
         btnClear.setOnClickListener(this);
         tvShowData = (TextView) findViewById(R.id.tv_show_message);
         tvShowData.setMovementMethod(ScrollingMovementMethod.getInstance());
         edvADPU = (EditText) findViewById(R.id.edv_adpu_cmd);
         edvADPU.setText("0084000008");
-        //pin = { 0x00, 0x20, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00 };
         edvADPU.setText("0020000003");
         edvADPU.setText("80f0800008122a31632a3bafe0");
         edvADPU.setText("00A404000BA000000003454E45524759");
-//        edvADPU.setText("80f002 00 01 02");
     }
 
-    private void PowerOpenDev() {
-        SystemClock.sleep(100);
-        initDevice();
-    }
 
-    IPsam psam = PsamManager.getPsamIntance();
-    boolean result;
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals(POWER_ACTION)) {
-                result = intent.getBooleanExtra(POWER_RESULT, false);
-                tvShowData.setText("Psam activite： " + result + "\n");
-            }
-        }
-    };
+    String send_data = "";
+    //获取psam实例
+    IPsam psamIntance = PsamManager.getPsamIntance();
+
 
     @Override
     public void onClick(View v) {
-        if (v == btnPsam1) {
+        if (v == imgReset) {
+            psamIntance.resetDev();
+        } else if (v == btn1Activite) {
             psamflag = 1;
-            psam.PsamPower(IPsam.PowerType.Psam1);
-        } else if (v == btnPsam2) {
+            byte[] data = psamIntance.PsamPower(IPsam.PowerType.Psam1);
+            if (data != null)
+                tvShowData.setText("Psam1 activite \n" + DataConversionUtils.byteArrayToString
+                        (data));
+            else {
+                tvShowData.setText("failed");
+            }
+        } else if (v == btn2Activite) {
             psamflag = 2;
-            psam.PsamPower(IPsam.PowerType.Psam2);
-        } else if (v == btnGetRamdon) {
+            byte[] data = psamIntance.PsamPower(IPsam.PowerType.Psam2);
+            if (data != null)
+                tvShowData.setText("Psam2 activite \n" + DataConversionUtils.byteArrayToString
+                        (data));
+            else {
+                tvShowData.setText("failed");
+            }
+        } else if (v == btnGetRomdan) {
             if (psamflag == 1) {
-                int len = psam.sendData(new byte[]{0x00, (byte) 0x84, 0x00, 0x00,
-                        0x08}, IPsam
-                        .PowerType.Psam1);
-                if (len >= 0) {
+                try {
                     tvShowData.setText("Psam1 Send data：00 84 00 00 08\n");
-                } else {
-                    tvShowData.setText("Psam1 Send data failed\n");
+                    //读取长度20   最大延时10ms  此方法  耗时应该在15ms左右
+                    byte[] data = psamIntance.WriteCmd(new byte[]{0x00, (byte) 0x84, 0x00, 0x00,
+                            0x08}, IPsam
+                            .PowerType.Psam1, 20, 10);
+                    if (data != null)
+                        tvShowData.append("rece->" + DataConversionUtils.byteArrayToString(data));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                 }
             } else if (psamflag == 2) {
-                int len = psam.sendData(new byte[]{0x00, (byte) 0x84, 0x00, 0x00,
-                        0x08}, IPsam
-                        .PowerType.Psam2);
-                if (len >= 0) {
+                try {
                     tvShowData.setText("Psam2 Send data：00 84 00 00 08\n");
-                } else {
-                    tvShowData.setText("Psam2 Send data failed\n");
+                    byte[] data = psamIntance.WriteCmd(new byte[]{0x00, (byte) 0x84, 0x00, 0x00,
+                            0x08}, IPsam
+                            .PowerType.Psam2);
+                    if (data != null)
+                        tvShowData.append("rece->" + DataConversionUtils.byteArrayToString(data));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                 }
             }
         } else if (v == btnSendAdpu) {
@@ -153,48 +156,41 @@ public class PsamAct extends BaseAct implements View.OnClickListener {
             }
             send_data = temp_cmd;
             if (psamflag == 1) {
-                int len = psam.sendData(com.speedata.libutils.DataConversionUtils
-                        .HexString2Bytes(temp_cmd), IPsam.PowerType.Psam1);
-                if (len >= 0)
-                    tvShowData.setText("Psam1 Send data：\n" + send_data + "\n\n");
-                else
-                    tvShowData.setText("Psam1 Send data：failed");
+                tvShowData.setText("Psam1 Send data：\n" + send_data + "\n");
+                try {
+                    byte[] data = psamIntance.WriteCmd(DataConversionUtils
+                            .HexString2Bytes(temp_cmd), IPsam.PowerType.Psam1);
+                    if (data != null)
+                        tvShowData.append("rece->" + DataConversionUtils.byteArrayToString(data));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
             } else if (psamflag == 2) {
-                int len = psam.sendData(com.speedata.libutils.DataConversionUtils
-                        .HexString2Bytes(temp_cmd), IPsam.PowerType.Psam2);
-                if (len >= 0)
-                    tvShowData.setText("Psam2 Send data：\n" + send_data + "\n\n");
-                else
-                    tvShowData.setText("Psam2 Send data：failed");
+                tvShowData.setText("Psam2 Send data：\n" + send_data + "\n");
+                try {
+                    byte[] data = psamIntance.WriteCmd(DataConversionUtils
+                            .HexString2Bytes(temp_cmd), IPsam.PowerType.Psam2);
+                    if (data != null)
+                        tvShowData.append("rece->" + DataConversionUtils.byteArrayToString(data));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         } else if (v == btnClear) {
             tvShowData.setText("");
-        } else if (v == btnReSet) {
-            psam.resetDev(DeviceControl.PowerType.EXPAND, 1);
-            Toast.makeText(PsamAct.this,"reset ok",Toast.LENGTH_SHORT).show();
-        } else if (v == btnPower) {
-            PowerOpenDev();
         }
+
     }
 
-    private int baurate = 115200;
-    private String serialport = "ttyMT2";
 
     private void initDevice() {
-        psam.initDev(serialport, baurate, DeviceControl.PowerType.MAIN_AND_EXPAND,
-                this, 88, 2);
-        psam.startReadThread(handler);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
         try {
-            psam.stopReadThread();
-            psam.releaseDev();
-            unregisterReceiver(broadcastReceiver);
+            psamIntance.initDev(this);//初始化设备
+            psamIntance.resetDev();//复位
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(0);
         }
     }
 
@@ -202,20 +198,24 @@ public class PsamAct extends BaseAct implements View.OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
         try {
-            psam.stopReadThread();
-            psam.releaseDev();
+            psamIntance.releaseDev();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            byte[] temp_cmd = (byte[]) msg.obj;
-            tvShowData.append("rece data:" + com.speedata.libutils.DataConversionUtils.byteArrayToString(temp_cmd)+"\n");
+    /**
+     * 获取当前应用程序的版本号
+     */
+    private String getVersion() {
+        PackageManager pm = getPackageManager();
+        try {
+            PackageInfo packinfo = pm.getPackageInfo(getPackageName(), 0);
+            String version = packinfo.versionName;
+            return version;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "版本号错误";
         }
-    };
+    }
 }
