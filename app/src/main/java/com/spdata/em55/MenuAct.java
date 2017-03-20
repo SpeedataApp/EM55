@@ -106,7 +106,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 layoutprint.setEnabled(false);
                 layoutfinger.setEnabled(true);
                 break;
-            case "80"://em55_GX  功能：uhf超高屏，枪柄按键,可以触发主机快捷扫描
+            case "48"://em55_GX  功能：uhf超高屏，枪柄按键,可以触发主机快捷扫描
                 lyceju.setEnabled(false);
                 lygps.setEnabled(false);
                 lywendu.setEnabled(false);
@@ -114,7 +114,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 lyUhf.setEnabled(true);
                 layoutid.setEnabled(false);
                 layoutprint.setEnabled(false);
-                layoutfinger.setEnabled(true);
+                layoutfinger.setEnabled(false);
                 break;
             case "64"://em55_URX  功能：电容式指纹采集识别，R2000 UHF超高频 ，旗联超高频
                 lyceju.setEnabled(false);
