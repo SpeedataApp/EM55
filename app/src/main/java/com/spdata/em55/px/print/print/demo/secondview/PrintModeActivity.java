@@ -25,13 +25,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.spdata.em55.MenuAct;
 import com.spdata.em55.R;
 import com.spdata.em55.px.print.print.demo.firstview.ConnectAvtivity;
 import com.spdata.em55.px.print.print.demo.printview.GraphicTabsActivity;
 import com.spdata.em55.px.print.print.demo.printview.TextTabsActivity;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.spdata.em55.px.print.utils.TXTUtil;
+import com.speedata.libuhf.utils.SharedXmlUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Timer;
@@ -50,7 +50,7 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 	private Button btnSertGray;
 	private EditText evGrayLevel;
 	private Button mButtonPrintSettings;
-	private TextView tvVersion;
+	private TextView tvVersion,tvConfig;
 
 	private Spinner spCoding;
 	private String code;
@@ -70,7 +70,8 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 		pic = (Button) findViewById(R.id.button_pic);
 		mButtonPrintSettings = (Button) findViewById(R.id.button_print_setting);
 		tvVersion = (TextView) findViewById(R.id.tv_version);
-
+		tvConfig= (TextView) findViewById(R.id.tv_config);
+		tvConfig.setText(SharedXmlUtil.getInstance(mContext).read("PrintConfig", ""));
 		//打印TXT
 		spCoding=(Spinner) findViewById(R.id.sp_coding);
 		spCoding.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -157,6 +158,20 @@ public class PrintModeActivity extends Activity implements OnClickListener {
 
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+//		EventBus.getDefault().unregister(this);
+	}
+
+//	@Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+//	public void onEventMainThread(MsgEvent mEvent) {
+//		String type = mEvent.getType();
+//		String msg = (String) mEvent.getMsg();
+//		if (type.equals("PrintConfig")) {
+//			tvConfig.setText(msg);
+//		}
+//	}
 	// 压力测试
 
 	private final int period = 1000;

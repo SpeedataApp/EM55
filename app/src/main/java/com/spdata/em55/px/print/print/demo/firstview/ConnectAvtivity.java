@@ -12,6 +12,7 @@ import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
 import com.spdata.em55.px.print.print.demo.secondview.PrintModeActivity;
 import com.spdata.em55.px.print.utils.ApplicationContext;
+import com.speedata.libuhf.utils.SharedXmlUtil;
 import com.speedata.libutils.ConfigUtils;
 import com.speedata.libutils.ReadBean;
 
@@ -84,6 +85,7 @@ public class ConnectAvtivity extends BaseAct {
 
 
     private void modelJudgmen() {
+        boolean configFileExists = ConfigUtils.isConfigFileExists();
         mRead = ConfigUtils.readConfig(this);
         ReadBean.PrintBean print = mRead.getPrint();
         String powerType = print.getPowerType();
@@ -93,16 +95,20 @@ public class ConnectAvtivity extends BaseAct {
         state = context.getObject().CON_ConnectDevices("RG-E487",
                 serialPort + ":" + braut + ":1:1", 200);
         int[] intArray = new int[gpio.size()];
+        String intArrayStr="";
         for (int i = 0; i < gpio.size(); i++) {
             intArray[i] = gpio.get(i);
+            intArrayStr=intArrayStr+intArray[i]+" ";
         }
         try {
-//            deviceControl = new DeviceControl(powerType,intArray);
-            deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 73,4);
+            deviceControl = new DeviceControl(powerType,intArray);
+//            deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 73,4);
             deviceControl.PowerOnDevice();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        SharedXmlUtil.getInstance(this).write("PrintConfig",
+                "配置文件："+configFileExists+";"+serialPort+";"+braut+";"+intArrayStr);
     }
 
     // 程序退出时需要关闭电源 省电
