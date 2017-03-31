@@ -100,6 +100,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_alibuybutton"
             android:gravity="center"
+            android:visibility="gone"
             android:text="psam2"
             android:textSize="18dp"/>
 

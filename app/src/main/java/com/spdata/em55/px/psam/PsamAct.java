@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spdata.em55.R;
+import com.spdata.em55.gxandurx.UhfAct;
+import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.speedata.libutils.ConfigUtils;
 import com.speedata.libutils.DataConversionUtils;
 import com.speedata.libutils.ReadBean;
@@ -42,6 +44,7 @@ public class PsamAct extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+        ApplicationContext.getInstance().addActivity(PsamAct.this);
         mContext = this;
         initUI();
         showConfig();
@@ -65,7 +68,7 @@ public class PsamAct extends Activity implements View.OnClickListener {
             gpio += s + ",";
         }
         tvConfig.append("串口:" + pasm.getSerialPort() + "  波特率：" + pasm.getBraut() + " 上电类型:" +
-                pasm.getPowerType() + " GPIO:" + gpio + " resetGpio:" + pasm.getResetGpio());
+                pasm.getPowerType() + " GPIO:" + gpio + "pa" + "resetGpio:" + pasm.getResetGpio());
     }
 
 

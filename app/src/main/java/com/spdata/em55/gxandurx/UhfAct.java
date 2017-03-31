@@ -76,7 +76,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         ApplicationContext.getInstance().addActivity(UhfAct.this);
         String readEm55 = readEm55();
-        if (readEm55.equals("80") || readEm55.equals("64")) {
+        if (readEm55.equals("80") ) {
             try {
                 myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 7);
                 myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND, 5);
@@ -86,7 +86,17 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
                 e.printStackTrace();
             }
 
+        }else if (readEm55.equals("48")){
+            try {
+                myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 6);
+                myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND, 7);
+                myDeviceControl4.PowerOnDevice();
+                myDeviceControl6.PowerOnDevice();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
         String em55 = SharedXmlUtil.getInstance(UhfAct.this).read("readEm55", "");
         if (em55 != null && !em55.equals(readEm55)) {
             SharedXmlUtil.getInstance(UhfAct.this).write("modle", "");

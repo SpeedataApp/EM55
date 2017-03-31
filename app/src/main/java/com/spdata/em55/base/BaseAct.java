@@ -11,6 +11,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.spdata.em55.R;
 import com.spdata.em55.px.print.utils.ApplicationContext;
@@ -95,6 +96,13 @@ public class BaseAct extends Activity {
         return state;
     }
 
+    /**
+     * 显示toast
+     * @param msg
+     */
+    public void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
     /**
      * 获取当前应用程序的版本号
      */

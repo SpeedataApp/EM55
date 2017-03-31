@@ -6,13 +6,12 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/tv_verson"
+        android:id="@+id/tv_id2_verson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:gravity="top"
         android:paddingRight="15dp"
-        android:text="/dev/ttyMT2、115200,Mgpio88,Egpio7"
         android:textSize="10sp" />
 
     <RelativeLayout

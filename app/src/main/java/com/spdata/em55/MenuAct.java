@@ -116,13 +116,13 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 layoutprint.setEnabled(false);
                 layoutfinger.setEnabled(false);
                 break;
-            case "64"://em55_URX  功能：电容式指纹采集识别，R2000 UHF超高频 ，旗联超高频
+            case "80"://em55_URX  功能：电容式指纹采集识别，R2000 UHF超高频 ，旗联超高频
                 lyceju.setEnabled(false);
                 lygps.setEnabled(false);
                 lywendu.setEnabled(false);
                 layoutpasm.setEnabled(false);
                 lyUhf.setEnabled(true);
-                layoutid.setEnabled(true);
+                layoutid.setEnabled(false);
                 layoutprint.setEnabled(false);
                 layoutfinger.setEnabled(true);
                 break;

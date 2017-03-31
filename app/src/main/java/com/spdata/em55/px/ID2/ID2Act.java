@@ -1,9 +1,11 @@
 package com.spdata.em55.px.ID2;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.serialport.DeviceControl;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -20,8 +22,11 @@ import com.speedata.libid2.IDInfor;
 import com.speedata.libid2.IDManager;
 import com.speedata.libid2.IDReadCallBack;
 import com.speedata.libid2.IID2Service;
+import com.speedata.libutils.ConfigUtils;
+import com.speedata.libutils.ReadBean;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ID2Act extends BaseAct {
 
@@ -46,6 +51,7 @@ public class ID2Act extends BaseAct {
     private TextView mtextnum;
     private TextView mtextqianfa;
     private TextView mtextqixian;
+    private TextView tvConfig;
     private IDInfor idInfor;
     private Handler handler = new Handler() {
         @Override
@@ -109,11 +115,26 @@ public class ID2Act extends BaseAct {
     protected void onResume() {
         super.onResume();
         initID2Info();
-        initIDService();
+//        initIDService();
+        initID();
+        boolean isExit = ConfigUtils.isConfigFileExists();
+        if (isExit)
+            tvConfig.setText("定制配置：\n");
+        else
+            tvConfig.setText("标准配置：\n");
+        ReadBean.Id2Bean pasm = ConfigUtils.readConfig(this).getId2();
+        String gpio = "";
+        List<Integer> gpio1 = pasm.getGpio();
+        for (Integer s : gpio1) {
+            gpio += s + ",";
+        }
+        tvConfig.append("串口:" + pasm.getSerialPort() + "  波特率：" + pasm.getBraut() + " 上电类型:" +
+                pasm.getPowerType() + " GPIO:" + gpio);
     }
 
 
     private void initUI() {
+        tvConfig = (TextView) findViewById(R.id.tv_id2_verson);
         findBtn = (Button) findViewById(R.id.button_find);
         chooseBtn = (Button) findViewById(R.id.button_choose);
         readBtn = (Button) findViewById(R.id.button_read);
@@ -145,7 +166,39 @@ public class ID2Act extends BaseAct {
             }
         });
     }
+    private void initID() {
+        iid2Service = IDManager.getInstance();
+        try {
+            boolean result = iid2Service.initDev(this, new IDReadCallBack() {
+                @Override
+                public void callBack(IDInfor infor) {
+                    Message message = new Message();
+                    message.obj = infor;
+                    handler.sendMessage(message);
+                }
+            });
 
+//            tvInfor.setText(String.format("s:%s b:115200 p:%s",
+//                    DeviceType.getSerialPort().substring(DeviceType.getSerialPort().length() - 6,
+//                            DeviceType.getSerialPort().length()),
+//                    Arrays.toString(DeviceType.getGpio()).replace("[", "").replace("]", "")));
+            if (!result) {
+                new AlertDialog.Builder(this).setCancelable(false).setMessage("二代证模块初始化失败")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                btnStarRead.setEnabled(false);
+                            }
+                        }).show();
+            } else {
+                showToast("初始化成功");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void initIDService() {
         iid2Service = IDManager.getInstance();
         try {

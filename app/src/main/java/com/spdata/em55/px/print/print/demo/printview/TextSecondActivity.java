@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spdata.em55.R;
-import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 
 
@@ -249,6 +248,7 @@ public class TextSecondActivity extends Activity {
 					System.out.println("===============1:"+wide+"  2:"+hight+"  3:"+qrcHir);
 //					new AlertDialog.Builder(context).setMessage("1:"+wide+"  2:"+hight+"  3:"+qrcHir).show();
 				}
+				context.getObject().ASCII_CtrlFeedLines(context.getState(),3);
 				context.getObject().CON_PageEnd(context.getState(),
 						context.getPrintway());
 			}
