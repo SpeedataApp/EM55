@@ -86,7 +86,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
                 e.printStackTrace();
             }
 
-        }else if (readEm55.equals("48")){
+        }else if (readEm55.equals("48")||readEm55.equals("81")){
             try {
                 myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 6);
                 myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND, 7);

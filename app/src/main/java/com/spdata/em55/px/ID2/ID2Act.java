@@ -61,6 +61,12 @@ public class ID2Act extends BaseAct {
             idInfor = (IDInfor) msg.obj;
             if (idInfor.isSuccess()) {
                 play(1, 0);
+                try {
+                    iid2Service.releaseDev();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                initID();
                 mtextsex.setText(idInfor.getSex());
                 mtextname.setText(idInfor.getName());
                 mtextaddr.setText(idInfor.getAddress());
@@ -193,7 +199,7 @@ public class ID2Act extends BaseAct {
                             }
                         }).show();
             } else {
-                showToast("初始化成功");
+//                showToast("初始化成功");
             }
         } catch (IOException e) {
             e.printStackTrace();

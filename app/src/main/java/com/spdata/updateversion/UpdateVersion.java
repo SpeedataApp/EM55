@@ -32,7 +32,6 @@ public class UpdateVersion {
     private Context mContext;
     private byte[] downLoadApkLock;
     private byte[] startUpdate;
-
     public UpdateVersion(Context context) {
         mContext = context;
         downLoadApkLock = new byte[0];

@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.spdata.em55.base.BaseAct;
+import com.spdata.em55.gxandurx.ReadActivity;
 import com.spdata.em55.gxandurx.UhfAct;
 import com.spdata.em55.lr.DistanceAct;
 import com.spdata.em55.lr.GpsAct;
@@ -23,7 +24,7 @@ import com.spdata.updateversion.UpdateVersion;
  */
 
 public class MenuAct extends BaseAct implements View.OnClickListener {
-    LinearLayout lygps, lywendu, lyceju, lyupdata;
+    LinearLayout lygps, lywendu, lyceju, lyupdata ,lyinfrared;
     LinearLayout layoutid, layoutpasm, layoutprint, layoutfinger, lyUhf;
     TextView tvversion;
     private final String TAG = "state";
@@ -66,6 +67,8 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        lyinfrared = (LinearLayout) findViewById(R.id.ly_infrared);
+        lyinfrared.setOnClickListener(this);
     }
 
     @Override
@@ -85,6 +88,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 layoutprint.setEnabled(true);
                 layoutfinger.setEnabled(true);
                 lyUhf.setEnabled(false);
+                lyinfrared.setEnabled(false);
                 break;
             case "16"://此背夹为em55_lr 功能为温湿度检测，激光测距，gps，北斗
                 layoutpasm.setEnabled(false);
@@ -95,6 +99,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 lyceju.setEnabled(true);
                 lygps.setEnabled(true);
                 lywendu.setEnabled(true);
+                lyinfrared.setEnabled(false);
                 break;
             case "32"://em55_IDX  功能：id2 ，指纹（国内或国外）
                 lyceju.setEnabled(false);
@@ -105,6 +110,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 layoutid.setEnabled(true);
                 layoutprint.setEnabled(false);
                 layoutfinger.setEnabled(true);
+                lyinfrared.setEnabled(false);
                 break;
             case "48"://em55_GX  功能：uhf超高屏，枪柄按键,可以触发主机快捷扫描
                 lyceju.setEnabled(false);
@@ -115,6 +121,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 layoutid.setEnabled(false);
                 layoutprint.setEnabled(false);
                 layoutfinger.setEnabled(false);
+                lyinfrared.setEnabled(false);
                 break;
             case "80"://em55_URX  功能：电容式指纹采集识别，R2000 UHF超高频 ，旗联超高频
                 lyceju.setEnabled(false);
@@ -125,6 +132,18 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 layoutid.setEnabled(false);
                 layoutprint.setEnabled(false);
                 layoutfinger.setEnabled(true);
+                lyinfrared.setEnabled(false);
+                break;
+            case "81"://em55_URX  功能：R2000 UHF超高频 ，旗联超高频/ 红外测温
+                lyceju.setEnabled(false);
+                lygps.setEnabled(false);
+                lywendu.setEnabled(false);
+                layoutpasm.setEnabled(false);
+                lyUhf.setEnabled(true);
+                lyinfrared.setEnabled(true);
+                layoutid.setEnabled(false);
+                layoutprint.setEnabled(false);
+                layoutfinger.setEnabled(false);
                 break;
             default:
                 lyceju.setEnabled(false);
@@ -135,6 +154,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 layoutprint.setEnabled(false);
                 layoutfinger.setEnabled(false);
                 lyUhf.setEnabled(false);
+                lyinfrared.setEnabled(false);
                 break;
         }
     }
@@ -167,6 +187,8 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
             openAct(FingerPrintAct.class);
         } else if (v == lyUhf) {
             openAct(UhfAct.class);
+        } else if (v==lyinfrared) {
+            openAct(ReadActivity.class);
         }
     }
 }
