@@ -74,11 +74,11 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        showMenu();
+     showMenu();
     }
 
     public void showMenu() {
-        switch (readEm55()) {
+        switch (getEM55Model()) {
             case "1"://em55_px 主要功能为二代证读取 打印机 pasm卡 指纹
                 lyceju.setEnabled(false);
                 lygps.setEnabled(false);

@@ -35,5 +35,5 @@ dependencies {
     compile 'com.speedata:humiture2:1.0'//温湿度
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     compile 'com.speedata:psam:1.4.3'
-    compile 'com.speedata:deivice:1.4.5'
+    compile 'com.speedata:deivice:+'
 }

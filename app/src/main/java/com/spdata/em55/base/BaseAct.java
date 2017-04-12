@@ -79,7 +79,7 @@ public class BaseAct extends Activity {
      * 检测被接入的背夹具体型号
      * @return
      */
-    public String readEm55() {
+    public String getEM55Model() {
         String state = null;
         File file = new File("/sys/class/misc/aw9523/gpio");
         try {
