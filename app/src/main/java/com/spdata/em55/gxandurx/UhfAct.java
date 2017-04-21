@@ -109,6 +109,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         }
         modle = SharedXmlUtil.getInstance(UhfAct.this).read("modle", "");
         initUI();
+        Status.setText(modle);
 //        if (openDev()) return;
         newWakeLock();
         org.greenrobot.eventbus.EventBus.getDefault().register(this);
