@@ -17,7 +17,7 @@ import android.widget.ToggleButton;
 
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
-import com.spdata.em55.lr.view.WaitingBar;
+import com.spdata.em55.view.WaitingBar;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 
 import java.io.IOException;

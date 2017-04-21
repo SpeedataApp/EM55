@@ -38,7 +38,12 @@ public class BaseAct extends Activity {
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            ApplicationContext.getInstance().exit();
+            if (intent.getAction().equals("com.hall.success")){
+                showToast("背夹初始化成功");
+            }else {
+                showToast("背夹移除成功");
+                ApplicationContext.getInstance().exit();
+            }
         }
     };
 
@@ -47,6 +52,7 @@ public class BaseAct extends Activity {
         super.onCreate(savedInstanceState);
         initSoundPool();
         IntentFilter filter = new IntentFilter();
+        filter.addAction("com.hall.success");
         filter.addAction("com.geomobile.hallremove");
         registerReceiver(receiver, filter);
     }

@@ -1,4 +1,4 @@
-package com.spdata.em55.lr.view;
+package com.spdata.em55.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

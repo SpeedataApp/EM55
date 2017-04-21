@@ -19,5 +19,15 @@
         <!-- <item name="android:textColor">@color/text</item> -->
 
     </style>
+    <!-- Application theme. -->
 
+    <style name="progress_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item> <!--Dialog的windowFrame框为无 -->
+        <item name="android:windowIsFloating">false</item><!-- 是否漂现在activity上 -->
+        <item name="android:windowIsTranslucent">true</item><!-- 是否半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 	      <item name="android:windowBackground">@drawable/loading_bg</item> -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

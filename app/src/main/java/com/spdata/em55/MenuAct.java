@@ -12,7 +12,6 @@ import com.spdata.em55.lr.DistanceAct;
 import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.lr.TemperatureAct;
 import com.spdata.em55.px.ID2.ID2Act;
-import com.spdata.em55.px.fingerprint.FingerPrintAct;
 import com.spdata.em55.px.print.print.demo.firstview.ConnectAvtivity;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.spdata.em55.px.psam.PsamAct;
@@ -184,7 +183,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         } else if (v == layoutpasm) {
             openAct(PsamAct.class);
         } else if (v == layoutfinger) {
-            openAct(FingerPrintAct.class);
+            openAct(FingerAct.class);
         } else if (v == lyUhf) {
             openAct(UhfAct.class);
         } else if (v==lyinfrared) {

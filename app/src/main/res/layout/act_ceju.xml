@@ -42,7 +42,7 @@
             android:layout_toRightOf="@+id/img_phone"
             android:background="@drawable/phone_top"/>
 
-        <com.spdata.em55.lr.view.WaitingBar
+        <com.spdata.em55.view.WaitingBar
             android:id="@+id/waitingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="55dp"
             android:layout_marginEnd="56dp"
-            android:layout_marginRight="56dp"></com.spdata.em55.lr.view.WaitingBar>
+            android:layout_marginRight="56dp"></com.spdata.em55.view.WaitingBar>
 
         <ImageView
             android:id="@+id/img_phone"

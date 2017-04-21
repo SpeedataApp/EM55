@@ -1,10 +1,8 @@
 package com.spdata.em55.px.psam;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.Window;
@@ -15,8 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spdata.em55.R;
-import com.spdata.em55.gxandurx.UhfAct;
+import com.spdata.em55.base.BaseAct;
 import com.spdata.em55.px.print.utils.ApplicationContext;
+import com.spdata.em55.view.ProgersssDialog;
 import com.speedata.libutils.ConfigUtils;
 import com.speedata.libutils.DataConversionUtils;
 import com.speedata.libutils.ReadBean;
@@ -28,7 +27,7 @@ import java.util.List;
 import speedatacom.a3310libs.PsamManager;
 import speedatacom.a3310libs.inf.IPsam;
 
-public class PsamAct extends Activity implements View.OnClickListener {
+public class PsamAct extends BaseAct implements View.OnClickListener {
 
     //19200 9600
     private Button btn1Activite, btn2Activite, btnGetRomdan, btnSendAdpu, btnClear;
@@ -39,6 +38,7 @@ public class PsamAct extends Activity implements View.OnClickListener {
     private TextView tvVerson;
     private TextView tvConfig;
     private ImageView imgReset;
+    private ProgersssDialog progersssDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +46,13 @@ public class PsamAct extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         ApplicationContext.getInstance().addActivity(PsamAct.this);
         mContext = this;
+        progersssDialog = new ProgersssDialog(this);
         initUI();
         showConfig();
         initDevice();
+
     }
+
 
     private void showConfig() {
 
@@ -106,7 +109,10 @@ public class PsamAct extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == imgReset) {
-            psamIntance.resetDev();
+            psamIntance.resetDev();//复位
+//            SystemClock.sleep(3000);
+//            showToast("复位成功");
+
         } else if (v == btn1Activite) {
             psamflag = 1;
             byte[] data = psamIntance.PsamPower(IPsam.PowerType.Psam1);
@@ -190,12 +196,27 @@ public class PsamAct extends Activity implements View.OnClickListener {
     private void initDevice() {
         try {
             psamIntance.initDev(this);//初始化设备
-            psamIntance.resetDev();//复位
+            progersssDialog.show();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    psamIntance.resetDev();//复位
+                    SystemClock.sleep(3000);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progersssDialog.dismiss();
+                        }
+                    });
+                }
+            }).start();
+
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(0);
         }
     }
+
 
     @Override
     protected void onDestroy() {
@@ -207,18 +228,18 @@ public class PsamAct extends Activity implements View.OnClickListener {
         }
     }
 
-    /**
-     * 获取当前应用程序的版本号
-     */
-    private String getVersion() {
-        PackageManager pm = getPackageManager();
-        try {
-            PackageInfo packinfo = pm.getPackageInfo(getPackageName(), 0);
-            String version = packinfo.versionName;
-            return version;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return "版本号错误";
-        }
-    }
+//    /**
+//     * 获取当前应用程序的版本号
+//     */
+//    private String getVersion() {
+//        PackageManager pm = getPackageManager();
+//        try {
+//            PackageInfo packinfo = pm.getPackageInfo(getPackageName(), 0);
+//            String version = packinfo.versionName;
+//            return version;
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//            return "版本号错误";
+//        }
+//    }
 }

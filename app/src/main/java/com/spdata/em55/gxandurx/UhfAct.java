@@ -75,7 +75,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ApplicationContext.getInstance().addActivity(UhfAct.this);
-        String readEm55 = readEm55();
+        String readEm55 = getEM55Model();
         if (readEm55.equals("80") ) {
             try {
                 myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 7);

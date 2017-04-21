@@ -18,6 +18,7 @@
     <uses-permission
         android:name="android.hardware.usb.host"
         android:required="false" />
+
     <application
         android:name=".px.print.utils.ApplicationContext"
         android:allowBackup="true"
@@ -98,14 +99,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".lr.DistanceAct"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".gxandurx.ReadActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".FingerAct"></activity>
     </application>
 
 </manifest>
