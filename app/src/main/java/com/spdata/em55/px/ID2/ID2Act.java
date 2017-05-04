@@ -1,10 +1,10 @@
 package com.spdata.em55.px.ID2;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.serialport.DeviceControl;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Button;
@@ -57,7 +57,7 @@ public class ID2Act extends BaseAct {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            iid2Service.getIDInfor(false,btnStarRead.isChecked());
+            iid2Service.getIDInfor(false, btnStarRead.isChecked());
             idInfor = (IDInfor) msg.obj;
             if (idInfor.isSuccess()) {
                 play(1, 0);
@@ -114,15 +114,16 @@ public class ID2Act extends BaseAct {
         ApplicationContext.getInstance().addActivity(ID2Act.this);
         setContentView(R.layout.act_id2);
         initUI();
+        initID2Info();
+
         Log.i(TAG, "==onCreate==");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        initID2Info();
-//        initIDService();
-        initID();
+
+        initIDService();
         boolean isExit = ConfigUtils.isConfigFileExists();
         if (isExit)
             tvConfig.setText("定制配置：\n");
@@ -165,61 +166,64 @@ public class ID2Act extends BaseAct {
         btnStarRead.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-               iid2Service.getIDInfor(false,isChecked);
-                if (!isChecked){
-                    initID2Info();
-                }
+                iid2Service.getIDInfor(false, isChecked);
+//                if (!isChecked){
+//                    initID2Info();
+//                }
             }
         });
     }
-    private void initID() {
-        iid2Service = IDManager.getInstance();
-        try {
-            boolean result = iid2Service.initDev(this, new IDReadCallBack() {
-                @Override
-                public void callBack(IDInfor infor) {
-                    Message message = new Message();
-                    message.obj = infor;
-                    handler.sendMessage(message);
-                }
-            });
 
-//            tvInfor.setText(String.format("s:%s b:115200 p:%s",
-//                    DeviceType.getSerialPort().substring(DeviceType.getSerialPort().length() - 6,
-//                            DeviceType.getSerialPort().length()),
-//                    Arrays.toString(DeviceType.getGpio()).replace("[", "").replace("]", "")));
-            if (!result) {
-                new AlertDialog.Builder(this).setCancelable(false).setMessage("二代证模块初始化失败")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                btnStarRead.setEnabled(false);
-                            }
-                        }).show();
-            } else {
-                showToast("初始化成功");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    /**
+     * 初始化二代证模块   失败退出
+     */
     public void initIDService() {
         iid2Service = IDManager.getInstance();
-        try {
-            iid2Service.initDev(this, new IDReadCallBack() {
-                @Override
-                public void callBack(IDInfor infor) {
-                    Message msg = new Message();
-                    msg.obj = infor;
-                    handler.sendMessage(msg);
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("正在初始化");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final boolean result = iid2Service.initDev(ID2Act.this, new
+                            IDReadCallBack() {
+                                @Override
+                                public void callBack(IDInfor infor) {
+                                    Message message = new Message();
+                                    message.obj = infor;
+                                    handler.sendMessage(message);
+                                }
+                            });
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
+                            if (!result) {
+                                new AlertDialog.Builder(ID2Act.this).setCancelable(false)
+                                        .setMessage("二代证模块初始化失败")
+                                        .setPositiveButton("确定", new DialogInterface
+                                                .OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface,
+                                                                int i) {
+                                                finish();
+                                            }
+                                        }).show();
+                            } else {
+                                showToast("初始化成功");
+                            }
+                        }
+                    });
+
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }, SERIALPORT_PATH, 115200, DeviceControl.PowerType.MAIN_AND_EXPAND, 88, 7);
-        } catch (IOException e) {
-            e.printStackTrace();
-            finish();
-        }
+            }
+        }).start();
     }
 
     @Override
@@ -235,7 +239,8 @@ public class ID2Act extends BaseAct {
     public void onDestroy() {
         super.onDestroy();
         try {
-            iid2Service.releaseDev();
+            if (iid2Service != null)
+                iid2Service.releaseDev();
         } catch (IOException e) {
             e.printStackTrace();
         }
