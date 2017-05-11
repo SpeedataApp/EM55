@@ -189,7 +189,7 @@ public class ReadActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onPause() {
-        super.onStop();
+        super.onPause();
         if (thread != null) {
             thread.interrupt();
         }

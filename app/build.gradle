@@ -3,13 +3,13 @@ apply plugin: 'com.android.application'
 android {
 
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.spdata.em55"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
-        versionName "1.8.7"
+        versionName "1.8.9"
         ndk {
             //选择要添加的对应cpu类型的.so库。
             abiFilters 'armeabi'
@@ -38,7 +38,7 @@ dependencies {
     compile 'com.speedata:humiture2:1.0'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     compile 'com.speedata:psam:1.4.3'
-    compile 'com.speedata:deivice:+'
+    compile 'com.speedata:deivice:1.4.8'
     compile 'com.speedata:FingerPrint:1.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
