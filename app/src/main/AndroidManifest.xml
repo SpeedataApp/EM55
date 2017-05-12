@@ -22,7 +22,7 @@
     <application
         android:name=".px.print.utils.ApplicationContext"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/log"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -103,7 +103,6 @@
         <activity
             android:name=".gxandurx.ReadActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".FingerAct"></activity>
     </application>
 
 </manifest>
