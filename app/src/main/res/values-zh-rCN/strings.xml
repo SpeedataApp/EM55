@@ -254,25 +254,90 @@
   <string name="antenna_p">天线功率</string>
   <string name="spt">速度\n测试</string>
   <string name="sptss">开始</string>
-  <string name="SECOND_TEMPLATE">Template2</string>
-  <string name="FIRST_TEMPLATE">Template1</string>
+
+
+  <string name="action_settings">Settings</string>
+
+
+  <string name="menu_distance">测距</string>
+  <string name="distance_clear">清屏</string>
+  <string name="distance_start">测距</string>
+  <string name="distance_continue">连续测距</string>
+  <string name="distance_stop">停止</string>
+  <string name="distance_cut">测量基准切换</string>
+  <string name="distance_mode">接收数据模式</string>
+  <string name="distance_receive">接收数据中……</string>
+  <string name="distance_end">底部开始计算</string>
+  <string name="distance_top">顶部开始计算</string>
+
+  <string name="menu_id2">身份证</string>
+  <string name="menu_gps">GPS</string>
+  <string name="gps_receive_data">接收数据：</string>
+  <string name="gps_start_test">开始测试</string>
+  <string name="gps_price">GPS星值</string>
+
+  <string name="menu_printer">打印机</string>
+
+  <string name="menu_temperature">温湿度</string>
   <string name="Humidity">湿度检测</string>
   <string name="Humidity_value">%</string>
-  <string name="TEXT_CHAR">Template</string>
-  <string name="TEXT_CLOSE_DEVICE">CloseDevice</string>
-  <string name="TEXT_CREATE_TEMP">CreateTemplate</string>
-  <string name="TEXT_GET_IMAGE">GetImage</string>
-  <string name="TEXT_GET_QUALITY">GetImageQuality</string>
-  <string name="TEXT_IMAGE">Image</string>
-  <string name="TEXT_MATCH_TEMP">CompareTemplates</string>
-  <string name="TEXT_OPEN_DEVICE">OpenDevice</string>
-  <string name="TEXT_VIDEO">Video</string>
   <string name="Temperature">温度检测</string>
   <string name="Temperature_value">℃</string>
-  <string name="action_settings">Settings</string>
-  <string name="data">StartAndStop</string>
-  <string name="hello">Welcome to Finger SDK</string>
-  <string name="hello_world">Hello world!</string>
-  <string name="start">start</string>
-  <string name="stop">stop</string>
+  <string name="start">开始</string>
+  <string name="stop">停止</string>
+
+  <string name="menu_psam">Psam 卡</string>
+  <string name="psam_rest">复位</string>
+  <string name="psam_psam1">Psam1</string>
+  <string name="psam_random">随机</string>
+  <string name="psam_clear">清除</string>
+  <string name="psam_apdu">发送 ADPU</string>
+  <string name="psam_serialport">串口：</string>
+  <string name="psam_powertype">上电类型：</string>
+  <string name="psam_baurate">波特率：</string>
+  <string name="psam_reset_gpio">复位gpio：</string>
+  <string name="psam_flag">标准配置：</string>
+  <string name="psam_flag2">定制配置：</string>
+  <string name="psam_init">初始……</string>
+
+  <string name="menu_finger_print">指纹</string>
+  <string name="open_reader">请打开指纹</string>
+  <string name="search_finger">搜索指纹模板</string>
+  <string name="init_finger">初始中……</string>
+  <string name="init_finger_failed">初始失败</string>
+  <string name="comparison_finger">比对分数:</string>
+
+
+  <string name="opne_success">打开成功</string>
+  <string name="opne_fail">打开失败</string>
+
+  <string name="close_success">关闭成功</string>
+  <string name="close_fail">关闭失败</string>
+
+  <string name="get_image_fail">获取图像失败</string>
+  <string name="get_image_success">获取图像成功</string>
+
+  <string name="btn_open">打开</string>
+  <string name="btn_close">关闭</string>
+  <string name="btn_get_image">图像</string>
+  <string name="btn_quality">质量</string>
+  <string name="btn_compare">对比</string>
+  <string name="btn_template">特征</string>
+  <string name="btn_enroll">注册</string>
+  <string name="btn_search">搜索</string>
+
+  <string name="any_finger">放任何手指</string>
+  <string name="enroll_id">注册成功ID：</string>
+  <string name="search_id">搜索ID：</string>
+
+  <string name="menu_mubiao_temerature">红外测温</string>
+  <string name="start_temerature">激发测温</string>
+  <string name="mubiao_temerature">目标温度</string>
+  <string name="max">Max 值: </string>
+  <string name="min">Min 值:</string>
+  <string name="huanjing_temerature">环境温度:</string>
+
+  <string name="menu_updata">版本更新</string>
+
+
 </resources>

@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="测距"
+                android:text="@string/menu_distance"
                 android:textSize="15dp"
                 android:layout_marginBottom="5dp"
                 android:layout_below="@id/im_ceju" />
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="GPS"
+                android:text="@string/menu_gps"
                 android:textSize="15dp"
                 android:layout_marginBottom="5dp"
                 android:layout_below="@id/im_gps" />
@@ -108,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="温湿度"
+                android:text="@string/menu_temperature"
                 android:textSize="15dp"
                 android:layout_marginBottom="5dp"
                 android:layout_below="@id/im_wendu" />
@@ -161,7 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="红外测温"
+                android:text="@string/menu_mubiao_temerature"
                 android:textSize="15dp"
                 android:layout_marginBottom="5dp"
                 android:layout_below="@id/im_wendu" />
@@ -192,7 +192,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="身份证"
+                    android:text="@string/menu_id2"
                     android:textSize="15dp"
                     android:layout_marginBottom="5dp"
                     android:layout_below="@id/im_id" />
@@ -222,7 +222,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="打印机"
+                    android:text="@string/menu_printer"
                     android:textSize="15dp"
                     android:layout_marginBottom="5dp"
                     android:layout_below="@id/im_print" />
@@ -249,7 +249,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="PSAM卡"
+                    android:text="@string/menu_psam"
                     android:textSize="15dp"
                     android:layout_marginBottom="5dp"
                     android:layout_below="@id/im_pasm" />
@@ -275,7 +275,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="指纹"
+                    android:text="@string/menu_finger_print"
                     android:textSize="15dp"
                     android:layout_marginBottom="5dp"
                     android:layout_below="@id/im_finger" />
@@ -302,7 +302,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="版本更新"
+                    android:text="@string/menu_updata"
                     android:textSize="15dp"
                     android:layout_marginBottom="5dp"
                     android:layout_below="@id/im_wendu" />

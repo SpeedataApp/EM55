@@ -27,7 +27,7 @@ public class ProgersssDialog extends Dialog {
         //给图片添加动态效果
         Animation anim = AnimationUtils.loadAnimation(context, R.anim.loading_dialog_progressbar);
         img.setAnimation(anim);
-        txt.setText("初始化…");
+        txt.setText(context.getString(R.string.psam_init));
         //dialog添加视图
         setContentView(view);
     }

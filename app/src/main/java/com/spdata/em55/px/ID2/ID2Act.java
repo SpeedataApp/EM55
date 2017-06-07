@@ -75,6 +75,8 @@ public class ID2Act extends BaseAct {
                 mtextmouth.setText(idInfor.getMonth());
                 mtextday.setText(idInfor.getDay());
                 mtextnum.setText(idInfor.getNum());
+                String sss =idInfor.getNum();
+                Log.i(TAG, "handleMessage: "+sss);
                 mtextqianfa.setText(idInfor.getQianFa());
                 mtextqixian.setText(idInfor.getDeadLine());
                 mImageViewPhoto.setImageBitmap(idInfor.getBmps());
@@ -172,6 +174,16 @@ public class ID2Act extends BaseAct {
 //                }
             }
         });
+//        try {
+//            iid2Service.initDev(ID2Act.this, new IDReadCallBack() {
+//                @Override
+//                public void callBack(IDInfor infor) {
+//                 //// TODO: 2017/6/6   接收数据
+//                }
+//            },SERIAL_TTYMT2,115200, DeviceControl.PowerType.MAIN_AND_EXPAND,88,7);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
@@ -183,6 +195,7 @@ public class ID2Act extends BaseAct {
         progressDialog.setMessage("正在初始化");
         progressDialog.setCancelable(false);
         progressDialog.show();
+
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -2,8 +2,6 @@ package com.spdata.em55.px.fingerprint;
 
 //------------------------------------------------------------------------------------------
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,6 +11,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.serialport.DeviceControl;
 import android.view.View;
 import android.widget.Button;
@@ -23,13 +22,12 @@ import android.widget.Toast;
 import com.digitalpersona.uareu.Fmd;
 import com.mylibrary.FingerManger;
 import com.mylibrary.inf.IFingerPrint;
-import com.mylibrary.inf.MsgCallBack;
-import com.mylibrary.ulits.Data;
+import com.mylibrary.ulits.FingerTypes;
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
-import com.spdata.em55.px.print.utils.ApplicationContext;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 //------------------------------------------------------------------------------------------
 
@@ -37,37 +35,25 @@ public class FingerPrintAct extends BaseAct implements View.OnClickListener {
     Button btnOpen, btnGetImage, btnGetQuality, btnColse, btnCompare,
             btnCreateTemplate, btnEnroll, btnSearch;
     ImageView fingerImage = null;
-    TextView tvMsg, tvNum;
+    TextView tvMsg;
     private IFingerPrint iFingerPrint = null;
     DeviceControl deviceControl;
     DeviceControl deviceContro2;
-    private String sss = "";
-    private String ssss = "";
     Fmd fmd1 = null;
     Fmd fmd2 = null;
     private byte[] template1;
     private byte[] template2;
-    //    int template = 1;
     boolean template = true;
     String TAG = "finger";
-    int flg = 0;
-    String s1 = "";
-    String s2 = "";
-    private Dialog dialog;
-    int ii = 0;
-
-    Context mContext;
-    Activity mActivity;
     private long now;
     private long start;
-    Bitmap bitmap = null;
-    private Data data;
+
+    private int fingerStata = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finger);
-        ApplicationContext.getInstance().addActivity(FingerPrintAct.this);
         initGUI();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.hall.success");
@@ -76,6 +62,8 @@ public class FingerPrintAct extends BaseAct implements View.OnClickListener {
             deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 63, 5, 6);
 //            deviceContro2 = new DeviceControl(DeviceControl.PowerType.MAIN, 128);
             deviceControl.PowerOnDevice();
+            showDialog();
+            SystemClock.sleep(1000);
 //            deviceContro2.PowerOnDevice();
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,7 +73,6 @@ public class FingerPrintAct extends BaseAct implements View.OnClickListener {
 
     private void initGUI() {
         tvMsg = (TextView) findViewById(R.id.tv_msg);
-        tvNum = (TextView) findViewById(R.id.tv_num);
         fingerImage = (ImageView) findViewById(R.id.btn_imageView);
         btnOpen = (Button) findViewById(R.id.btn_open);
         btnOpen.setOnClickListener(this);
@@ -107,29 +94,27 @@ public class FingerPrintAct extends BaseAct implements View.OnClickListener {
 
     }
 
+    public void showDialog() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle(getString(R.string.search_finger));
+        mProgressDialog.setMessage(getString(R.string.init_finger));
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+    }
     ProgressDialog mProgressDialog;
 
     @Override
     protected void onResume() {
         super.onResume();
         start = System.currentTimeMillis();
-        mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setTitle("搜索指纹模板 ");
-        mProgressDialog.setMessage("初始中……");
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.show();
-//        dialog = CreateDialog.showLoadingDialog(FingerPrintAct.this, "搜索指纹模板");
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while (iFingerPrint == null) {
                     now = System.currentTimeMillis();
-                    iFingerPrint = FingerManger.getIFingerPrintIntance(FingerPrintAct.this, FingerPrintAct.this, handler, new MsgCallBack() {
-                        @Override
-                        public void callBackInfo(Data data) {
-                            handler.sendMessage(handler.obtainMessage(22, data));
-                        }
-                    });
+                    iFingerPrint = FingerManger.InitPrintIntance(FingerPrintAct.this, FingerPrintAct.this, handler);
+                    fingerStata = FingerTypes.getrwusbdevices(FingerPrintAct.this);
+
                     if (now - start > 6000) {
                         finish();
                         break;
@@ -139,11 +124,23 @@ public class FingerPrintAct extends BaseAct implements View.OnClickListener {
                     @Override
                     public void run() {
                         if (iFingerPrint != null) {
-//                            CreateDialog.closeDialog(dialog);
                             mProgressDialog.cancel();
+                            switch (fingerStata) {
+                                case 1:
+                                    btnSearch.setVisibility(View.GONE);
+                                    btnEnroll.setVisibility(View.GONE);
+                                    break;
+                                case 2:
+                                    btnGetQuality.setVisibility(View.GONE);
+                                    break;
+                                case 3:
+                                    btnGetQuality.setVisibility(View.GONE);
+                                    btnSearch.setVisibility(View.GONE);
+                                    break;
+                            }
                         } else {
                             finish();
-                            Toast.makeText(FingerPrintAct.this, "初始失败", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FingerPrintAct.this, getString(R.string.init_finger_failed), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -157,54 +154,98 @@ public class FingerPrintAct extends BaseAct implements View.OnClickListener {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case 22:
-                    data = (Data) msg.obj;
-                    if (data.isOpenFlag()) {
+                case 0:
+                    tvMsg.setText((String) msg.obj);
+                    break;
+                case 1:
+                    if ((Boolean) msg.obj) {
                         setBtnState(true);
                         btnOpen.setEnabled(false);
+                        tvMsg.setText(getString(R.string.opne_success));
                     } else {
                         setBtnState(false);
                         btnOpen.setEnabled(true);
-                        tvMsg.setText(data.getInfoMsg());
+                        tvMsg.setText(getString(R.string.opne_fail));
                     }
-                    if (data.getTcs1gFmd() != null) {
+                    break;
+                case 2:
+                    if ((Boolean) msg.obj) {
+                        setBtnState(false);
+                        btnOpen.setEnabled(true);
+                        fingerImage.setImageBitmap(null);
+                        tvMsg.setText(getString(R.string.close_success) + "\n");
 
-                        if (template) {
-//                            template +=1;
-                            template = false;
-                            fmd1 = data.getTcs1gFmd();
-                            Toast.makeText(FingerPrintAct.this, "fmd1", Toast.LENGTH_SHORT).show();
-                        } else {
-                            template = true;
-                            fmd2 = data.getTcs1gFmd();
-                            Toast.makeText(FingerPrintAct.this, "fmd2", Toast.LENGTH_SHORT).show();
-                        }
+                    } else {
+                        setBtnState(true);
+                        btnOpen.setEnabled(false);
+                        tvMsg.setText(getString(R.string.close_fail));
                     }
-                    if (data.getTemplateBytes() != null) {
-                        if (template) {
-                            template = false;
-                            template1 = new byte[1024];
-                            template1 = data.getTemplateBytes();
-//                    for (int i = 0; i < LAPI.FPINFO_STD_MAX_SIZE; i++) {
-//                        sss += String.format("%02x", template1[i]);
-//                    }
-//                    Log.i(TAG, "handleMessage: " + flg + "\n" + sss);
-                            Toast.makeText(FingerPrintAct.this, "template1", Toast.LENGTH_SHORT).show();
+                    break;
+                case 3:
+                    Bitmap bitmap = (Bitmap) msg.obj;
+                    if (bitmap != null) {
+                        fingerImage.setImageBitmap(bitmap);
+                        tvMsg.setText(getString(R.string.get_image_success));
+                    } else {
 
-
-                        } else {
-                            template = true;
-                            template2 = new byte[1024];
-                            template2 = data.getTemplateBytes();
-//                    for (int i = 0; i < LAPI.FPINFO_STD_MAX_SIZE; i++) {
-//                        ssss += String.format("%02x", template2[i]);
-//                    }
-//                    Log.i(TAG, "handleMessage: " + flg + "\n" + ssss);
-                            Toast.makeText(FingerPrintAct.this, "template2", Toast.LENGTH_SHORT).show();
-                        }
+                        tvMsg.setText(getString(R.string.get_image_fail));
                     }
-                    tvMsg.setText(data.getInfoMsg());
-                    fingerImage.setImageBitmap(data.getFingerBitmap());
+
+                    break;
+                case 4:
+                    if (template) {
+                        template = false;
+                        template1 = new byte[1024];
+                        template1 = (byte[]) msg.obj;
+//                        for (int i = 0; i < LAPI.FPINFO_STD_MAX_SIZE; i++) {
+//                           msg += String.format("%02x", template1[i]);
+//                        }
+                        Toast.makeText(FingerPrintAct.this, "template1", Toast.LENGTH_SHORT).show();
+                    } else {
+                        template = true;
+                        template2 = new byte[1024];
+                        template2 = (byte[]) msg.obj;
+                        Toast.makeText(FingerPrintAct.this, "template2", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case 5:
+                    if (template) {
+                        template = false;
+                        fmd1 = (Fmd) msg.obj;
+                        Toast.makeText(FingerPrintAct.this, "fmd1", Toast.LENGTH_SHORT).show();
+                    } else {
+                        template = true;
+                        fmd2 = (Fmd) msg.obj;
+                        Toast.makeText(FingerPrintAct.this, "fmd2", Toast.LENGTH_SHORT).show();
+                    }
+
+                    break;
+                case 6:
+                    int mScore = (Integer) msg.obj;
+                    String comparison = "";
+                    if (fingerStata == 3) {
+                        DecimalFormat formatting = new DecimalFormat("##.######");
+                        comparison = "Dissimilarity Score: " + String.valueOf(mScore) + ", False match rate: "
+                                + Double.valueOf(formatting.format((double) mScore / 0x7FFFFFFF)) + " (" + (mScore < (0x7FFFFFFF / 100000) ? "match" : "no match") + ")";
+                    } else if (fingerStata==1){
+                        comparison = String.format(getString(R.string.comparison_finger)+"%d", mScore);
+                    } else if (fingerStata==2) {
+                        comparison=getString(R.string.comparison_finger)+mScore;
+                    }
+                    tvMsg.setText(comparison);
+                    break;
+                case 7://注册
+                    int zhuce = (Integer) msg.obj;
+                    String mTextString = null;
+                    if (fingerStata == 3) {
+                        mTextString = "Enrollment template created, size: " + zhuce;
+                    } else {
+                        mTextString = getString(R.string.enroll_id) + zhuce;
+                    }
+                    tvMsg.setText(mTextString);
+                    break;
+                case 8://搜索
+                    tvMsg.setText(getString(R.string.search_id) + msg.obj + "");
                     break;
                 default:
                     break;
@@ -242,37 +283,28 @@ public class FingerPrintAct extends BaseAct implements View.OnClickListener {
         } else if (view == btnColse) {
             iFingerPrint.closeReader();
         } else if (view == btnGetImage) {
+            tvMsg.setText(getString(R.string.any_finger));
             iFingerPrint.getImage();
-
-
         } else if (view == btnGetQuality) {
-            iFingerPrint.getImageQuality();
-            tvMsg.setText(data.getInfoMsg());
-            tvNum.setText(String.format("质量 = %d", data.getFinferQualitys()));
-
+            int queality = iFingerPrint.getImageQuality();
+            if (queality != 0) {
+                tvMsg.setText(queality + "");
+            }
         } else if (view == btnCreateTemplate) {
+            tvMsg.setText(getString(R.string.any_finger));
             iFingerPrint.createTemplate();
-
-//            tvMsg.setText(data.getInfoMsg());
         } else if (view == btnCompare) {
-//            for (int i = 0; i < template1.length; i++) {
-//                s1 += String.format("%02x", template1[i]);
-//            }
-//            for (int i = 0; i < template2.length; i++) {
-//                s2 += String.format("%02x", template2[i]);
-//            }
-//            Log.i(TAG, "MessageS1: " + "\n" + s1);
-//            Log.i(TAG, "MessageS2: " + "\n" + s2);
             iFingerPrint.comparisonFinger(template1, template2);
             iFingerPrint.comparisonFinger(fmd1, fmd2);
             iFingerPrint.comparisonFinger();
-            tvMsg.setText(data.getInfoMsg());
-            tvNum.setText("比对分数：" + data.getComparisonNum() + "");
         } else if (view == btnEnroll) {
+            tvMsg.setText(getString(R.string.any_finger));
             iFingerPrint.enrollment();
         } else if (view == btnSearch) {
+            tvMsg.setText(getString(R.string.any_finger));
             iFingerPrint.searchFinger();
         }
+
     }
 
 
@@ -289,23 +321,13 @@ public class FingerPrintAct extends BaseAct implements View.OnClickListener {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        try {
-            deviceControl.PowerOffDevice();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (handler != null) {
             handler = null;
         }
-        if (data != null) {
-            data = null;
+        if (mProgressDialog != null) {
+            mProgressDialog.cancel();
         }
         fingerImage.refreshDrawableState();
         if (iFingerPrint != null) {
@@ -319,6 +341,7 @@ public class FingerPrintAct extends BaseAct implements View.OnClickListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 }

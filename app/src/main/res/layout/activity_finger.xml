@@ -4,8 +4,13 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.zhiwen.MainActivity">
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/vesion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -15,85 +20,85 @@
             android:id="@+id/tv_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="请打开指纹" />
+            android:layout_margin="5dp"
+            android:textSize="20sp"
+            android:text="@string/open_reader" />
     </ScrollView>
-
-    <TextView
-        android:id="@+id/tv_num"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
 
         <Button
             android:id="@+id/btn_open"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="打开" />
+            android:text="@string/btn_open" />
 
         <Button
             android:id="@+id/btn_colse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="关闭" />
+            android:text="@string/btn_close" />
 
         <Button
             android:id="@+id/btn_getimage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="图像" />
+            android:text="@string/btn_get_image" />
 
         <Button
             android:id="@+id/btn_Enroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="注册" />
+            android:text="@string/btn_enroll" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
 
         <Button
             android:id="@+id/btn_quality"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="质量" />
+
+            android:text="@string/btn_quality" />
 
         <Button
             android:id="@+id/btn_getTemplate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="特征" />
+            android:text="@string/btn_template" />
 
         <Button
             android:id="@+id/btn_compare"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="对比" />
+            android:text="@string/btn_compare" />
 
         <Button
             android:id="@+id/btn_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="搜索" />
+            android:text="@string/btn_search" />
 
     </LinearLayout>
     <!-- 孙天伟    -->
@@ -102,8 +107,9 @@
     <ImageView
         android:id="@+id/btn_imageView"
         android:layout_width="match_parent"
+        android:background="@drawable/fingershow"
         android:layout_height="match_parent"
-        android:background="@drawable/fingershow" />
+        />
 
 
 </LinearLayout>

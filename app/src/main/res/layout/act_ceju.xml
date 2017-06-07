@@ -74,7 +74,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="25dp"
             android:layout_marginRight="25dp"
-            android:text="接收数据模式"
+            android:text="@string/distance_mode"
             android:textSize="20sp"/>
 
 
@@ -94,7 +94,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="24dp"
             android:layout_marginStart="24dp"
-            android:background="@drawable/btn_clear"/>
+            android:text="@string/distance_clear" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -190,7 +190,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/selector_item_blue"
-            android:text="测距"
+            android:text="@string/distance_start"
             android:textColor="@android:color/white"
             android:textSize="20sp"/>
 
@@ -203,8 +203,8 @@
             android:layout_weight="1"
             android:background="@drawable/selector_item_blue"
             android:textColor="@android:color/white"
-            android:textOff="连续测距"
-            android:textOn="停止"
+            android:textOff="@string/distance_continue"
+            android:textOn="@string/distance_stop"
             android:checked="false"
             android:textSize="20sp"/>
 
@@ -215,7 +215,7 @@
             android:layout_weight="1"
             android:background="@drawable/selector_item_blue"
             android:maxEms="3"
-            android:text="测量基准切换"
+            android:text="@string/distance_cut"
             android:textColor="@android:color/white"
             android:textSize="20sp"/>
 

@@ -62,7 +62,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/img_reset"
                 android:gravity="center"
-                android:text="reset" />
+                android:text="@string/psam_rest" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -87,7 +87,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_alibuybutton"
             android:gravity="center"
-            android:text="psam1"
+            android:text="@string/psam_psam1"
             android:textSize="18dp" />
 
         <Button
@@ -106,9 +106,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:background="@drawable/bg_alibuybutton"
             android:gravity="center"
-            android:text="random"
+            android:text="@string/psam_random"
             android:textSize="18dp" />
 
         <Button
@@ -118,7 +120,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_alibuybutton"
             android:gravity="center"
-            android:text="clear"
+            android:text="@string/psam_clear"
             android:textSize="18dp" />
     </LinearLayout>
 
@@ -139,7 +141,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_alibuybutton"
         android:gravity="center"
-        android:text="Send APDU"
+        android:text="@string/psam_apdu"
         android:textSize="20dp" />
 
 </LinearLayout>

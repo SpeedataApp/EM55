@@ -57,21 +57,21 @@ public class PsamAct extends BaseAct implements View.OnClickListener {
     private void showConfig() {
 
         String verson = getVersion();
-        tvVerson.setText("V" + verson);
+//        tvVerson.setText("V" + verson);
 
         boolean isExit = ConfigUtils.isConfigFileExists();
         if (isExit)
-            tvConfig.setText("定制配置：\n");
+            tvConfig.setText(getString(R.string.psam_flag2)+"\n");
         else
-            tvConfig.setText("标准配置：\n");
+            tvConfig.setText(getString(R.string.psam_flag)+"：\n");
         ReadBean.PasmBean pasm = ConfigUtils.readConfig(this).getPasm();
         String gpio = "";
         List<Integer> gpio1 = pasm.getGpio();
         for (Integer s : gpio1) {
             gpio += s + ",";
         }
-        tvConfig.append("串口:" + pasm.getSerialPort() + "  波特率：" + pasm.getBraut() + " 上电类型:" +
-                pasm.getPowerType() + " GPIO:" + gpio + "pa" + "resetGpio:" + pasm.getResetGpio());
+        tvConfig.append(getString(R.string.psam_serialport) + pasm.getSerialPort() + getString(R.string.psam_baurate) + pasm.getBraut() + getString(R.string.psam_powertype) +
+                pasm.getPowerType() + " GPIO:" + gpio + getString(R.string.psam_reset_gpio)  + pasm.getResetGpio());
     }
 
 

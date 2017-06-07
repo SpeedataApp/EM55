@@ -1,11 +1,6 @@
 <resources>
     <string name="app_name">EM55</string>
-    <string name="Humidity">Humidity detection</string>
-    <string name="Humidity_value">%</string>
-    <string name="Temperature">温度检测</string>
-    <string name="Temperature_value">℃</string>
-    <string name="start">start</string>
-    <string name="stop">stop</string>
+
     <string name="data">StartAndStop</string>
     <!--fingerprint-->
     <string name="hello">Welcome to Finger SDK</string>
@@ -272,4 +267,86 @@
     <string name="antenna_p">antenna power</string>
     <string name="spt">speed\ntest</string>
     <string name="sptss">start</string>
+
+    <string name="menu_distance">Distance</string>
+    <string name="distance_clear">Clear</string>
+    <string name="distance_start">Start</string>
+    <string name="distance_continue">Continue Start</string>
+    <string name="distance_stop">Stop</string>
+    <string name="distance_cut">Cut Benchmark </string>
+    <string name="distance_mode">Receive Mode</string>
+    <string name="distance_receive">Receive data……</string>
+    <string name="distance_end">The bottom begins to calculate</string>
+    <string name="distance_top">The top begins to calculate</string>
+
+
+    <string name="menu_id2">ID Card</string>
+
+    <string name="menu_gps">GPS</string>
+    <string name="gps_receive_data">Receive Data:</string>
+    <string name="gps_start_test">Start</string>
+    <string name="gps_price">GPS Price</string>
+
+    <string name="menu_finger_print">Printer Print</string>
+    <string name="open_reader">Please open the fingerprint</string>
+    <string name="search_finger">Search  fingerprint template</string>
+    <string name="init_finger">Initial ...</string>
+    <string name="init_finger_failed">Initial failed</string>
+    <string name="comparison_finger">Match score:</string>
+
+    <string name="opne_success">Open successfully</string>
+    <string name="opne_fail">Open failed</string>
+
+    <string name="close_success">Closed successfully</string>
+    <string name="close_fail">Close failed</string>
+
+    <string name="get_image_fail">Get image failed</string>
+    <string name="get_image_success">Get image success</string>
+
+    <string name="btn_open">OPEN</string>
+    <string name="btn_close">CLOSE</string>
+    <string name="btn_get_image">IMAGE</string>
+    <string name="btn_quality">QUALITY</string>
+    <string name="btn_compare">COMPARE</string>
+    <string name="btn_template">TEMPLATE</string>
+    <string name="btn_enroll">ENROLL</string>
+    <string name="btn_search">SEARCH</string>
+
+    <string name="any_finger">Place any finger on the reader</string>
+    <string name="enroll_id">Enrill ID：</string>
+    <string name="search_id">Search ID：</string>
+
+
+    <string name="menu_temperature">Temperature</string>
+    <string name="Humidity">Humidity Detection</string>
+    <string name="Humidity_value">%</string>
+    <string name="Temperature">Temperature Detection</string>
+    <string name="Temperature_value">℃</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+
+    <string name="menu_psam">Psam Card</string>
+    <string name="psam_rest">Reset</string>
+    <string name="psam_psam1">Psam1</string>
+    <string name="psam_random">Random</string>
+    <string name="psam_clear">Clear</string>
+    <string name="psam_apdu">Send ADPU</string>
+    <string name="psam_serialport">SerialPort：</string>
+    <string name="psam_powertype">PowerType：</string>
+    <string name="psam_baurate">Baurate：</string>
+    <string name="psam_reset_gpio">ResetGpio：</string>
+    <string name="psam_flag">Standard configuration：</string>
+    <string name="psam_flag2">Custom configuration：</string>
+    <string name="psam_init">Init……</string>
+
+    <string name="menu_mubiao_temerature">Temperature</string>
+    <string name="start_temerature">Start</string>
+    <string name="mubiao_temerature">Target Temperature</string>
+    <string name="max">Max Price: </string>
+    <string name="min">Min Price:</string>
+    <string name="huanjing_temerature">Environment:</string>
+
+
+    <string name="menu_updata">UpData</string>
+
 </resources>

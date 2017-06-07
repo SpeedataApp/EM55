@@ -95,7 +95,7 @@ public class DistanceAct extends BaseAct implements View.OnClickListener {
                 if (isChecked) {
                     //开始连续测距
                     btnSingle.setEnabled(false);
-                    tvStatus.setText("接收数据中……");
+                    tvStatus.setText(getString(R.string.distance_receive));
                     Log.d(TAG, "btn_start=");
                     distanceManage.senCmd(IDistance.CmdType.cmdrepetition);
                     bar.setVisibility(View.VISIBLE);
@@ -172,12 +172,12 @@ public class DistanceAct extends BaseAct implements View.OnClickListener {
             case R.id.btn_select:
                 if (isTop) {
                     isTop = false;
-                    Toast.makeText(this, "底部开始计算", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.distance_end), Toast.LENGTH_SHORT).show();
                     imgtop.setVisibility(View.GONE);
                     imgbottom.setVisibility(View.VISIBLE);
                 } else {
                     isTop = true;
-                    Toast.makeText(this, "顶部开始计算", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.distance_top), Toast.LENGTH_SHORT).show();
                     imgtop.setVisibility(View.VISIBLE);
                     imgbottom.setVisibility(View.GONE);
                 }

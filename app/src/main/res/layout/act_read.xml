@@ -36,7 +36,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="目标温度"
+            android:text="@string/mubiao_temerature"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:layout_below="@+id/tv_mubiao"
@@ -88,7 +88,7 @@
             android:layout_marginLeft="48dp"
             android:textColor="@color/black"
             android:layout_marginStart="48dp"
-            android:text="MAX值："
+            android:text="@string/max"
             android:layout_above="@+id/imageView4"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -106,7 +106,7 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MIN值："
+            android:text="@string/min"
             android:textColor="@color/black"
             android:layout_alignBottom="@+id/imageView4"
             android:layout_alignLeft="@+id/textView4"
@@ -117,7 +117,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="环境温度："
+            android:text="@string/huanjing_temerature"
             android:textStyle="bold"
             android:textSize="18sp"
             android:textColor="@color/black"
@@ -184,5 +184,5 @@
         android:layout_marginRight="30dp"
         android:id="@+id/btn_start"
         android:background="@drawable/bg_alibuybutton"
-        android:text="激发测温" />
+        android:text="@string/start_temerature" />
 </LinearLayout>

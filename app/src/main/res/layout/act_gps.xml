@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/black"
-            android:text="接收数据："
+            android:text="@string/gps_receive_data"
             android:textSize="20sp"
             android:id="@+id/textView" />
         <ScrollView
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_item_blue"
-            android:text="开始测试"
+            android:text="@string/gps_start_test"
             android:id="@+id/btn_fire"
             android:layout_marginRight="28dp"
             android:layout_marginEnd="28dp"
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_item_blue"
-            android:text="GPS星值"
+            android:text="@string/gps_price"
             android:id="@+id/btn_gps"
             android:layout_marginBottom="16dp"
             android:layout_alignParentBottom="true"
