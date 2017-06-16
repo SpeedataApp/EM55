@@ -97,11 +97,11 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
             }
         }
 
-        String em55 = SharedXmlUtil.getInstance(UhfAct.this).read("readEm55", "");
-        if (em55 != null && !em55.equals(readEm55)) {
+//        String em55 = SharedXmlUtil.getInstance(UhfAct.this).read("readEm55", "");
+//        if (em55 != null && !em55.equals(readEm55)) {
             SharedXmlUtil.getInstance(UhfAct.this).write("modle", "");
-        }
-        SharedXmlUtil.getInstance(UhfAct.this).write("readEm55", readEm55);
+//        }
+//        SharedXmlUtil.getInstance(UhfAct.this).write("readEm55", readEm55);
         iuhfService = UHFManager.getUHFService(UhfAct.this);
         if (iuhfService == null) {
             Toast.makeText(UhfAct.this, "模块不识别", Toast.LENGTH_SHORT).show();
