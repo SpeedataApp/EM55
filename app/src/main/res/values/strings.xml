@@ -178,6 +178,7 @@
     <string name="portrait">photo</string>
 
     //uhf
+    <string name="inv_set">Inv\nSet</string>
     <string name="Search_Btn_T">SEARCH</string>
     <string name="Read_Btn_T">READ</string>
     <string name="Write_Btn_T">WRITE</string>
