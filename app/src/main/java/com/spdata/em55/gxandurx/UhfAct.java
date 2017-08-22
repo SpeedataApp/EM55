@@ -2,10 +2,8 @@ package com.spdata.em55.gxandurx;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.serialport.DeviceControl;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,10 +14,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.Thing;
 import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
+import com.spdata.em55.gxandurx.dialog.InvSetDialog;
 import com.spdata.em55.gxandurx.dialog.LockTagDialog;
 import com.spdata.em55.gxandurx.dialog.ReadTagDialog;
 import com.spdata.em55.gxandurx.dialog.SearchTagDialog;
@@ -33,10 +30,11 @@ import com.speedata.libuhf.IUHFService;
 import com.speedata.libuhf.UHFManager;
 import com.speedata.libuhf.utils.SharedXmlUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.IOException;
+import static android.content.ContentValues.TAG;
 
 
 public class UhfAct extends BaseAct implements View.OnClickListener {
@@ -55,6 +53,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     private Button Set_Password;
     private Button Set_EPC;
     private Button Lock_Tag;
+    private Button btn_inv_set;
     private EditText Tag_Content;
     private IUHFService iuhfService;
     private String current_tag_epc = null;
@@ -63,48 +62,44 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     private PowerManager.WakeLock wK = null;
     private int init_progress = 0;
     private String modle;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-//    private GoogleApiClient client;
-    private DeviceControl myDeviceControl6;
-    private DeviceControl myDeviceControl4;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ----");
         ApplicationContext.getInstance().addActivity(UhfAct.this);
-        String readEm55 = getEM55Model();
-        if (readEm55.equals("80") ) {
-            try {
-                myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 7);
-                myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND, 5);
-                myDeviceControl4.PowerOnDevice();
-                myDeviceControl6.PowerOnDevice();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }else if (readEm55.equals("48")||readEm55.equals("81")){
-            try {
-                myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 6);
-                myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND, 7);
-                myDeviceControl4.PowerOnDevice();
-                myDeviceControl6.PowerOnDevice();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        String readEm55 = getEM55Model();
+//        if (readEm55.equals("80") ) {
+//            try {
+//                myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 7);
+//                myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND, 5);
+//                myDeviceControl4.PowerOnDevice();
+//                myDeviceControl6.PowerOnDevice();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }else if (readEm55.equals("48")||readEm55.equals("81")){
+//            try {
+//                myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 6);
+//                myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND, 7);
+//                myDeviceControl4.PowerOnDevice();
+//                myDeviceControl6.PowerOnDevice();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
 //        String em55 = SharedXmlUtil.getInstance(UhfAct.this).read("readEm55", "");
 //        if (em55 != null && !em55.equals(readEm55)) {
-            SharedXmlUtil.getInstance(UhfAct.this).write("modle", "");
+        SharedXmlUtil.getInstance(UhfAct.this).write("modle", "");
 //        }
 //        SharedXmlUtil.getInstance(UhfAct.this).write("readEm55", readEm55);
-        iuhfService = UHFManager.getUHFService(UhfAct.this);
-        if (iuhfService == null) {
-            Toast.makeText(UhfAct.this, "模块不识别", Toast.LENGTH_SHORT).show();
+        try {
+            iuhfService = UHFManager.getUHFService(UhfAct.this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(UhfAct.this, "模块不存在", Toast.LENGTH_SHORT).show();
             return;
         }
         modle = SharedXmlUtil.getInstance(UhfAct.this).read("modle", "");
@@ -121,7 +116,10 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         Set_Password.setEnabled(true);
         Lock_Tag.setEnabled(true);
         Area_Select.setEnabled(true);
-
+        if ("r2k".equals(modle)) {
+            btn_inv_set.setVisibility(View.VISIBLE);
+            btn_inv_set.setEnabled(true);
+        }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
 //        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -130,15 +128,25 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if (openDev()) return;
+        try {
+            if (iuhfService != null) {
+                if (openDev()) return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-
     @Override
-    protected void onPause() {
-        super.onPause();
-//        Log.d("r2000_kt45", "called ondestory");
-        iuhfService.CloseDev();
+    protected void onStop() {
+        super.onStop();
+        try {
+            if (iuhfService != null) {
+                iuhfService.CloseDev();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -226,6 +234,8 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         Lock_Tag.setOnClickListener(this);
         Speedt = (Button) findViewById(R.id.button_spt);
         Speedt.setOnClickListener(this);
+        btn_inv_set = (Button) findViewById(R.id.btn_inv_set);
+        btn_inv_set.setOnClickListener(this);
         Cur_Tag_Info = (TextView) findViewById(R.id.textView_epc);
         Cur_Tag_Info.setText("");
         Status = (TextView) findViewById(R.id.textView_status);
@@ -248,14 +258,11 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        try {
-            myDeviceControl4.PowerOffDevice();
-            myDeviceControl6.PowerOffDevice();
-//            iuhfService.CloseDev();
-            wK.release();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Log.d(TAG, "onDestroy: ----------");
+        wK.release();
+        //注销广播、对象制空
+        UHFManager.closeUHFService();
+        EventBus.getDefault().unregister(this);
 
     }
 
@@ -267,6 +274,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
                 Status.setText(R.string.Status_No_Card_Select);
                 return;
             }
+            //读卡
             ReadTagDialog readTag = new ReadTagDialog(this, iuhfService
                     , Area_Select.getSelectedItemPosition(), current_tag_epc, modle);
             readTag.setTitle(R.string.Item_Read);
@@ -276,6 +284,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
                 Status.setText(R.string.Status_No_Card_Select);
                 return;
             }
+            //写卡
             WriteTagDialog writeTag = new WriteTagDialog(this, iuhfService,
                     Tag_Content.getText().toString(), Area_Select.getSelectedItemPosition()
                     , current_tag_epc, modle);
@@ -283,11 +292,13 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
             writeTag.show();
         } else if (arg0 == Search_Tag) {
 
+            //盘点选卡
             SearchTagDialog searchTag = new SearchTagDialog(this, iuhfService, modle);
             searchTag.setTitle(R.string.Item_Choose);
             searchTag.show();
 
         } else if (arg0 == Set_Tag) {
+            //设置频率频段
             SetModuleDialog setDialog = new SetModuleDialog(this, iuhfService, modle);
             setDialog.setTitle(R.string.Item_Set_Title);
             setDialog.show();
@@ -297,6 +308,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
                 Status.setText(R.string.Status_No_Card_Select);
                 return;
             }
+            //设置密码
             SetPasswordDialog setPasswordDialog = new SetPasswordDialog(this
                     , iuhfService, current_tag_epc, modle);
             setPasswordDialog.setTitle(R.string.SetPasswd_Btn);
@@ -306,6 +318,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
                 Status.setText(R.string.Status_No_Card_Select);
                 return;
             }
+            //写EPC
             SetEPCDialog setEPCDialog = new SetEPCDialog(this, iuhfService, current_tag_epc);
             setEPCDialog.setTitle(R.string.SetEPC_Btn);
             setEPCDialog.show();
@@ -314,6 +327,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
                 Status.setText(R.string.Status_No_Card_Select);
                 return;
             }
+            //锁
             LockTagDialog lockTagDialog = new LockTagDialog(this, iuhfService
                     , current_tag_epc, modle);
             lockTagDialog.setTitle(R.string.Lock_Btn);
@@ -322,6 +336,11 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
             SpeedTestDialog sptd = new SpeedTestDialog(this, iuhfService);
             sptd.setTitle("Speed Test");
             sptd.show();
+        } else if (arg0 == btn_inv_set) {
+            //盘点内容设置
+            InvSetDialog invSetDialog = new InvSetDialog(this, iuhfService);
+            invSetDialog.setTitle("Inv Set");
+            invSetDialog.show();
         }
     }
 
@@ -337,7 +356,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
                     Toast.makeText(UhfAct.this, "再按一次退出", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
-                        UhfAct.this.finish();
+                        finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -345,35 +364,5 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
                 return false;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("UhfAct Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-//        client.connect();
-//        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-//        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-//        client.disconnect();
     }
 }

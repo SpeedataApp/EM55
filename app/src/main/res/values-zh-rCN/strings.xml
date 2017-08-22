@@ -184,6 +184,7 @@
   <string name="Status_ManipulateFail">操作设备失败</string>
   <string name="portrait">照片</string>
 
+  <string name="inv_set">盘点内容设置</string>
   <string name="Search_Btn_T">选择</string>
   <string name="Read_Btn_T">读</string>
   <string name="Write_Btn_T">写</string>
