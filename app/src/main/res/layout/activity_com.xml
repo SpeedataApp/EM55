@@ -2,21 +2,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="${relativePackage}.${activityClass}" >
+    android:orientation="vertical">
 
     <!-- com端口信息 -->
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="5" >
+        android:layout_weight="5"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerHorizontal="true"
             android:orientation="vertical" >
 
@@ -55,7 +55,7 @@
                     android:id="@+id/spinner_com"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/Text_com"
+                    android:layout_toEndOf="@+id/Text_com"
                     android:entries="@+array/comName"
                     android:textColor="#000" />
             </RelativeLayout>
@@ -79,7 +79,7 @@
                     android:id="@+id/spinner_Baud"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/Text_Baud"
+                    android:layout_toEndOf="@+id/Text_Baud"
                     android:entries="@+array/comBaud"
                     android:textColor="#000" />
             </RelativeLayout>

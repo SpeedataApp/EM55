@@ -15,6 +15,7 @@ import com.spdata.em55.R;
 import com.spdata.em55.base.BaseAct;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 
+import java.text.DecimalFormat;
 import java.util.Timer;
 
 import speedatacom.humitures.HumitureManager;
@@ -61,7 +62,8 @@ public class TemperatureAct extends BaseAct implements View.OnClickListener {
             if (msg.what > 0) {
                 float[] buf = (float[]) msg.obj;
                 Humidity.setText(String.valueOf(buf[0]) + "%");
-                Temperature.setText(String.valueOf(buf[1]) + "℃");
+                DecimalFormat df   =new   java.text.DecimalFormat("#.0");
+                Temperature.setText(  df.format(buf[1])+ "℃");
                 Log.d("######", "Hum:" + String.valueOf(buf[0]) + "Tem:" + String.valueOf(buf[1]));
             }
         }
