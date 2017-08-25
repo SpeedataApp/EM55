@@ -1,5 +1,6 @@
 package com.spdata.em55.gxandurx.dialog;
 
+
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ public class InvSetDialog extends Dialog implements android.view.View.OnClickLis
     private ArrayAdapter<String> iapt;
     private IUHFService iuhfService;
 
-    public InvSetDialog(Context context,IUHFService iuhfService) {
+    public InvSetDialog(Context context, IUHFService iuhfService) {
         super(context);
         this.iuhfService = iuhfService;
         // TODO Auto-generated constructor stub
@@ -95,27 +96,22 @@ public class InvSetDialog extends Dialog implements android.view.View.OnClickLis
     public void onClick(View v) {
         // TODO Auto-generated method stub
         if (v == ok) {
-            int w = mode.getSelectedItemPosition() + 1;
+            int w = mode.getSelectedItemPosition();
             Log.w("r2000_native", "select item " + w);
 
             int caddr, csize;
-            if (w == R2K.InvOnlyEPC) {
-                caddr = 0;
-                csize = 0;
-            } else {
-                String saddr = addr.getText().toString();
-                String ssize = size.getText().toString();
-                try {
-                    caddr = Integer.parseInt(saddr, 16);
-                    csize = Integer.parseInt(ssize, 10);
-                    if (csize == 0)
-                        throw new NumberFormatException("size cannot be 0");
+            String saddr = addr.getText().toString();
+            String ssize = size.getText().toString();
+            try {
+                caddr = Integer.parseInt(saddr, 16);
+                csize = Integer.parseInt(ssize, 10);
+                if (csize == 0)
+                    throw new NumberFormatException("size cannot be 0");
 
-                } catch (NumberFormatException p) {
-                    status.setText(R.string.Status_InvalidNumber);
-                    status.append("\n" + p.getMessage());
-                    return;
-                }
+            } catch (NumberFormatException p) {
+                status.setText(R.string.Status_InvalidNumber);
+                status.append("\n" + p.getMessage());
+                return;
             }
             iuhfService.SetInvMode(w, caddr, csize);
             dismiss();

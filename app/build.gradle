@@ -31,7 +31,7 @@ dependencies {
     //身份证
     //测距
     //温湿度
-    compile 'com.speedata:libuhf:6.9.2'
+    compile 'com.speedata:libuhf:7.0'
     compile 'com.speedata:libid2:2.5.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.speedata:Distance:1.3.1'
