@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.spdata.em55.MenuAct;
+import com.spdata.em55.base.BaseToast;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class ApplicationContext extends Application {
     private preDefiniation.TransferMode printmode = preDefiniation.TransferMode.TM_NONE;
     private boolean labelmark = true;
     private static ApplicationContext instance = null;
+    private static BaseToast toast;
 
     public static ApplicationContext getInstance() {
         if (null == instance) {
@@ -31,6 +33,15 @@ public class ApplicationContext extends Application {
         return instance;
 
     }
+
+    public static BaseToast getToast() {
+        if (toast == null) {
+            toast = new BaseToast();
+        }
+        return toast;
+    }
+
+
     public ApplicationContext() {
     }
     private List<Activity> activityList = new LinkedList<Activity>();

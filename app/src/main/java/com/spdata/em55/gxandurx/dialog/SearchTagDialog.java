@@ -39,7 +39,7 @@ public class SearchTagDialog extends Dialog implements
     private Button Action;
     private TextView Status;
     private ListView EpcList;
-    private volatile boolean inSearch = false;
+    private boolean inSearch = false;
     private List<EpcDataBase> firm = new ArrayList<EpcDataBase>();
     private Handler handler = null;
     private ArrayAdapter<EpcDataBase> adapter;
@@ -95,32 +95,33 @@ public class SearchTagDialog extends Dialog implements
                             soundPool.play(soundId, 1, 1, 0, 0, 1);
                         }
                     }
-                    ArrayList<Tag_Data> ks = (ArrayList<Tag_Data>) msg.obj;
-                    int i, j;
-                    for (i = 0; i < ks.size(); i++) {
-                        for (j = 0; j < firm.size(); j++) {
-                            if (ks.get(i).epc.equals(firm.get(j).epc)) {
-                                firm.get(j).valid++;
-                                firm.get(j).setRssi(ks.get(i).rssi);
-                                break;
-                            }
+                    Tag_Data tag_Data = (Tag_Data) msg.obj;
+                    int j;
+                    for (j = 0; j < firm.size(); j++) {
+                        if (tag_Data.epc.equals(firm.get(j).epc)) {
+                            firm.get(j).valid++;
+                            firm.get(j).setRssi(tag_Data.rssi);
+                            break;
                         }
-                        if (j == firm.size()) {
-                            firm.add(new EpcDataBase(ks.get(i).epc, 1,
-                                    ks.get(i).rssi, ks.get(i).tid));
-                            if (cbb.isChecked()) {
-                                soundPool.play(soundId, 1, 1, 0, 0, 1);
-                            }
+                    }
+                    if (j == firm.size()) {
+                        firm.add(new EpcDataBase(tag_Data.epc, 1,
+                                tag_Data.rssi, tag_Data.tid));
+                        if (cbb.isChecked()) {
+                            soundPool.play(soundId, 1, 1, 0, 0, 1);
                         }
                     }
                 }
+
                 adapter = new ArrayAdapter<EpcDataBase>(
                         cont, android.R.layout.simple_list_item_1, firm);
                 EpcList.setAdapter(adapter);
                 Status.setText("Total: " + firm.size());
 
             }
-        };
+        }
+
+        ;
 
 
         //新的Listener回调参考代码
@@ -202,13 +203,14 @@ public class SearchTagDialog extends Dialog implements
             dismiss();
         } else if (v == Action) {
             if (inSearch) {
+                inSearch = false;
                 this.setCancelable(true);
                 int inventoryStop = iuhfService.inventory_stop();
                 if (inventoryStop != 0) {
                     Toast.makeText(cont, "停止失败", Toast.LENGTH_SHORT).show();
                 }
 //                        iuhfService.newInventoryStop();
-                inSearch = false;
+
                 Action.setText(R.string.Start_Search_Btn);
                 Cancle.setEnabled(true);
             } else {
@@ -248,13 +250,14 @@ public class SearchTagDialog extends Dialog implements
         public String toString() {
             if (TextUtils.isEmpty(tid_user)) {
                 return "EPC:" + epc + "\n"
-                        + "(" + "COUNT:" + valid + ")" + " RSSI:" + rssi+"\n";
+                        + "(" + "COUNT:" + valid + ")" + " RSSI:" + rssi + "\n";
             } else {
                 return "EPC:" + epc + "\n"
                         + "T/U:" + tid_user + "\n"
-                        + "(" + "COUNT:" + valid + ")" + " RSSI:" + rssi+"\n";
+                        + "(" + "COUNT:" + valid + ")" + " RSSI:" + rssi + "\n";
             }
         }
+
     }
 
     @Override
@@ -264,9 +267,10 @@ public class SearchTagDialog extends Dialog implements
         if (inSearch) {
             return;
         }
-        int res = iuhfService.select_card(firm.get(arg2).epc,true);
+        String epcStr = firm.get(arg2).epc;
+        int res = iuhfService.select_card(1, epcStr, true);
         if (res == 0) {
-            EventBus.getDefault().post(new MsgEvent("set_current_tag_epc", firm.get(arg2).epc));
+            EventBus.getDefault().post(new MsgEvent("set_current_tag_epc", epcStr));
             dismiss();
         } else {
             Status.setText(R.string.Status_Select_Card_Faild);
