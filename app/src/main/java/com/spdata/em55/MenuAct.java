@@ -1,6 +1,8 @@
 package com.spdata.em55;
 
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.serialport.DeviceControl;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,11 +14,16 @@ import com.spdata.em55.lr.DistanceAct;
 import com.spdata.em55.lr.GpsAct;
 import com.spdata.em55.lr.TemperatureAct;
 import com.spdata.em55.px.ID2.ID2Act;
-import com.spdata.em55.px.fingerprint.FingerPrintAct;
+import com.spdata.em55.px.fingerprint.fzid.FpSDKSampleP11MActivity;
+import com.spdata.em55.px.fingerprint.tcs1.Tcs1Activity;
+import com.spdata.em55.px.fingerprint.tcs1g.UareUSampleJava;
 import com.spdata.em55.px.print.print.demo.firstview.ConnectAvtivity;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.spdata.em55.px.psam.PsamAct;
 import com.spdata.updateversion.UpdateVersion;
+import com.spdata.util.FingerTypes;
+
+import java.io.IOException;
 
 
 /**
@@ -24,7 +31,7 @@ import com.spdata.updateversion.UpdateVersion;
  */
 
 public class MenuAct extends BaseAct implements View.OnClickListener {
-    LinearLayout lygps, lywendu, lyceju, lyupdata ,lyinfrared;
+    LinearLayout lygps, lywendu, lyceju, lyupdata, lyinfrared;
     LinearLayout layoutid, layoutpasm, layoutprint, layoutfinger, lyUhf;
     TextView tvversion;
     private final String TAG = "state";
@@ -74,7 +81,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-     showMenu();
+        showMenu();
     }
 
     public void showMenu() {
@@ -159,6 +166,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         }
     }
 
+    private DeviceControl deviceControl;
 
     @Override
     public void onClick(View v) {
@@ -184,11 +192,41 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         } else if (v == layoutpasm) {
             openAct(PsamAct.class);
         } else if (v == layoutfinger) {
-            openAct(FingerPrintAct.class);
+            try {
+                deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 63,5, 6);
+                deviceControl.PowerOnDevice();
+                SystemClock.sleep(1000);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            initFingerTypes();
         } else if (v == lyUhf) {
             openAct(UhfAct.class);
-        } else if (v==lyinfrared) {
+        } else if (v == lyinfrared) {
             openAct(ReadActivity.class);
         }
+    }
+
+    public void initFingerTypes() {
+        switch (FingerTypes.getrwusbdevices(this)) {
+            case 0:
+                showToast("无指纹模块！");
+                try {
+                    deviceControl.PowerOffDevice();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 1:
+                openAct(FpSDKSampleP11MActivity.class);
+                break;
+            case 2:
+                openAct(Tcs1Activity.class);
+                break;
+            case 3:
+                openAct(UareUSampleJava.class);
+                break;
+        }
+
     }
 }

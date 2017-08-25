@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/EM55.iml" filepath="$PROJECT_DIR$/EM55.iml" />
       <module fileurl="file://D:\EM55\Em55demo.iml" filepath="D:\EM55\Em55demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fingerprint/fingerprint.iml" filepath="$PROJECT_DIR$/fingerprint/fingerprint.iml" />
     </modules>
   </component>
 </project>
