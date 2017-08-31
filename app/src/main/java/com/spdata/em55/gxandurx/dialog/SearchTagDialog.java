@@ -95,20 +95,22 @@ public class SearchTagDialog extends Dialog implements
                             soundPool.play(soundId, 1, 1, 0, 0, 1);
                         }
                     }
-                    Tag_Data tag_Data = (Tag_Data) msg.obj;
-                    int j;
-                    for (j = 0; j < firm.size(); j++) {
-                        if (tag_Data.epc.equals(firm.get(j).epc)) {
-                            firm.get(j).valid++;
-                            firm.get(j).setRssi(tag_Data.rssi);
-                            break;
+                    ArrayList<Tag_Data> ks = (ArrayList<Tag_Data>) msg.obj;
+                    int i, j;
+                    for (i = 0; i < ks.size(); i++) {
+                        for (j = 0; j < firm.size(); j++) {
+                            if (ks.get(i).epc.equals(firm.get(j).epc)) {
+                                firm.get(j).valid++;
+                                firm.get(j).setRssi(ks.get(i).rssi);
+                                break;
+                            }
                         }
-                    }
-                    if (j == firm.size()) {
-                        firm.add(new EpcDataBase(tag_Data.epc, 1,
-                                tag_Data.rssi, tag_Data.tid));
-                        if (cbb.isChecked()) {
-                            soundPool.play(soundId, 1, 1, 0, 0, 1);
+                        if (j == firm.size()) {
+                            firm.add(new EpcDataBase(ks.get(i).epc, 1,
+                                    ks.get(i).rssi, ks.get(i).tid));
+                            if (cbb.isChecked()) {
+                                soundPool.play(soundId, 1, 1, 0, 0, 1);
+                            }
                         }
                     }
                 }
@@ -217,6 +219,7 @@ public class SearchTagDialog extends Dialog implements
                 inSearch = true;
                 this.setCancelable(false);
                 scant = 0;
+                iuhfService.select_card(1, "", false);
                 iuhfService.inventory_start(handler);
                 Action.setText(R.string.Stop_Search_Btn);
                 Cancle.setEnabled(false);
