@@ -20,6 +20,7 @@ import com.spdata.em55.px.fingerprint.tcs1g.UareUSampleJava;
 import com.spdata.em55.px.print.print.demo.firstview.ConnectAvtivity;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.spdata.em55.px.psam.PsamAct;
+import com.spdata.em55.view.ProgersssDialog;
 import com.spdata.updateversion.UpdateVersion;
 import com.spdata.util.FingerTypes;
 
@@ -76,6 +77,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         }
         lyinfrared = (LinearLayout) findViewById(R.id.ly_infrared);
         lyinfrared.setOnClickListener(this);
+        progersssDialog=new ProgersssDialog(this);
     }
 
     @Override
@@ -167,7 +169,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
     }
 
     private DeviceControl deviceControl;
-
+    ProgersssDialog progersssDialog;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -193,20 +195,37 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
             openAct(PsamAct.class);
         } else if (v == layoutfinger) {
             try {
-                deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 63,5, 6);
+
+                progersssDialog.show();
+                if ("80".equals(getEM55Model())||"32".equals(getEM55Model())){
+                    deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 63,5);
+                }else {
+                    deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 63,6);
+                }
                 deviceControl.PowerOnDevice();
-                SystemClock.sleep(1000);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        SystemClock.sleep(3000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progersssDialog.dismiss();
+                                initFingerTypes();
+                            }
+                        });
+                    }
+                }).start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            initFingerTypes();
+
         } else if (v == lyUhf) {
             openAct(UhfAct.class);
         } else if (v == lyinfrared) {
             openAct(ReadActivity.class);
         }
     }
-
     public void initFingerTypes() {
         switch (FingerTypes.getrwusbdevices(this)) {
             case 0:
@@ -218,12 +237,15 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 }
                 break;
             case 1:
+                progersssDialog.dismiss();
                 openAct(FpSDKSampleP11MActivity.class);
                 break;
             case 2:
+                progersssDialog.dismiss();
                 openAct(Tcs1Activity.class);
                 break;
             case 3:
+                progersssDialog.dismiss();
                 openAct(UareUSampleJava.class);
                 break;
         }

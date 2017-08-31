@@ -1,17 +1,15 @@
-<LinearLayout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="${relativePackage}.${activityClass}" >
-        <!-- usb端口信息 -->
+    android:orientation="vertical">
+    <!-- usb端口信息 -->
 
-        <RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="5"
-         >
+        android:layout_weight="5">
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -19,21 +17,21 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerHorizontal="true"
-            
-            android:orientation="vertical" >
+
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 android:gravity="center"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/Text_usbName"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:text="@string/Text_usbName"
-                   
+
                     android:textSize="20sp" />
             </RelativeLayout>
             <!-- wifi的ip -->
@@ -41,9 +39,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
-                 android:padding="2dp"
-                android:layout_weight="1" >
+                android:padding="2dp">
 
                 <TextView
                     android:id="@+id/Text_usb"
@@ -51,7 +49,6 @@
                     android:layout_height="40dp"
                     android:gravity="center"
                     android:text="@string/Text_usb"
-                   
                     android:textSize="20sp" />
 
                 <Spinner
@@ -59,22 +56,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/Text_usb"
-                    android:entries="@+array/usbName"
-                    />
+                    android:entries="@+array/usbName"></Spinner>
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
-                 android:padding="20dp"
-                android:layout_weight="1" >
+                android:padding="20dp">
 
                 <Button
                     android:id="@+id/button_usbcon"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                  android:layout_marginTop="70dp"
+                    android:layout_marginTop="70dp"
                     android:text="@string/button_usbcon"
                     android:textSize="20sp" />
             </RelativeLayout>

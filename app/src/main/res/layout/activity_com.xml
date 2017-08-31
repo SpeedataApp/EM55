@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/Text_com"
                     android:entries="@+array/comName"
-                    android:textColor="#000" />
+                    android:textColor="#000" ></Spinner>
             </RelativeLayout>
        <RelativeLayout
                 android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/Text_Baud"
                     android:entries="@+array/comBaud"
-                    android:textColor="#000" />
+                    android:textColor="#000" ></Spinner>
             </RelativeLayout>
             
             <RelativeLayout
