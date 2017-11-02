@@ -121,9 +121,7 @@ public class SearchTagDialog extends Dialog implements
                 Status.setText("Total: " + firm.size());
 
             }
-        }
-
-        ;
+        };
 
 
         //新的Listener回调参考代码

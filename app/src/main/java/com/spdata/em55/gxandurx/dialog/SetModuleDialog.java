@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,22 +17,33 @@ import android.widget.Toast;
 import com.spdata.em55.R;
 import com.speedata.libuhf.IUHFService;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by 张明_ on 2016/12/28.
  */
 
 public class SetModuleDialog extends Dialog implements android.view.View.OnClickListener {
 
+    //其他模块频段
     private final String[] freq_area_item = {"840-845", "920-925", "902-928", "865-868", "..."};
-    private Button setf,back;
+    //R2000模块频段
+    private final String[] r2k_freq_area_item = {"840-845", "920-925", "902-928",
+            "920.5-924.5", "当前状态为定频", "..."};
+    private Button setf, back;
     private TextView status;
     private Spinner lf;
-    private boolean seted = false;
     private Button setp;
     private EditText pv;
     private IUHFService iuhfService;
     private String model;
     private Context mContext;
+    private EditText et_pin_dian;
+    private Button button_set_pindian;
+    private LinearLayout ll_dianpin;
+    private EditText et_zaibo;
+    private Button button_zaibo;
+    private LinearLayout ll_zaibo;
 
 
     public SetModuleDialog(Context context, IUHFService iuhfService, String model) {
@@ -43,37 +55,56 @@ public class SetModuleDialog extends Dialog implements android.view.View.OnClick
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sss);
+        setContentView(R.layout.dialog_setting);
+        initView();
 
-        setf = (Button) findViewById(R.id.button_set_region);
-        setf.setOnClickListener(this);
-        back = (Button) findViewById(R.id.button_set_back);
-        back.setOnClickListener(this);
-        status = (TextView) findViewById(R.id.textView_set_status);
-        setp = (Button) findViewById(R.id.button_set_antenna);
-        setp.setOnClickListener(this);
-        setp.setEnabled(false);
-        pv = (EditText) findViewById(R.id.editText_antenna);
-
-        lf = (Spinner) findViewById(R.id.spinner_region);
-        ArrayAdapter<String> tmp = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, freq_area_item);
+        ArrayAdapter<String> tmp;
+        if ("r2k".equals(model)) {
+            ll_dianpin.setVisibility(View.VISIBLE);
+            tmp = new ArrayAdapter<String>(this.getContext(),
+                    android.R.layout.simple_spinner_item, r2k_freq_area_item);
+        } else {
+            tmp = new ArrayAdapter<String>(this.getContext(),
+                    android.R.layout.simple_spinner_item, freq_area_item);
+        }
         tmp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lf.setAdapter(tmp);
 
         int re = iuhfService.get_freq_region();
-        if (re == iuhfService.REGION_CHINA_920_925) {
-            lf.setSelection(1, true);
-        } else if (re == iuhfService.REGION_CHINA_840_845) {
-            lf.setSelection(0, true);
-        } else if (re == iuhfService.REGION_CHINA_902_928) {
-            lf.setSelection(2, true);
-        } else if (re == iuhfService.REGION_EURO_865_868) {
-            lf.setSelection(3, true);
+        if ("r2k".equals(model)) {
+            if (re == iuhfService.REGION_CHINA_920_925) {
+                lf.setSelection(1, true);
+            } else if (re == iuhfService.REGION_CHINA_840_845) {
+                lf.setSelection(0, true);
+            } else if (re == iuhfService.REGION_CHINA_902_928) {
+                lf.setSelection(2, true);
+            } else if (re == iuhfService.REGION_920_5_924_5) {
+                lf.setSelection(3, true);
+            } else if (re == -1) {
+                lf.setSelection(5, true);
+                status.setText("read region setting read failed");
+                Log.e("r2000_kt45", "read region setting read failed");
+            } else {
+                lf.setSelection(4, true);
+                et_pin_dian.setText(String.valueOf(new DecimalFormat("0.000").format(re / 1000.0)));
+                ll_zaibo.setVisibility(View.VISIBLE);
+            }
         } else {
-            lf.setSelection(4, true);
-            status.setText("read region setting read failed");
-            Log.e("r2000_kt45", "read region setting read failed");
+            if (re == iuhfService.REGION_CHINA_920_925) {
+                lf.setSelection(1, true);
+            } else if (re == iuhfService.REGION_CHINA_840_845) {
+                lf.setSelection(0, true);
+            } else if (re == iuhfService.REGION_CHINA_902_928) {
+                lf.setSelection(2, true);
+            } else if (re == iuhfService.REGION_EURO_865_868) {
+                lf.setSelection(3, true);
+            } else {
+                lf.setSelection(4, true);
+                status.setText("read region setting read failed");
+                Log.e("r2000_kt45", "read region setting read failed");
+            }
         }
+
 
         int ivp = iuhfService.get_antenna_power();
         if (ivp > 0) {
@@ -84,6 +115,27 @@ public class SetModuleDialog extends Dialog implements android.view.View.OnClick
             pv.setHint("0关天线1开天线");
             setp.setEnabled(true);
         }
+    }
+
+    private void initView() {
+        setf = (Button) findViewById(R.id.button_set_region);
+        setf.setOnClickListener(this);
+        back = (Button) findViewById(R.id.button_set_back);
+        back.setOnClickListener(this);
+        status = (TextView) findViewById(R.id.textView_set_status);
+        setp = (Button) findViewById(R.id.button_set_antenna);
+        setp.setOnClickListener(this);
+        setp.setEnabled(false);
+        pv = (EditText) findViewById(R.id.editText_antenna);
+        lf = (Spinner) findViewById(R.id.spinner_region);
+        button_set_pindian = (Button) findViewById(R.id.button_set_pindian);
+        button_set_pindian.setOnClickListener(this);
+        et_pin_dian = (EditText) findViewById(R.id.et_pin_dian);
+        ll_dianpin = (LinearLayout) findViewById(R.id.ll_dianpin);
+        button_zaibo = (Button) findViewById(R.id.button_zaibo);
+        button_zaibo.setOnClickListener(this);
+        et_zaibo = (EditText) findViewById(R.id.et_zaibo);
+        ll_zaibo = (LinearLayout) findViewById(R.id.ll_zaibo);
     }
 
     @Override
@@ -119,6 +171,24 @@ public class SetModuleDialog extends Dialog implements android.view.View.OnClick
                     back.setText("update settings");
                     this.setCancelable(false);
                 }
+            }
+        } else if (v == button_set_pindian) {
+            double parseDouble = Double.parseDouble(et_pin_dian.getText().toString());
+            int frequency = iuhfService.setFrequency(parseDouble);
+            if (frequency == 0) {
+                status.setText("set fixed frequency ok");
+                ll_zaibo.setVisibility(View.VISIBLE);
+            } else {
+                status.setText("set fixed frequency failed");
+                ll_zaibo.setVisibility(View.GONE);
+            }
+        } else if (v == button_zaibo) {
+            int zaibo = Integer.parseInt(et_zaibo.getText().toString());
+            int engTest = iuhfService.enableEngTest(zaibo);
+            if (engTest == 0) {
+                status.setText("Set carrier success");
+            } else {
+                status.setText("Set carrier failed");
             }
         }
     }

@@ -259,7 +259,9 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy: ----------");
-        wK.release();
+        if (wK != null) {
+            wK.release();
+        }
         //注销广播、对象制空
         UHFManager.closeUHFService();
         EventBus.getDefault().unregister(this);

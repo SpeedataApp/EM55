@@ -140,33 +140,4 @@ public class SetEPCDialog extends Dialog implements
             }
         }
     };
-//    int set_EPC(int epclength, String passwd, byte[] EPC) {
-//        byte[] res;
-//        long pss = 0;
-//        if (epclength > 31) {
-//            return -3;
-//        }
-//        if (epclength * 2 < EPC.length) {
-//            return -3;
-//        }
-//        try {
-//            pss = Long.parseLong(passwd, 16);
-//        } catch (NumberFormatException e) {
-//            return -4;
-//        }
-//        res = iuhfService.read_area(iuhfService.EPC_A, 1, 2, 0);
-//        if (res == null) {
-//            return -5;
-//        }
-//        res[0] = (byte) ((res[0] & 0x7) | (epclength << 3));
-//        byte[] f = new byte[2 + epclength * 2];
-//        try {
-//            System.arraycopy(res, 0, f, 0, 2);
-//            System.arraycopy(EPC, 0, f, 2, epclength * 2);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return -1;
-//        }
-//        return iuhfService.write_area(iuhfService.EPC_A, 1, (int) pss, f);
-//    }
 }
