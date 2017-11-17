@@ -1,5 +1,6 @@
 package com.spdata.em55.px.ID2;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -75,8 +76,8 @@ public class ID2Act extends BaseAct {
                 mtextmouth.setText(idInfor.getMonth());
                 mtextday.setText(idInfor.getDay());
                 mtextnum.setText(idInfor.getNum());
-                String sss =idInfor.getNum();
-                Log.i(TAG, "handleMessage: "+sss);
+                String sss = idInfor.getNum();
+                Log.i(TAG, "handleMessage: " + sss);
                 mtextqianfa.setText(idInfor.getQianFa());
                 mtextqixian.setText(idInfor.getDeadLine());
                 mImageViewPhoto.setImageBitmap(idInfor.getBmps());
@@ -95,6 +96,7 @@ public class ID2Act extends BaseAct {
         }
     };
     private IID2Service iid2Service;
+    private ProgressDialog progressDialog;
 
     private void initID2Info() {
         mtextsex.setText("男");
@@ -169,9 +171,9 @@ public class ID2Act extends BaseAct {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 iid2Service.getIDInfor(false, isChecked);
-//                if (!isChecked){
-//                    initID2Info();
-//                }
+                if (!isChecked) {
+                    initID2Info();
+                }
             }
         });
 //        try {
@@ -185,17 +187,28 @@ public class ID2Act extends BaseAct {
 //            e.printStackTrace();
 //        }
     }
+    private int dia=1;
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        if (id == dia) {
+
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("正在初始化");
+            progressDialog.setCancelable(false);
+        }
+        return progressDialog;
+    }
 
     /**
      * 初始化二代证模块   失败退出
      */
     public void initIDService() {
         iid2Service = IDManager.getInstance();
-        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("正在初始化");
         progressDialog.setCancelable(false);
         progressDialog.show();
-
+//        showDialog(dia);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -213,7 +226,11 @@ public class ID2Act extends BaseAct {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            progressDialog.dismiss();
+//                            dismissDialog(dia);
+                            if (progressDialog != null) {
+                                progressDialog.dismiss();
+                                progressDialog.cancel();
+                            }
                             if (!result) {
                                 new AlertDialog.Builder(ID2Act.this).setCancelable(false)
                                         .setMessage("二代证模块初始化失败")
@@ -242,6 +259,7 @@ public class ID2Act extends BaseAct {
     @Override
     protected void onStop() {
         super.onStop();
+
         try {
             iid2Service.releaseDev();
         } catch (IOException e) {
@@ -250,6 +268,11 @@ public class ID2Act extends BaseAct {
     }
 
     public void onDestroy() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+            progressDialog.cancel();
+//            progressDialog=null;
+        }
         super.onDestroy();
         try {
             if (iid2Service != null)

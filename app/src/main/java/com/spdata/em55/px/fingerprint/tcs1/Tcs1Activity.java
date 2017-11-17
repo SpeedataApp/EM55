@@ -593,6 +593,20 @@ public class Tcs1Activity extends Activity implements View.OnClickListener {
                 testcount = 0;
                 SystemClock.sleep(200);
                 nRet = a6.ZAZGetImage(DEV_ADDR);
+                if (nRet == 0) {
+                    testcount = 0;
+                    int[] len = {0, 0};
+                    byte[] Image = new byte[256 * 360];
+                    a6.ZAZUpImage(DEV_ADDR, Image, len);
+                    String str = "/mnt/sdcard/test.bmp";
+                    a6.ZAZImgData2BMP(Image, str);
+                    temp = getResources().getString(R.string.getimagesuccess_str);
+                    mtvMessage.setText(temp);
+
+                    Bitmap bmpDefaultPic;
+                    bmpDefaultPic = BitmapFactory.decodeFile(str, null);
+                    imageFp.setImageBitmap(bmpDefaultPic);
+                }
             }
 
             if (nRet == 0) {
@@ -628,6 +642,7 @@ public class Tcs1Activity extends Activity implements View.OnClickListener {
                             }
                         }
                     } else {
+
                         temp = getResources().getString(R.string.getfpsuccess_str);
                         mtvMessage.setText(temp);
                         ssart = System.currentTimeMillis();

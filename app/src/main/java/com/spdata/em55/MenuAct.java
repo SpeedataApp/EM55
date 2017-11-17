@@ -1,7 +1,6 @@
 package com.spdata.em55;
 
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.serialport.DeviceControl;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -23,8 +22,11 @@ import com.spdata.em55.px.psam.PsamAct;
 import com.spdata.em55.view.ProgersssDialog;
 import com.spdata.updateversion.UpdateVersion;
 import com.spdata.util.FingerTypes;
+import com.spdata.util.FlippingLoadingDialog;
 
 import java.io.IOException;
+
+import static com.spdata.util.FingerTypes.getrwusbdevices;
 
 
 /**
@@ -77,13 +79,15 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         }
         lyinfrared = (LinearLayout) findViewById(R.id.ly_infrared);
         lyinfrared.setOnClickListener(this);
-        progersssDialog=new ProgersssDialog(this);
+        progersssDialog = new ProgersssDialog(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         showMenu();
+
+
     }
 
     public void showMenu() {
@@ -170,6 +174,7 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
 
     private DeviceControl deviceControl;
     ProgersssDialog progersssDialog;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -194,31 +199,39 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
         } else if (v == layoutpasm) {
             openAct(PsamAct.class);
         } else if (v == layoutfinger) {
-            try {
+//                progersssDialog.show();
 
-                progersssDialog.show();
-                if ("80".equals(getEM55Model())||"32".equals(getEM55Model())){
-                    deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 63,5);
-                }else {
-                    deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 63,6);
+            final long start = System.currentTimeMillis();
+            showLoading("初始化模块…");
+            try {
+                if ("80".equals(getEM55Model()) || "32".equals(getEM55Model())) {
+                    deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 63, 5);
+                } else {
+                    deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 63, 6);
                 }
                 deviceControl.PowerOnDevice();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        SystemClock.sleep(3000);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                progersssDialog.dismiss();
-                                initFingerTypes();
-                            }
-                        });
-                    }
-                }).start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    int isFlag=0;
+                    while (isFlag==0) {
+                        if (System.currentTimeMillis() - start > 10000) {
+                            isFlag = 4;
+                        } else {
+                          isFlag=  FingerTypes.getrwusbdevices(getApplicationContext());
+                        }
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            initFingerTypes(getrwusbdevices(getApplicationContext()));
+                        }
+                    });
+                }
+            }).start();
 
         } else if (v == lyUhf) {
             openAct(UhfAct.class);
@@ -226,10 +239,13 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
             openAct(ReadActivity.class);
         }
     }
-    public void initFingerTypes() {
-        switch (FingerTypes.getrwusbdevices(this)) {
+
+    public void initFingerTypes(int i) {
+
+        switch (i) {
             case 0:
                 showToast("无指纹模块！");
+                hideLoading();
                 try {
                     deviceControl.PowerOffDevice();
                 } catch (IOException e) {
@@ -237,18 +253,34 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
                 }
                 break;
             case 1:
-                progersssDialog.dismiss();
+                hideLoading();
                 openAct(FpSDKSampleP11MActivity.class);
                 break;
             case 2:
-                progersssDialog.dismiss();
+                hideLoading();
                 openAct(Tcs1Activity.class);
                 break;
             case 3:
-                progersssDialog.dismiss();
+                hideLoading();
                 openAct(UareUSampleJava.class);
                 break;
         }
 
+    }
+
+    private FlippingLoadingDialog mProgressDialog;
+
+    public void showLoading(String text) {
+        if (mProgressDialog == null) {
+            mProgressDialog = new FlippingLoadingDialog(this, text);
+        }
+        mProgressDialog.setText(text);
+        mProgressDialog.show();
+    }
+
+    public void hideLoading() {
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
     }
 }

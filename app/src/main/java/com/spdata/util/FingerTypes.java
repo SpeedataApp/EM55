@@ -1,10 +1,6 @@
 package com.spdata.util;
 
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.util.Log;
@@ -26,15 +22,8 @@ public class FingerTypes {
         // get FileDescriptor by Android USB Host API
         UsbManager mUsbManager = (UsbManager) context
                 .getSystemService(Context.USB_SERVICE);
-        final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
         HashMap<String, UsbDevice> deviceList = mUsbManager.getDeviceList();
         Iterator<UsbDevice> deviceIterator = deviceList.values().iterator();
-
-        PendingIntent mPermissionIntent = PendingIntent.getBroadcast(context, 0,
-                new Intent(ACTION_USB_PERMISSION), 0);
-        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
-        BroadcastReceiver mUsbReceiver = null;
-        context.registerReceiver(mUsbReceiver, filter);
         while (deviceIterator.hasNext()) {
             UsbDevice device = deviceIterator.next();
             Log.e("1111111",

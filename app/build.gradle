@@ -9,7 +9,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
-        versionName "1.9.6"
+        versionName "1.9.7-test"
         ndk {
             //选择要添加的对应cpu类型的.so库。
             abiFilters 'armeabi'
