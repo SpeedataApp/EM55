@@ -178,6 +178,8 @@
     <string name="portrait">photo</string>
 
     //uhf
+    <string name="write_content">Content(hex)</string>
+    <string name="spinner_area_text">Read\Write Area</string>
     <string name="inv_set">Inv\nSet</string>
     <string name="Search_Btn_T">SEARCH</string>
     <string name="Read_Btn_T">READ</string>

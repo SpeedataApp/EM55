@@ -23,15 +23,14 @@ import com.spdata.em55.gxandurx.dialog.SearchTagDialog;
 import com.spdata.em55.gxandurx.dialog.SetEPCDialog;
 import com.spdata.em55.gxandurx.dialog.SetModuleDialog;
 import com.spdata.em55.gxandurx.dialog.SetPasswordDialog;
-import com.spdata.em55.gxandurx.dialog.SpeedTestDialog;
 import com.spdata.em55.gxandurx.dialog.WriteTagDialog;
 import com.spdata.em55.px.print.utils.ApplicationContext;
 import com.speedata.libuhf.IUHFService;
 import com.speedata.libuhf.UHFManager;
 import com.speedata.libuhf.utils.SharedXmlUtil;
+import com.speedata.libutils.CommonUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import static android.content.ContentValues.TAG;
@@ -43,7 +42,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
      */
     private static final String[] list = {"Reserved", "EPC", "TID", "USER"};
     private TextView Cur_Tag_Info;
-    private TextView Status;
+    private TextView Status, Version;
     private Spinner Area_Select;
     private ArrayAdapter<String> adapter;
     private Button Search_Tag;
@@ -68,33 +67,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: ----");
         ApplicationContext.getInstance().addActivity(UhfAct.this);
-//        String readEm55 = getEM55Model();
-//        if (readEm55.equals("80") ) {
-//            try {
-//                myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 7);
-//                myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND, 5);
-//                myDeviceControl4.PowerOnDevice();
-//                myDeviceControl6.PowerOnDevice();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//        }else if (readEm55.equals("48")||readEm55.equals("81")){
-//            try {
-//                myDeviceControl6 = new DeviceControl(DeviceControl.PowerType.EXPAND, 6);
-//                myDeviceControl4 = new DeviceControl(DeviceControl.PowerType.EXPAND, 7);
-//                myDeviceControl4.PowerOnDevice();
-//                myDeviceControl6.PowerOnDevice();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
-//        String em55 = SharedXmlUtil.getInstance(UhfAct.this).read("readEm55", "");
-//        if (em55 != null && !em55.equals(readEm55)) {
         SharedXmlUtil.getInstance(UhfAct.this).write("modle", "");
-//        }
-//        SharedXmlUtil.getInstance(UhfAct.this).write("readEm55", readEm55);
         try {
             iuhfService = UHFManager.getUHFService(UhfAct.this);
         } catch (Exception e) {
@@ -105,7 +78,6 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         modle = SharedXmlUtil.getInstance(UhfAct.this).read("modle", "");
         initUI();
         Status.setText(modle);
-//        if (openDev()) return;
         newWakeLock();
         org.greenrobot.eventbus.EventBus.getDefault().register(this);
         Set_Tag.setEnabled(true);
@@ -120,9 +92,6 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
             btn_inv_set.setVisibility(View.VISIBLE);
             btn_inv_set.setEnabled(true);
         }
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-//        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -143,30 +112,24 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         try {
             if (iuhfService != null) {
                 iuhfService.CloseDev();
+                //断点后选卡操作会失效，需要重新选卡（掩码）
+                current_tag_epc = null;
+                Cur_Tag_Info.setText("");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @org.greenrobot.eventbus.Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(MsgEvent mEvent) {
         String type = mEvent.getType();
         String msg = (String) mEvent.getMsg();
-        if (type.equals("write_Status")) {
-            UhfAct.this.Status
-                    .setText(R.string.Status_Write_Card_Ok);
-        }
         if (type.equals("set_current_tag_epc")) {
             current_tag_epc = msg;
             Cur_Tag_Info.setText(msg);
             UhfAct.this.Status
                     .setText(R.string.Status_Select_Card_Ok);
-        }
-        if (type.equals("read_Status")) {
-            Tag_Content.setText(msg);
-            UhfAct.this.Status
-                    .setText(R.string.Status_Read_Card_Ok);
         }
         if (type.equals("setPWD_Status")) {
             UhfAct.this.Status
@@ -179,6 +142,11 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         if (type.equals("SetEPC_Status")) {
             UhfAct.this.Status
                     .setText(R.string.Status_Write_Card_Ok);
+        }
+        if (type.equals("CancelSelectCard")){
+            //断点后选卡操作会失效，需要重新选卡（掩码）
+            current_tag_epc = null;
+            Cur_Tag_Info.setText("");
         }
     }
 
@@ -217,7 +185,6 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
 
     private void initUI() {
         setContentView(R.layout.main);
-        Tag_Content = (EditText) findViewById(R.id.editText_content);
         Write_Tag = (Button) findViewById(R.id.btn_write);
         Write_Tag.setOnClickListener(this);
         Read_Tag = (Button) findViewById(R.id.btn_read);
@@ -230,15 +197,17 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         Set_Password.setOnClickListener(this);
         Set_EPC = (Button) findViewById(R.id.btn_setepc);
         Set_EPC.setOnClickListener(this);
+        btn_inv_set = (Button) findViewById(R.id.btn_inv_set);
+        btn_inv_set.setOnClickListener(this);
         Lock_Tag = (Button) findViewById(R.id.btn_lock);
         Lock_Tag.setOnClickListener(this);
         Speedt = (Button) findViewById(R.id.button_spt);
         Speedt.setOnClickListener(this);
-        btn_inv_set = (Button) findViewById(R.id.btn_inv_set);
-        btn_inv_set.setOnClickListener(this);
         Cur_Tag_Info = (TextView) findViewById(R.id.textView_epc);
         Cur_Tag_Info.setText("");
         Status = (TextView) findViewById(R.id.textView_status);
+        Version = (TextView) findViewById(R.id.textView_version);
+        Version.setText(CommonUtils.getAppVersionName(this));
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -258,14 +227,10 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy: ----------");
-        if (wK != null) {
-            wK.release();
-        }
+        wK.release();
         //注销广播、对象制空
         UHFManager.closeUHFService();
         EventBus.getDefault().unregister(this);
-
     }
 
     @Override
@@ -274,6 +239,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         if (arg0 == Read_Tag) {
             if (current_tag_epc == null) {
                 Status.setText(R.string.Status_No_Card_Select);
+                Toast.makeText(this, R.string.Status_No_Card_Select, Toast.LENGTH_SHORT).show();
                 return;
             }
             //读卡
@@ -281,17 +247,20 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
                     , Area_Select.getSelectedItemPosition(), current_tag_epc, modle);
             readTag.setTitle(R.string.Item_Read);
             readTag.show();
+
         } else if (arg0 == Write_Tag) {
             if (current_tag_epc == null) {
                 Status.setText(R.string.Status_No_Card_Select);
+                Toast.makeText(this, R.string.Status_No_Card_Select, Toast.LENGTH_SHORT).show();
                 return;
             }
             //写卡
             WriteTagDialog writeTag = new WriteTagDialog(this, iuhfService,
-                    Tag_Content.getText().toString(), Area_Select.getSelectedItemPosition()
+                    Area_Select.getSelectedItemPosition()
                     , current_tag_epc, modle);
             writeTag.setTitle(R.string.Item_Write);
             writeTag.show();
+
         } else if (arg0 == Search_Tag) {
 
             //盘点选卡
@@ -308,6 +277,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         } else if (arg0 == Set_Password) {
             if (current_tag_epc == null) {
                 Status.setText(R.string.Status_No_Card_Select);
+                Toast.makeText(this, R.string.Status_No_Card_Select, Toast.LENGTH_SHORT).show();
                 return;
             }
             //设置密码
@@ -318,6 +288,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         } else if (arg0 == Set_EPC) {
             if (current_tag_epc == null) {
                 Status.setText(R.string.Status_No_Card_Select);
+                Toast.makeText(this, R.string.Status_No_Card_Select, Toast.LENGTH_SHORT).show();
                 return;
             }
             //写EPC
@@ -327,6 +298,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         } else if (arg0 == Lock_Tag) {
             if (current_tag_epc == null) {
                 Status.setText(R.string.Status_No_Card_Select);
+                Toast.makeText(this, R.string.Status_No_Card_Select, Toast.LENGTH_SHORT).show();
                 return;
             }
             //锁
@@ -334,10 +306,6 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
                     , current_tag_epc, modle);
             lockTagDialog.setTitle(R.string.Lock_Btn);
             lockTagDialog.show();
-        } else if (arg0 == Speedt) {
-            SpeedTestDialog sptd = new SpeedTestDialog(this, iuhfService);
-            sptd.setTitle("Speed Test");
-            sptd.show();
         } else if (arg0 == btn_inv_set) {
             //盘点内容设置
             InvSetDialog invSetDialog = new InvSetDialog(this, iuhfService);

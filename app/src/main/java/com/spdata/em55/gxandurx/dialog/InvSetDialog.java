@@ -14,8 +14,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.spdata.em55.R;
+import com.speedata.libuhf.FLX;
 import com.speedata.libuhf.IUHFService;
-import com.speedata.libuhf.R2K;
 
 /**
  * Created by 张明_ on 2017/6/26.
@@ -83,9 +83,9 @@ public class InvSetDialog extends Dialog implements android.view.View.OnClickLis
 
         });
 
-        int curmode = iuhfService.GetInvMode(R2K.InvModeType);
-        int curaddr = iuhfService.GetInvMode(R2K.InvAddrType);
-        int cursize = iuhfService.GetInvMode(R2K.InvSizeType);
+        int curmode = iuhfService.GetInvMode(FLX.InvModeType);
+        int curaddr = iuhfService.GetInvMode(FLX.InvAddrType);
+        int cursize = iuhfService.GetInvMode(FLX.InvSizeType);
         addr.setText(String.format("%x", curaddr));
         size.setText(String.format("%d", cursize));
         mode.setSelection(curmode - 1);
