@@ -67,6 +67,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: ----");
         ApplicationContext.getInstance().addActivity(UhfAct.this);
+        //清理下背夹模块缓存，不清理默认上次使用的背夹模块
         SharedXmlUtil.getInstance(UhfAct.this).write("modle", "");
         try {
             iuhfService = UHFManager.getUHFService(UhfAct.this);
@@ -144,7 +145,7 @@ public class UhfAct extends BaseAct implements View.OnClickListener {
                     .setText(R.string.Status_Write_Card_Ok);
         }
         if (type.equals("CancelSelectCard")){
-            //断点后选卡操作会失效，需要重新选卡（掩码）
+            //断电后选卡操作会失效，需要重新选卡（掩码）
             current_tag_epc = null;
             Cur_Tag_Info.setText("");
         }
