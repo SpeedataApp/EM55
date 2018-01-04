@@ -204,24 +204,26 @@ public class MenuAct extends BaseAct implements View.OnClickListener {
             final long start = System.currentTimeMillis();
             showLoading("初始化模块…");
             try {
-                if ("80".equals(getEM55Model()) || "32".equals(getEM55Model())) {
-                    deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 63, 5);
-                } else {
-                    deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 63, 6);
-                }
-                deviceControl.PowerOnDevice();
+//                if ("80".equals(getEM55Model()) || "32".equals(getEM55Model())) {
+//                    deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 63, 5);
+//                    deviceControl.PowerOnDevice();
+//                } else {
+                    deviceControl = new DeviceControl(DeviceControl.PowerType.MAIN_AND_EXPAND, 63, 5,6);
+                    deviceControl.PowerOnDevice();
+//                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    int isFlag=0;
-                    while (isFlag==0) {
+                    int isFlag = 0;
+                    while (isFlag == 0) {
                         if (System.currentTimeMillis() - start > 10000) {
                             isFlag = 4;
                         } else {
-                          isFlag=  FingerTypes.getrwusbdevices(getApplicationContext());
+                            isFlag = FingerTypes.getrwusbdevices(getApplicationContext());
                         }
                     }
                     runOnUiThread(new Runnable() {
