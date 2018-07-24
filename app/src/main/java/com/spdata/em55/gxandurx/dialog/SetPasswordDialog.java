@@ -116,7 +116,7 @@ public class SetPasswordDialog extends Dialog implements
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    int newSetPassword = iuhfService.newSetPassword(which, cur_pass, new_pass);
+                    int newSetPassword = iuhfService.setPassword(which, cur_pass, new_pass);
                     if (newSetPassword != 0) {
                         handler.sendMessage(handler.obtainMessage(1,"参数不正确"));
                     }

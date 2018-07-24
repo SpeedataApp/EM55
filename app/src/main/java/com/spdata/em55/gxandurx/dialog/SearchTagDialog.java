@@ -137,7 +137,7 @@ public class SearchTagDialog extends Dialog implements
     protected void onStop() {
         Log.w("stop", "im stopping");
         if (inSearch) {
-            iuhfService.newInventoryStop();
+            iuhfService.inventoryStop();
             inSearch = false;
         }
         soundPool.release();
@@ -153,7 +153,7 @@ public class SearchTagDialog extends Dialog implements
             if (inSearch) {
                 inSearch = false;
                 this.setCancelable(true);
-                iuhfService.newInventoryStop();
+                iuhfService.inventoryStop();
 
                 Action.setText(R.string.Start_Search_Btn);
                 Cancle.setEnabled(true);
@@ -162,9 +162,9 @@ public class SearchTagDialog extends Dialog implements
                 this.setCancelable(false);
                 scant = 0;
                 //取消掩码
-                iuhfService.select_card(1, "", false);
+                iuhfService.selectCard(1, "", false);
                 EventBus.getDefault().post(new MsgEvent("CancelSelectCard",""));
-                iuhfService.newInventoryStart();
+                iuhfService.inventoryStart();
                 Action.setText(R.string.Stop_Search_Btn);
                 Cancle.setEnabled(false);
             }
@@ -216,7 +216,7 @@ public class SearchTagDialog extends Dialog implements
         }
 
         String epcStr = firm.get(arg2).epc;
-        int res = iuhfService.select_card(1, epcStr, true);
+        int res = iuhfService.selectCard(1, epcStr, true);
         if (res == 0) {
             EventBus.getDefault().post(new MsgEvent("set_current_tag_epc", epcStr));
             dismiss();

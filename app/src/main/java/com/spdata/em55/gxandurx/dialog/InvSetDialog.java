@@ -83,9 +83,9 @@ public class InvSetDialog extends Dialog implements android.view.View.OnClickLis
 
         });
 
-        int curmode = iuhfService.GetInvMode(FLX.InvModeType);
-        int curaddr = iuhfService.GetInvMode(FLX.InvAddrType);
-        int cursize = iuhfService.GetInvMode(FLX.InvSizeType);
+        int curmode = iuhfService.getInvMode(FLX.InvModeType);
+        int curaddr = iuhfService.getInvMode(FLX.InvAddrType);
+        int cursize = iuhfService.getInvMode(FLX.InvSizeType);
         addr.setText(curaddr + "");
         size.setText(cursize + "");
         mode.setSelection(curmode);
@@ -113,7 +113,7 @@ public class InvSetDialog extends Dialog implements android.view.View.OnClickLis
                 status.append("\n" + p.getMessage());
                 return;
             }
-            iuhfService.SetInvMode(w, caddr, csize);
+            iuhfService.setInvMode(w, caddr, csize);
             dismiss();
         } else if (v == cancel) {
             dismiss();
